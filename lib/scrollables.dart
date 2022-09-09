@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import './main.dart';
 
 class MoviesList {
   MoviesList({this.movie, this.poster});
@@ -14,18 +15,20 @@ class ScrollableWidget extends StatelessWidget {
         movie: 'Thiruchitrambalam',
         poster: 'assets/images/thiruchitrambalam2.jpg'),
     MoviesList(movie: 'Sita Ramam', poster: 'assets/images/Sitaramam.jpg'),
+    MoviesList(movie: 'Captain', poster: 'assets/images/captain.jpg')
   ];
 
   Widget cardCreator(value) {
+    double sizedHeight = h! * 0.025;
     return Card(
-      color: Colors.yellow,
+      color: Colors.white,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(5.0),
       ),
       child: Column(children: [
         Container(
-          width: 100,
-          height: 145,
+          width: w,
+          height: h,
           decoration: BoxDecoration(
             image: DecorationImage(
               fit: BoxFit.fill,
@@ -33,13 +36,13 @@ class ScrollableWidget extends StatelessWidget {
             ),
           ),
         ),
-        SizedBox(
-          height: 2.5,
-        ),
+        // SizedBox(
+        //   height: sizedHeight,
+        // ),
         Text(
           value.movie,
           style: const TextStyle(
-            fontFamily: 'RobotoCondensed',
+            // fontFamily: 'RobotoCondensed',
             color: Colors.black,
             fontSize: 13,
           ),
