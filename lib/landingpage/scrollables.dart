@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import './landingpage.dart';
+import 'landingpage.dart';
 
 class MoviesList {
   MoviesList({this.movie, this.poster});

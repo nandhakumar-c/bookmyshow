@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import './scrollables.dart';
+import 'scrollables.dart';
 
 class LandingPage extends StatefulWidget {
   @override

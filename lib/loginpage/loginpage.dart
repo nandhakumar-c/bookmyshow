@@ -1,6 +1,13 @@
+import 'package:bookmyshow/loginpage/frontscrollable.dart';
+import 'package:bookmyshow/loginpage/mobilelogin.dart';
 import 'package:flutter/material.dart';
-import 'package:intl_phone_field/intl_phone_field.dart';
-import './landingpage.dart' as page;
+
+import '../landingpage/landingpage.dart' as page;
+
+class AlwaysDisabledFocusNode extends FocusNode {
+  @override
+  bool get hasFocus => false;
+}
 
 class MyApp extends StatelessWidget {
   @override
@@ -52,40 +59,49 @@ class UserInterfaceState extends State<UserInterface> {
                       Navigator.of(context).push(MaterialPageRoute(
                           builder: (context) => page.LandingPage()));
                     },
-                    child: Text(
+                    child: const Text(
                       "SKIP",
                       style: TextStyle(fontSize: 15, color: Colors.grey),
                     )),
               ],
             ),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
             Container(
-                padding: EdgeInsets.only(top: 10),
-                child: Column(
-                  children: [
-                    Image(
-                      image: AssetImage('assets/icons/Tickets.png'),
-                      height: 75,
-                      width: 75,
-                      fit: BoxFit.fitHeight,
-                    ),
-                    SizedBox(
-                      height: 15,
-                    ),
-                    Text(
-                      'Enjoy faster show booking through our recommendations tailored for you',
-                      style: TextStyle(
-                          fontSize: 10,
-                          color: Color.fromRGBO(158, 158, 158, 1)),
-                      textAlign: TextAlign.justify,
-                      maxLines: 2,
-                      overflow: TextOverflow.clip,
-                    ),
-                  ],
-                )),
-            SizedBox(
+              child: Container(
+                height: 175,
+                child: FrontScrollables(),
+              ),
+            ),
+            // Container(
+            //     padding: EdgeInsets.only(top: 10),
+            //     child: Column(
+            //       children: [
+            //         Image(
+            //           image: AssetImage('assets/icons/Tickets.png'),
+            //           height: 75,
+            //           width: 75,
+            //           fit: BoxFit.fitHeight,
+            //         ),
+            //         SizedBox(
+            //           height: 15,
+            //         ),
+            //         Container(
+            //           padding: EdgeInsets.fromLTRB(50, 10, 50, 10),
+            //           child: Text(
+            //             'Enjoy faster show booking through our recommendations tailored for you',
+            //             style: TextStyle(
+            //                 fontSize: 10,
+            //                 color: Color.fromRGBO(158, 158, 158, 1)),
+            //             textAlign: TextAlign.center,
+            //             maxLines: 2,
+            //             overflow: TextOverflow.clip,
+            //           ),
+            //         ),
+            //       ],
+            //     )),
+            const SizedBox(
               height: 10,
             ),
             Container(
@@ -94,14 +110,14 @@ class UserInterfaceState extends State<UserInterface> {
                 child: Card(
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(5),
-                    side: BorderSide(
+                    side: const BorderSide(
                       color: Colors.grey,
                     ),
                   ),
                   child: Padding(
                     padding: const EdgeInsets.all(17.0),
                     child: Row(
-                      children: [
+                      children: const [
                         Image(
                             alignment: Alignment.centerLeft,
                             image: AssetImage("assets/icons/Google.png"),
@@ -164,20 +180,14 @@ class UserInterfaceState extends State<UserInterface> {
             ),
             Padding(
               padding: const EdgeInsets.all(17.0),
-              child: IntlPhoneField(
-                decoration: InputDecoration(
-                  labelText: 'Continue with phone number',
-                  border: OutlineInputBorder(
-                    borderSide: BorderSide(),
-                  ),
-                ),
-                initialCountryCode: 'IN',
-                onChanged: (phone) {
-                  print(phone.completeNumber);
-                },
-                onCountryChanged: (country) {
-                  print('Country changed to: ' + country.name);
-                },
+              child: TextFormField(
+                enableInteractiveSelection: false,
+                focusNode: new AlwaysDisabledFocusNode(),
+                readOnly: true,
+                onTap: () => Navigator.of(context).push(
+                    MaterialPageRoute(builder: (context) => MobileLogin())),
+                decoration:
+                    InputDecoration(label: Text('Continue with phone number')),
               ),
             ),
           ],
