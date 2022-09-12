@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:intl_phone_field/intl_phone_field.dart';
 import './landingpage.dart' as page;
 
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(title: Text("User Login Page")), body: UserInterface());
+    return Scaffold(body: UserInterface());
     ;
   }
 }
@@ -40,100 +40,143 @@ class UserInterfaceState extends State<UserInterface> {
     return Form(
       autovalidateMode: AutovalidateMode.onUserInteraction,
       child: Padding(
-        padding: EdgeInsets.all(15),
+        padding: EdgeInsets.all(10),
         child: ListView(
           children: [
+            Column(
+              mainAxisAlignment: MainAxisAlignment.end,
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: [
+                TextButton(
+                    onPressed: () {
+                      Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => page.LandingPage()));
+                    },
+                    child: Text(
+                      "SKIP",
+                      style: TextStyle(fontSize: 15, color: Colors.grey),
+                    )),
+              ],
+            ),
             SizedBox(
               height: 10,
             ),
             Container(
-              alignment: Alignment.topCenter,
-              child: Text(
-                "CODING MART",
-                style: TextStyle(
-                  color: Colors.teal,
-                  fontSize: 25,
-                  fontFamily: 'BeVietnamPro',
+                padding: EdgeInsets.only(top: 10),
+                child: Column(
+                  children: [
+                    Image(
+                      image: AssetImage('assets/icons/Tickets.png'),
+                      height: 75,
+                      width: 75,
+                      fit: BoxFit.fitHeight,
+                    ),
+                    SizedBox(
+                      height: 15,
+                    ),
+                    Text(
+                      'Enjoy faster show booking through our recommendations tailored for you',
+                      style: TextStyle(
+                          fontSize: 10,
+                          color: Color.fromRGBO(158, 158, 158, 1)),
+                      textAlign: TextAlign.justify,
+                      maxLines: 2,
+                      overflow: TextOverflow.clip,
+                    ),
+                  ],
+                )),
+            SizedBox(
+              height: 10,
+            ),
+            Container(
+              child: TextButton(
+                onPressed: () {},
+                child: Card(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(5),
+                    side: BorderSide(
+                      color: Colors.grey,
+                    ),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(17.0),
+                    child: Row(
+                      children: [
+                        Image(
+                            alignment: Alignment.centerLeft,
+                            image: AssetImage("assets/icons/Google.png"),
+                            height: 17,
+                            width: 17),
+                        Center(
+                          widthFactor: 1.75,
+                          child: Text(
+                            "Continue with Google",
+                            style: TextStyle(fontSize: 17, color: Colors.grey),
+                            textAlign: TextAlign.center,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
                 ),
               ),
             ),
             Container(
-              padding: EdgeInsets.only(top: 25),
-              child: Row(
-                children: [
-                  Container(
-                    padding: EdgeInsets.only(right: 5),
-                    child: Row(
-                      children: [Icon(Icons.person)],
+              child: TextButton(
+                onPressed: () {},
+                child: Card(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(5),
+                    side: BorderSide(
+                      color: Colors.grey,
                     ),
                   ),
-                  Text(
-                    "Username ",
-                    style: TextStyle(fontSize: 16),
-                  ),
-                ],
-              ),
-            ),
-            Container(
-              padding: EdgeInsets.only(top: 15),
-              child: TextFormField(
-                decoration: InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: 'Enter username',
-                    hintText: 'Username'),
-              ),
-            ),
-            Container(
-              padding: EdgeInsets.only(top: 25),
-              child: Row(
-                children: [
-                  Container(
-                    padding: EdgeInsets.only(right: 5),
+                  child: Padding(
+                    padding: const EdgeInsets.all(17.0),
                     child: Row(
-                      children: [Icon(Icons.security)],
+                      children: [
+                        Icon(
+                          Icons.email_outlined,
+                          color: Colors.black87,
+                          size: 20,
+                        ),
+                        Center(
+                          widthFactor: 1.85,
+                          child: Text(
+                            "Continue with Email",
+                            style: TextStyle(fontSize: 17, color: Colors.grey),
+                            textAlign: TextAlign.center,
+                          ),
+                        ),
+                      ],
                     ),
-                  ),
-                  Text(
-                    "Password",
-                    style: TextStyle(fontSize: 16),
-                  ),
-                ],
-              ),
-            ),
-            Container(
-              padding: EdgeInsets.only(top: 15),
-              child: TextFormField(
-                obscureText: hidden,
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(),
-                  labelText: 'Enter your password',
-                  hintText: 'Password',
-                  suffixIcon: InkWell(
-                    onTap: isTapped,
-                    child:
-                        Icon(hidden ? Icons.visibility : Icons.visibility_off),
                   ),
                 ),
-                validator: (String? value) {
-                  if (value == null || value.isEmpty) {
-                    return '* Required';
-                  } else {
-                    return null;
-                  }
+              ),
+            ),
+            Text(
+              "OR",
+              style: TextStyle(color: Color.fromARGB(255, 109, 107, 107)),
+              textAlign: TextAlign.center,
+            ),
+            SizedBox(
+              height: 30,
+            ),
+            Padding(
+              padding: const EdgeInsets.all(17.0),
+              child: IntlPhoneField(
+                decoration: InputDecoration(
+                  labelText: 'Continue with phone number',
+                  border: OutlineInputBorder(
+                    borderSide: BorderSide(),
+                  ),
+                ),
+                initialCountryCode: 'IN',
+                onChanged: (phone) {
+                  print(phone.completeNumber);
                 },
-              ),
-            ),
-            Container(
-              padding: EdgeInsets.only(top: 15),
-              child: ElevatedButton(
-                child: Text("Login"),
-                onPressed: () {
-                  // final isValidForm = formkey.currentState!.validate();
-                  // if (isValidForm) {
-                  Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => page.LandingPage(),
-                  ));
-                  //}
+                onCountryChanged: (country) {
+                  print('Country changed to: ' + country.name);
                 },
               ),
             ),
