@@ -74,33 +74,6 @@ class UserInterfaceState extends State<UserInterface> {
                 child: FrontScrollables(),
               ),
             ),
-            // Container(
-            //     padding: EdgeInsets.only(top: 10),
-            //     child: Column(
-            //       children: [
-            //         Image(
-            //           image: AssetImage('assets/icons/Tickets.png'),
-            //           height: 75,
-            //           width: 75,
-            //           fit: BoxFit.fitHeight,
-            //         ),
-            //         SizedBox(
-            //           height: 15,
-            //         ),
-            //         Container(
-            //           padding: EdgeInsets.fromLTRB(50, 10, 50, 10),
-            //           child: Text(
-            //             'Enjoy faster show booking through our recommendations tailored for you',
-            //             style: TextStyle(
-            //                 fontSize: 10,
-            //                 color: Color.fromRGBO(158, 158, 158, 1)),
-            //             textAlign: TextAlign.center,
-            //             maxLines: 2,
-            //             overflow: TextOverflow.clip,
-            //           ),
-            //         ),
-            //       ],
-            //     )),
             const SizedBox(
               height: 10,
             ),

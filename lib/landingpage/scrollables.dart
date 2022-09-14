@@ -19,35 +19,38 @@ class ScrollableWidget extends StatelessWidget {
   ];
 
   Widget cardCreator(value) {
-    double sizedHeight = h! * 0.025;
-    return Card(
-      color: Colors.white,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(5.0),
-      ),
-      child: Column(children: [
-        Container(
-          width: w,
-          height: h,
-          decoration: BoxDecoration(
-            image: DecorationImage(
-              fit: BoxFit.fill,
-              image: AssetImage(value.poster),
+    double sizedHeight = h! * 0.85;
+    return Container(
+      child: Card(
+        color: Colors.white,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(5.0),
+        ),
+        child: Column(children: [
+          Container(
+            width: w,
+            height: sizedHeight,
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                fit: BoxFit.fill,
+                image: AssetImage(value.poster),
+              ),
             ),
           ),
-        ),
-        // SizedBox(
-        //   height: sizedHeight,
-        // ),
-        Text(
-          value.movie,
-          style: const TextStyle(
-            // fontFamily: 'RobotoCondensed',
-            color: Colors.black,
-            fontSize: 13,
+          SizedBox(
+            height: h! * 0.015,
           ),
-        ),
-      ]),
+          Text(
+            value.movie,
+            style: const TextStyle(
+              // fontFamily: 'RobotoCondensed',
+              color: Colors.black,
+              //fontSize: 13,
+            ),
+            textScaleFactor: 0.75,
+          ),
+        ]),
+      ),
     );
   }
 

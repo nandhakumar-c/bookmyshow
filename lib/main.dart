@@ -1,3 +1,4 @@
+import 'package:bookmyshow/loginpage/splashscreen.dart';
 import 'package:flutter/material.dart';
 import 'loginpage/loginpage.dart';
 import 'landingpage/scrollables.dart';
@@ -14,6 +15,6 @@ class BookMyShow extends StatefulWidget {
 class BookMyShowState extends State<BookMyShow> {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(debugShowCheckedModeBanner: false, home: MyApp());
+    return MaterialApp(debugShowCheckedModeBanner: false, home: SplashScreen());
   }
 }

@@ -42,7 +42,7 @@ class _FrontScrollablesState extends State<FrontScrollables> {
               width: 75,
               fit: BoxFit.fitHeight,
             ),
-            SizedBox(
+            const SizedBox(
               height: 15,
             ),
             Container(
@@ -50,7 +50,8 @@ class _FrontScrollablesState extends State<FrontScrollables> {
               child: Text(
                 value.text,
                 style: TextStyle(
-                    fontSize: 10, color: Color.fromRGBO(158, 158, 158, 1)),
+                    fontSize: 10,
+                    color: const Color.fromRGBO(158, 158, 158, 1)),
                 textAlign: TextAlign.center,
                 maxLines: 2,
                 overflow: TextOverflow.clip,
