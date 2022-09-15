@@ -1,6 +1,5 @@
 import 'package:bookmyshow/buzzpage/buzzpage.dart';
 import 'package:bookmyshow/landingpage/landingpage.dart';
-import 'package:bookmyshow/landingpage/pagebuilder/trending.dart';
 import 'package:bookmyshow/profilepage/profilepage.dart';
 import 'package:flutter/material.dart';
 
