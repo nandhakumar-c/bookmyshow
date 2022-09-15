@@ -1,3 +1,4 @@
+import 'package:bookmyshow/bottomnavigation/bottomnavigator.dart';
 import 'package:bookmyshow/loginpage/frontscrollable.dart';
 import 'package:bookmyshow/loginpage/mobilelogin.dart';
 import 'package:flutter/material.dart';
@@ -57,7 +58,7 @@ class UserInterfaceState extends State<UserInterface> {
                 TextButton(
                     onPressed: () {
                       Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => page.LandingPage()));
+                          builder: (context) => BottomNavigation()));
                     },
                     child: const Text(
                       "SKIP",

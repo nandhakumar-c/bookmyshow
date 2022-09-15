@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:bookmyshow/bottomnavigation/bottomnavigator.dart';
 import 'package:bookmyshow/landingpage/pagebuilder/trendingtvshows.dart';
 import 'package:bookmyshow/landingpage/pagebuilder/trending.dart';
 import 'package:flutter/material.dart';
@@ -52,7 +53,8 @@ class LandingPageState extends State<LandingPage> {
     w = MediaQuery.of(context).size.width * 0.25;
     //size = MediaQuery.of(context).size;
 
-    return Scaffold(
+    return Container(
+      child: Scaffold(
         backgroundColor: Colors.white,
         appBar: AppBar(
           actions: [
@@ -118,6 +120,8 @@ class LandingPageState extends State<LandingPage> {
               trendingShows: tv,
             )
           ],
-        ));
+        ),
+      ),
+    );
   }
 }
