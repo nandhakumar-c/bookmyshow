@@ -1,15 +1,18 @@
-import 'package:flutter/material.dart';
-import 'dynamicsize.dart';
+import 'dart:developer';
 
-class TrendingMovies extends StatelessWidget {
-  List? trendingMovies;
+import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+
+class TrendingTvShows extends StatelessWidget {
+  List? trendingShows;
   String? titleText;
-  TrendingMovies({Key? key, this.trendingMovies, this.titleText})
+  TrendingTvShows({Key? key, this.trendingShows, this.titleText})
       : super(key: key);
   @override
   Widget build(BuildContext context) {
     double h = (MediaQuery.of(context).size.height);
     double w = (MediaQuery.of(context).size.width);
+
     return Container(
       child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
         Text(
@@ -24,16 +27,16 @@ class TrendingMovies extends StatelessWidget {
           height: 10,
         ),
         Container(
-          height: h / 3.1,
+          height: h / 2.9,
           child: ListView.builder(
-              itemCount: trendingMovies?.length,
+              itemCount: trendingShows?.length,
               scrollDirection: Axis.horizontal,
               itemBuilder: (context, index) {
                 return InkWell(
                   onTap: () {},
                   child: Container(
                       width: w / 2.8,
-                      //margin: EdgeInsets.all(h / 300),
+                      margin: EdgeInsets.all(h / 300),
                       child: Column(
                         children: [
                           Container(
@@ -45,21 +48,20 @@ class TrendingMovies extends StatelessWidget {
                               image: DecorationImage(
                                 image: NetworkImage(
                                     'https://image.tmdb.org/t/p/w500/' +
-                                        trendingMovies![index]['poster_path']),
+                                        trendingShows![index]['poster_path']),
                               ),
                             ),
                           ),
                           Container(
                               child: Text(
-                            trendingMovies![index]['title'] != null
-                                ? trendingMovies![index]['title']
-                                : "Loading",
-                            style: TextStyle(
-                              // fontFamily: 'RobotoCondensed',
-                              fontWeight: FontWeight.w500,
-                              //fontSize: MediaQuery.of(context).size.height / 60,
-                            ),
-                          )),
+                                  trendingShows![index]['name'] != null
+                                      ? trendingShows![index]['name']
+                                      : "Loading",
+                                  style: GoogleFonts.roboto(
+                                    fontWeight: FontWeight.w500,
+                                    fontSize:
+                                        MediaQuery.of(context).size.height / 60,
+                                  ))),
                         ],
                       )),
                 );

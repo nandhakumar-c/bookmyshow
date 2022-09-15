@@ -1,4 +1,7 @@
-import 'package:bookmyshow/widgets/trending.dart';
+import 'dart:developer';
+
+import 'package:bookmyshow/landingpage/pagebuilder/trendingtvshows.dart';
+import 'package:bookmyshow/landingpage/pagebuilder/trending.dart';
 import 'package:flutter/material.dart';
 import 'package:tmdb_api/tmdb_api.dart';
 
@@ -12,9 +15,9 @@ class LandingPage extends StatefulWidget {
 double? h, w, size;
 
 class LandingPageState extends State<LandingPage> {
-  List trendingMovies = [];
-  List tv = [];
-  List topRatedMovies = [];
+  List? trendingMovies = [];
+  List? tv = [];
+  List? topRatedMovies = [];
   final String apikey = '4d787d53b25af3a115347b6db2063faa';
   final readAccessToken =
       'eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI0ZDc4N2Q1M2IyNWFmM2ExMTUzNDdiNmRiMjA2M2ZhYSIsInN1YiI6IjYzMjA1ODQ4Y2U5ZTkxMDA3Zjc1ZWRlYyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.-SzjQqBNJ2trYEMfcKXP0tH0VB8HRY2kVAhP9fGIZ4Q';
@@ -33,12 +36,14 @@ class LandingPageState extends State<LandingPage> {
 
     Map trendingResult = await tmdbWithCustomLogs.v3.trending.getTrending();
     Map topRatedResults = await tmdbWithCustomLogs.v3.movies.getTopRated();
-    Map tvresult = await tmdbWithCustomLogs.v3.tv.getPopular();
+    Map tvresult = await tmdbWithCustomLogs.v3.tv.getAiringToday();
+
     setState(() {
       trendingMovies = trendingResult['results'];
       topRatedMovies = topRatedResults['results'];
-      tv = tvresult['result'];
+      tv = tvresult['results'];
     });
+    print(tvresult);
   }
 
   @override
@@ -46,6 +51,7 @@ class LandingPageState extends State<LandingPage> {
     h = MediaQuery.of(context).size.height * 0.23;
     w = MediaQuery.of(context).size.width * 0.25;
     //size = MediaQuery.of(context).size;
+
     return Scaffold(
         backgroundColor: Colors.white,
         appBar: AppBar(
@@ -107,9 +113,9 @@ class LandingPageState extends State<LandingPage> {
               titleText: 'Top Rated Movies',
               trendingMovies: topRatedMovies,
             ),
-            TrendingMovies(
+            TrendingTvShows(
               titleText: 'TV Shows',
-              trendingMovies: tv,
+              trendingShows: tv,
             )
           ],
         ));

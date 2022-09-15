@@ -1,7 +1,6 @@
 import 'package:bookmyshow/loginpage/splashscreen.dart';
 import 'package:flutter/material.dart';
 import 'loginpage/loginpage.dart';
-import 'landingpage/scrollables.dart';
 
 void main() => runApp(BookMyShow());
 
