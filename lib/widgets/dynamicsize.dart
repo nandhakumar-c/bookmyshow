@@ -7,4 +7,7 @@ class ScreenSize {
     height = mediaQuery.size.height;
     width = mediaQuery.size.width;
   }
+
+  // double? custHeight() => height;
+  // double? custWidth() => width;
 }

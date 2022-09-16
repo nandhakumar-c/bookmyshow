@@ -31,7 +31,9 @@ class BottomNavigationState extends State<BottomNavigation> {
         onTap: (index) => setState(() => currentIndex = index),
         items: [
           BottomNavigationBarItem(
-            icon: Icon(Icons.home),
+            icon: ImageIcon(
+              AssetImage('assets/icons/BookMyShowLogo-modified.png'),
+            ),
             label: 'Home',
           ),
           BottomNavigationBarItem(
