@@ -43,7 +43,7 @@ class LandingPageState extends State<LandingPage> {
       topRatedMovies = topRatedResults['results'];
       tv = tvresult['results'];
     });
-    print(tvresult);
+    //print(tvresult);
   }
 
   @override

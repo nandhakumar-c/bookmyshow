@@ -44,11 +44,11 @@ class _SplashScreenState extends State<SplashScreen> {
     });
   }
 
-  @override
-  void dispose() {
-    subscription.cancel();
-    super.dispose();
-  }
+  // @override
+  // void dispose() {
+  //   subscription.cancel();
+  //   super.dispose();
+  // }
 
   getConnectivity() => subscription = Connectivity()
           .onConnectivityChanged
