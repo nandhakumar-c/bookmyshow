@@ -3,6 +3,7 @@ import 'package:bookmyshow/bottomnavigation/bottomnavigator.dart';
 import 'package:bookmyshow/loginpage/nointernet.dart';
 import 'package:bookmyshow/widgets/testing.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:lottie/lottie.dart';
@@ -18,12 +19,12 @@ class SplashScreen extends StatefulWidget {
 
 class _SplashScreenState extends State<SplashScreen> {
   late StreamSubscription subscription;
-  var hasInternet = false;
+  var hasInternet = true;
   bool isAlertSet = false;
 
   @override
   void initState() {
-    // getConnectivity();
+    //getConnectivity();
     super.initState();
     InternetConnectionChecker().onStatusChange.listen((status) {
       final hasInternet = status == InternetConnectionStatus.connected;
@@ -56,10 +57,36 @@ class _SplashScreenState extends State<SplashScreen> {
         hasInternet = await InternetConnectionChecker().hasConnection;
         if (!hasInternet && isAlertSet == false) {
           setState(() {
+            showDialogBox();
             isAlertSet = true;
           });
         }
       });
+
+  showDialogBox() => showCupertinoDialog(
+      context: context,
+      builder: (BuildContext context) => CupertinoAlertDialog(
+            title: Text("No Connection"),
+            content: Text("Please Check Your Internet Connection"),
+            actions: [
+              TextButton(
+                  onPressed: () async {
+                    Navigator.pop(context, 'Cancel');
+                    setState(() {
+                      isAlertSet = false;
+                    });
+                    hasInternet =
+                        await InternetConnectionChecker().hasConnection;
+                    if (!hasInternet) {
+                      showDialogBox();
+                      setState(() {
+                        isAlertSet = true;
+                      });
+                    }
+                  },
+                  child: Text('Retry'))
+            ],
+          ));
 
   @override
   Widget build(BuildContext context) {

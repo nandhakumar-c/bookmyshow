@@ -4,7 +4,13 @@ import 'package:flutter/material.dart';
 import 'package:overlay_support/overlay_support.dart';
 import 'loginpage/loginpage.dart';
 
-void main() => runApp(BookMyShow());
+import 'package:firebase_core/firebase_core.dart';
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+  runApp(BookMyShow());
+}
 
 class BookMyShow extends StatefulWidget {
   @override

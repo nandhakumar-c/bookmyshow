@@ -1,33 +1,33 @@
 {
   "project_info": {
-    "project_number": "980197312624",
-    "project_id": "first-firebase-fbad1",
-    "storage_bucket": "first-firebase-fbad1.appspot.com"
+    "project_number": "507944287128",
+    "project_id": "flutter-firebase-be175",
+    "storage_bucket": "flutter-firebase-be175.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:980197312624:android:a3d3f0ac762823fed54cb5",
+        "mobilesdk_app_id": "1:507944287128:android:f1387986cf356d89c949ed",
         "android_client_info": {
           "package_name": "com.example.bookmyshow"
         }
       },
       "oauth_client": [
         {
-          "client_id": "980197312624-6bemk46ihcv3thkbu9rhiifna9jj0itq.apps.googleusercontent.com",
+          "client_id": "507944287128-6smo7prftqlm8inf9lpqdc223kuv44dl.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyBehmyBeWvk-F5gp3dx-pzvUYhPVLOrNLI"
+          "current_key": "AIzaSyCCRVerpAIH_ijengO1SKlem6AkvBbreUw"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "980197312624-6bemk46ihcv3thkbu9rhiifna9jj0itq.apps.googleusercontent.com",
+              "client_id": "507944287128-6smo7prftqlm8inf9lpqdc223kuv44dl.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

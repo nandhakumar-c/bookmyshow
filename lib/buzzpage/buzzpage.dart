@@ -6,7 +6,25 @@ class BuzzPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Text("BuzzPage"),
+      appBar: AppBar(
+          backgroundColor: Color.fromARGB(255, 10, 21, 46),
+          title: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                "BUZZ",
+                style: TextStyle(color: Colors.white),
+              ),
+              SizedBox(
+                height: MediaQuery.of(context).size.height / 175,
+              ),
+              Text(
+                "Discover what's trending in entertainment",
+                style: TextStyle(
+                    fontSize: MediaQuery.of(context).size.height / 75),
+              )
+            ],
+          )),
     );
   }
 }
