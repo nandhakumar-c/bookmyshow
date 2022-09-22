@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "710249725060",
+    "project_id": "signin-72571",
+    "storage_bucket": "signin-72571.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:710249725060:android:09b3bf92d2e60478fb56d1",
+        "android_client_info": {
+          "package_name": "com.example.bookmyshow"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "710249725060-aeov09l0a1kg90nud0ragmsufob2fbc5.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.bookmyshow",
+            "certificate_hash": "302f0a1b315d6b19118eab9841478d9d2bc77d41"
+          }
+        },
+        {
+          "client_id": "710249725060-a59jjv1djv8vh6vitalrbu4lbtrk6okf.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD3FH5xKOWPfNP7zHLApTUY_Hs8yJ03SRg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "710249725060-a59jjv1djv8vh6vitalrbu4lbtrk6okf.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

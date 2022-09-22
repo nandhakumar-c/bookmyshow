@@ -36,7 +36,8 @@ class _NoInternetState extends State<NoInternet> {
               alignment: Alignment.center,
               child: Text(
                 'Check your Internet Connection and try again',
-                style: GoogleFonts.montserrat(fontSize: 15),
+                style: GoogleFonts.aBeeZee(
+                    fontSize: 15, fontWeight: FontWeight.w500),
                 textAlign: TextAlign.center,
               ),
             ),

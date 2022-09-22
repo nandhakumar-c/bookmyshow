@@ -44,6 +44,7 @@ dependencies:
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
+  google_sign_in: ^5.4.1
   
 
 dev_dependencies:
@@ -88,6 +89,15 @@ flutter:
     - family: RobotoCondensed
       fonts:
         - asset: assets/fonts/robotoCondensed/RobotoCondensed-Regular.ttf
+    - family : Product Sans
+      fonts:
+        - asset: assets/fonts/productSans/Product Sans Regular.ttf
+        - asset: assets/fonts/productSans/Product Sans Italic.ttf
+          style: italic
+        - asset: assets/fonts/productSans/Product Sans Bold Italic.ttf
+          weight: 700
+        - asset: assets/fonts/productSans/Product Sans Bold.ttf
+          weight: 700
     
   #
   # For details regarding fonts from package dependencies,

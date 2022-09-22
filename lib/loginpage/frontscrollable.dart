@@ -68,6 +68,7 @@ class _FrontScrollablesState extends State<FrontScrollables> {
   }
 
   @override
+  @override
   Widget build(BuildContext context) {
     return ListView(
       shrinkWrap: true,

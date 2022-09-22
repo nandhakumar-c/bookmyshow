@@ -1,7 +1,9 @@
 import 'package:bookmyshow/bottomnavigation/bottomnavigator.dart';
 import 'package:bookmyshow/loginpage/frontscrollable.dart';
 import 'package:bookmyshow/loginpage/mobilelogin.dart';
+import 'package:bookmyshow/loginpagevalidation/emailvalidation.dart';
 import 'package:flutter/material.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 import '../landingpage/landingpage.dart' as page;
 
@@ -48,7 +50,7 @@ class UserInterfaceState extends State<UserInterface> {
     return Form(
       autovalidateMode: AutovalidateMode.onUserInteraction,
       child: Padding(
-        padding: EdgeInsets.all(10),
+        padding: const EdgeInsets.all(10),
         child: ListView(
           children: [
             Column(
@@ -58,7 +60,7 @@ class UserInterfaceState extends State<UserInterface> {
                 TextButton(
                     onPressed: () {
                       Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => BottomNavigation()));
+                          builder: (context) => const BottomNavigation()));
                     },
                     child: const Text(
                       "SKIP",
@@ -72,22 +74,28 @@ class UserInterfaceState extends State<UserInterface> {
             Container(
               child: Container(
                 height: 175,
-                child: FrontScrollables(),
+                child: const FrontScrollables(),
               ),
             ),
             const SizedBox(
               height: 10,
             ),
             Container(
-              child: TextButton(
-                onPressed: () {},
-                child: Card(
+              child: OutlinedButton(
+                style: OutlinedButton.styleFrom(
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(5),
                     side: const BorderSide(
-                      color: Colors.grey,
+                      color: Color.fromARGB(255, 48, 45, 45),
                     ),
                   ),
+                ),
+                onPressed: () {
+                  // Navigator.of(context).push(MaterialPageRoute(
+                  //     builder: (context) => EmailValidator()));
+                  GoogleSignIn().signIn();
+                },
+                child: Container(
                   child: Padding(
                     padding: const EdgeInsets.all(17.0),
                     child: Row(
@@ -117,7 +125,7 @@ class UserInterfaceState extends State<UserInterface> {
                 child: Card(
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(5),
-                    side: BorderSide(
+                    side: const BorderSide(
                       color: Colors.grey,
                     ),
                   ),
@@ -125,12 +133,12 @@ class UserInterfaceState extends State<UserInterface> {
                     padding: const EdgeInsets.all(17.0),
                     child: Row(
                       children: [
-                        Icon(
+                        const Icon(
                           Icons.email_outlined,
                           color: Colors.black87,
                           size: 20,
                         ),
-                        Center(
+                        const Center(
                           widthFactor: 1.85,
                           child: Text(
                             "Continue with Email",
@@ -144,12 +152,12 @@ class UserInterfaceState extends State<UserInterface> {
                 ),
               ),
             ),
-            Text(
+            const Text(
               "OR",
-              style: TextStyle(color: Color.fromARGB(255, 109, 107, 107)),
+              style: const TextStyle(color: Color.fromARGB(255, 109, 107, 107)),
               textAlign: TextAlign.center,
             ),
-            SizedBox(
+            const SizedBox(
               height: 30,
             ),
             Padding(
@@ -160,8 +168,8 @@ class UserInterfaceState extends State<UserInterface> {
                 readOnly: true,
                 onTap: () => Navigator.of(context).push(
                     MaterialPageRoute(builder: (context) => MobileLogin())),
-                decoration:
-                    InputDecoration(label: Text('Continue with phone number')),
+                decoration: const InputDecoration(
+                    label: Text('Continue with phone number')),
               ),
             ),
           ],
