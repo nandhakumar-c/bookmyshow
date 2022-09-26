@@ -1,8 +1,13 @@
+import 'dart:math';
+
 import 'package:bookmyshow/bottomnavigation/bottomnavigator.dart';
 import 'package:bookmyshow/loginpage/frontscrollable.dart';
 import 'package:bookmyshow/loginpage/mobilelogin.dart';
 import 'package:bookmyshow/loginpagevalidation/emailvalidation.dart';
+import 'package:bookmyshow/loginpagevalidation/login_controller.dart';
+import 'package:bookmyshow/widgets/testfile.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 import '../landingpage/landingpage.dart' as page;
@@ -45,12 +50,16 @@ class UserInterfaceState extends State<UserInterface> {
     }
   }
 
+  final controller = Get.put(LoginController());
   @override
   Widget build(BuildContext context) {
+    double height = MediaQuery.of(context).size.height;
+    double width = MediaQuery.of(context).size.width;
+    print(width / 1.85);
     return Form(
       autovalidateMode: AutovalidateMode.onUserInteraction,
       child: Padding(
-        padding: const EdgeInsets.all(10),
+        padding: EdgeInsets.all(width / 25),
         child: ListView(
           children: [
             Column(
@@ -60,7 +69,7 @@ class UserInterfaceState extends State<UserInterface> {
                 TextButton(
                     onPressed: () {
                       Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => const BottomNavigation()));
+                          builder: (context) => BottomNavigation()));
                     },
                     child: const Text(
                       "SKIP",
@@ -82,83 +91,57 @@ class UserInterfaceState extends State<UserInterface> {
             ),
             Container(
               child: OutlinedButton(
-                style: OutlinedButton.styleFrom(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(5),
-                    side: const BorderSide(
-                      color: Color.fromARGB(255, 48, 45, 45),
+                  style: OutlinedButton.styleFrom(
+                    side: BorderSide(width: 1, color: Colors.grey),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(width / 70),
+                      side: const BorderSide(
+                        color: Color.fromARGB(255, 129, 129, 129),
+                      ),
                     ),
                   ),
-                ),
-                onPressed: () {
-                  // Navigator.of(context).push(MaterialPageRoute(
-                  //     builder: (context) => EmailValidator()));
-                  GoogleSignIn().signIn();
-                },
-                child: Container(
-                  child: Padding(
-                    padding: const EdgeInsets.all(17.0),
-                    child: Row(
-                      children: const [
-                        Image(
-                            alignment: Alignment.centerLeft,
-                            image: AssetImage("assets/icons/Google.png"),
-                            height: 17,
-                            width: 17),
-                        Center(
-                          widthFactor: 1.75,
-                          child: Text(
-                            "Continue with Google",
-                            style: TextStyle(fontSize: 17, color: Colors.grey),
-                            textAlign: TextAlign.center,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
+                  onPressed: () {
+                    // Navigator.of(context).push(MaterialPageRoute(
+                    //     builder: (context) => EmailValidator()));
+                    controller.login();
+                  },
+                  child: Obx(
+                    () {
+                      if (controller.googleAccount.value == null)
+                        return buildLoginButton(height, width);
+                      else
+                        pageNavigator(context, controller.googleAccount);
+                      throw (e);
+                    },
+                  )),
+            ),
+            SizedBox(
+              height: height / 75,
             ),
             Container(
-              child: TextButton(
+              child: OutlinedButton(
                 onPressed: () {},
-                child: Card(
+                style: OutlinedButton.styleFrom(
+                  side: BorderSide(width: 1, color: Colors.grey),
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(5),
+                    borderRadius: BorderRadius.circular(width / 70),
                     side: const BorderSide(
-                      color: Colors.grey,
-                    ),
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.all(17.0),
-                    child: Row(
-                      children: [
-                        const Icon(
-                          Icons.email_outlined,
-                          color: Colors.black87,
-                          size: 20,
-                        ),
-                        const Center(
-                          widthFactor: 1.85,
-                          child: Text(
-                            "Continue with Email",
-                            style: TextStyle(fontSize: 17, color: Colors.grey),
-                            textAlign: TextAlign.center,
-                          ),
-                        ),
-                      ],
-                    ),
+                        color: Color.fromARGB(255, 129, 129, 129)),
                   ),
                 ),
+                child: emailLayout(height, width),
               ),
+            ),
+            SizedBox(
+              height: height / 75,
             ),
             const Text(
               "OR",
               style: const TextStyle(color: Color.fromARGB(255, 109, 107, 107)),
               textAlign: TextAlign.center,
             ),
-            const SizedBox(
-              height: 30,
+            SizedBox(
+              height: height / 75,
             ),
             Padding(
               padding: const EdgeInsets.all(17.0),
@@ -168,9 +151,70 @@ class UserInterfaceState extends State<UserInterface> {
                 readOnly: true,
                 onTap: () => Navigator.of(context).push(
                     MaterialPageRoute(builder: (context) => MobileLogin())),
-                decoration: const InputDecoration(
-                    label: Text('Continue with phone number')),
+                decoration: InputDecoration(
+                  label: Text(
+                    'Continue with phone number',
+                    style: TextStyle(),
+                  ),
+                ),
               ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Container emailLayout(double height, double width) {
+    return Container(
+      child: Padding(
+        padding: EdgeInsets.all(width / 25),
+        child: Row(
+          children: [
+            Icon(
+              Icons.email_outlined,
+              color: Colors.black87,
+              size: width / 17,
+            ),
+            Center(
+              widthFactor: width / 220,
+              child: Text(
+                "Continue with Email",
+                style: TextStyle(
+                    fontSize: 17, color: Color.fromARGB(255, 129, 129, 129)),
+                textAlign: TextAlign.center,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  void pageNavigator(BuildContext context, var googleAccount) {
+    Navigator.of(context).push(MaterialPageRoute(
+        builder: (context) => BottomNavigation(data: googleAccount)));
+  }
+
+  Container buildLoginButton(double height, double width) {
+    return Container(
+      child: Padding(
+        padding: EdgeInsets.all(width / 25),
+        child: Row(
+          children: [
+            Image(
+              alignment: Alignment.centerLeft,
+              image: AssetImage("assets/icons/Google.png"),
+              height: height / 35,
+            ),
+            Row(
+              children: [
+                Text(
+                  "Continue with Google",
+                  style: TextStyle(
+                      fontSize: 17, color: Color.fromARGB(255, 129, 129, 129)),
+                ),
+              ],
             ),
           ],
         ),

@@ -39,7 +39,7 @@ class Description extends StatelessWidget {
                     color: Colors.white,
                     borderRadius: BorderRadius.all(Radius.circular(5))),
                 child: Text(
-                  " ❤️ Average Rating : " + vote,
+                  " Average Rating : " + vote,
                   style: GoogleFonts.roboto(
                     fontSize: 15,
                     fontWeight: FontWeight.w600,

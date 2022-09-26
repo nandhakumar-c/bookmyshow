@@ -1,13 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class ProfilePage extends StatefulWidget {
-  const ProfilePage({Key? key}) : super(key: key);
+  Rx<GoogleSignInAccount?>? data;
+  ProfilePage({Key? key, this.data}) : super(key: key);
 
   @override
-  State<ProfilePage> createState() => _ProfilePageState();
+  State<ProfilePage> createState() => _ProfilePageState(data);
 }
 
 class _ProfilePageState extends State<ProfilePage> {
+  Rx<GoogleSignInAccount?>? data;
+  _ProfilePageState(this.data);
   @override
   Widget build(BuildContext context) {
     return Scaffold(

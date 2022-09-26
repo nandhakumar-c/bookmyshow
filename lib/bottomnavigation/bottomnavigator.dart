@@ -2,21 +2,28 @@ import 'package:bookmyshow/buzzpage/buzzpage.dart';
 import 'package:bookmyshow/landingpage/landingpage.dart';
 import 'package:bookmyshow/profilepage/profilepage.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class BottomNavigation extends StatefulWidget {
-  const BottomNavigation({Key? key}) : super(key: key);
+  Rx<GoogleSignInAccount?>? data;
+  BottomNavigation({Key? key, this.data}) : super(key: key);
   @override
   State<StatefulWidget> createState() {
-    return BottomNavigationState();
+    return BottomNavigationState(data1: data);
   }
 }
 
 class BottomNavigationState extends State<BottomNavigation> {
+  Rx<GoogleSignInAccount?>? data1;
+  BottomNavigationState({this.data1});
   int currentIndex = 0;
   final screens = [
     LandingPage(),
     BuzzPage(),
-    ProfilePage(),
+    ProfilePage(
+      data: BottomNavigationState().data1,
+    ),
   ];
   @override
   Widget build(BuildContext context) {
