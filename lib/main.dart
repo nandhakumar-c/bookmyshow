@@ -1,11 +1,10 @@
+import 'package:bookmyshow/LocaleString.dart';
 import 'package:bookmyshow/loginpage/splashscreen.dart';
 import 'package:bookmyshow/widgets/testing.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:overlay_support/overlay_support.dart';
-import 'loginpage/loginpage.dart';
-
-import 'widgets/testfile.dart';
-import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 
 // void main() async {
 //   WidgetsFlutterBinding.ensureInitialized();
@@ -25,7 +24,12 @@ class BookMyShow extends StatefulWidget {
 class BookMyShowState extends State<BookMyShow> {
   @override
   Widget build(BuildContext context) => OverlaySupport.global(
-        child: MaterialApp(
-            debugShowCheckedModeBanner: false, home: SplashScreen()),
+        child: GetMaterialApp(
+          translations: LocaleString(),
+          locale: Locale('en', 'US'),
+          debugShowCheckedModeBanner: false,
+          home: SplashScreen(),
+          //supportedLocales: L10n.all,
+        ),
       );
 }

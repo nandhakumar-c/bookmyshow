@@ -1,5 +1,5 @@
-import 'dart:developer';
-
+import 'package:get/get.dart';
+import 'package:bookmyshow/LocaleString.dart';
 import 'package:bookmyshow/bottomnavigation/bottomnavigator.dart';
 import 'package:bookmyshow/landingpage/pagebuilder/trendingtvshows.dart';
 import 'package:bookmyshow/landingpage/pagebuilder/trending.dart';
@@ -83,7 +83,7 @@ class LandingPageState extends State<LandingPage> {
             children: [
               FittedBox(
                 child: Text(
-                  "It All Starts Here",
+                  "It All Starts Here".tr,
                   style: TextStyle(
                     color: Colors.white,
                   ),
@@ -107,17 +107,23 @@ class LandingPageState extends State<LandingPage> {
           padding: EdgeInsets.all(h! / 25),
           children: [
             TrendingMovies(
-              titleText: 'Recommended Movies',
+              titleText: 'Recommended Movies'.tr,
               trendingMovies: trendingMovies,
             ),
             TrendingMovies(
-              titleText: 'Top Rated Movies',
+              titleText: 'Top Rated Movies'.tr,
               trendingMovies: topRatedMovies,
             ),
             TrendingTvShows(
-              titleText: 'TV Shows',
+              titleText: 'TV Shows'.tr,
               trendingShows: tv,
-            )
+            ),
+            ElevatedButton(
+                onPressed: () {
+                  var locale = Locale('tn', 'IN');
+                  Get.updateLocale(locale);
+                },
+                child: Text("Change Language"))
           ],
         ),
       ),
