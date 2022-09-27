@@ -1,3 +1,4 @@
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:get/get.dart';
 import 'package:bookmyshow/LocaleString.dart';
 import 'package:bookmyshow/bottomnavigation/bottomnavigator.dart';
@@ -27,6 +28,9 @@ class LandingPageState extends State<LandingPage> {
   void initState() {
     loadmovies();
     super.initState();
+    FirebaseMessaging.onMessage.listen((event) {
+      print("FCM message received");
+    });
   }
 
   loadmovies() async {
@@ -142,8 +146,9 @@ class LandingPageState extends State<LandingPage> {
                           decoration: InputDecoration(
                             enabledBorder: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(12),
-                                borderSide:
-                                    BorderSide(width: 3, color: Colors.blue)),
+                                borderSide: BorderSide(
+                                    width: 3,
+                                    color: Color.fromARGB(255, 0, 17, 73))),
                           ),
                           value: selectedItem,
                           items: items
@@ -151,7 +156,10 @@ class LandingPageState extends State<LandingPage> {
                                   value: e,
                                   child: Text(
                                     e,
-                                    style: TextStyle(fontSize: 15),
+                                    style: GoogleFonts.dmSans(
+                                        fontSize: 18,
+                                        color: Color.fromARGB(255, 1, 8, 44),
+                                        fontWeight: FontWeight.w600),
                                   )))
                               .toList(),
                           onChanged: ((value) => setState(() {

@@ -1,6 +1,7 @@
 import 'package:bookmyshow/LocaleString.dart';
 import 'package:bookmyshow/loginpage/splashscreen.dart';
 import 'package:bookmyshow/widgets/testing.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:overlay_support/overlay_support.dart';
@@ -12,7 +13,10 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 //   runApp(BookMyShow());
 // }
 
-void main() => runApp(BookMyShow());
+void main() {
+  //FirebaseMessaging.onBackgroundMessage(handleBackgroundMessaging);
+  runApp(BookMyShow());
+}
 
 class BookMyShow extends StatefulWidget {
   @override
@@ -32,4 +36,8 @@ class BookMyShowState extends State<BookMyShow> {
           //supportedLocales: L10n.all,
         ),
       );
+}
+
+Future<void> handleBackgroundMessaging(RemoteMessage message) async {
+  //Notification Click Listener
 }

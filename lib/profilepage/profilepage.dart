@@ -40,7 +40,8 @@ class _ProfilePageState extends State<ProfilePage> {
                   decoration: InputDecoration(
                     enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(12),
-                        borderSide: BorderSide(width: 3, color: Colors.blue)),
+                        borderSide: BorderSide(
+                            width: 3, color: Color.fromARGB(255, 0, 17, 73))),
                   ),
                   value: selectedItem,
                   items: items
