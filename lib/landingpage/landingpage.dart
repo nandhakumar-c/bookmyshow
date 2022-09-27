@@ -28,9 +28,9 @@ class LandingPageState extends State<LandingPage> {
   void initState() {
     loadmovies();
     super.initState();
-    FirebaseMessaging.onMessage.listen((event) {
-      print("FCM message received");
-    });
+    // FirebaseMessaging.onMessage.listen((event) {
+    //   print("FCM message received");
+    // });
   }
 
   loadmovies() async {

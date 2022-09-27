@@ -4,11 +4,14 @@ import 'package:bookmyshow/bottomnavigation/bottomnavigator.dart';
 import 'package:bookmyshow/loginpage/frontscrollable.dart';
 import 'package:bookmyshow/loginpage/mobilelogin.dart';
 import 'package:bookmyshow/loginpagevalidation/emailvalidation.dart';
+import 'package:bookmyshow/loginpagevalidation/google_sign_in.dart';
 import 'package:bookmyshow/loginpagevalidation/login_controller.dart';
+import 'package:bookmyshow/profilepage/profilepage.dart';
 import 'package:bookmyshow/widgets/testfile.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:provider/provider.dart';
 
 import '../landingpage/landingpage.dart' as page;
 
@@ -39,14 +42,6 @@ class UserInterfaceState extends State<UserInterface> {
     setState(() {
       hidden = !hidden;
     });
-  }
-
-  void validate() {
-    if (formkey.currentState!.validate()) {
-      print('Validated');
-    } else {
-      print('Not validated');
-    }
   }
 
   final controller = Get.put(LoginController());
@@ -90,29 +85,32 @@ class UserInterfaceState extends State<UserInterface> {
             ),
             Container(
               child: OutlinedButton(
-                  style: OutlinedButton.styleFrom(
-                    side: BorderSide(width: 1, color: Colors.grey),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(width / 70),
-                      side: const BorderSide(
-                        color: Color.fromARGB(255, 129, 129, 129),
-                      ),
+                style: OutlinedButton.styleFrom(
+                  side: BorderSide(width: 1, color: Colors.grey),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(width / 70),
+                    side: const BorderSide(
+                      color: Color.fromARGB(255, 129, 129, 129),
                     ),
                   ),
-                  onPressed: () {
-                    // Navigator.of(context).push(MaterialPageRoute(
-                    //     builder: (context) => EmailValidator()));
-                    controller.login();
-                  },
-                  child: Obx(
-                    () {
-                      if (controller.googleAccount.value == null)
-                        return buildLoginButton(height, width);
-                      else
-                        pageNavigator(context, controller.googleAccount);
-                      throw (e);
-                    },
-                  )),
+                ),
+                onPressed: () {
+                  final provider =
+                      Provider.of<GoogleSignInProvider>(context, listen: false);
+                  provider.googleLogin();
+                },
+                child: buildLoginButton(height, width),
+              ),
+              // child: Obx(
+              //   () {
+              //     if (controller.googleAccount.value == null)
+              //       return buildLoginButton(height, width);
+              //     else
+              //       return ProfilePage();
+              //     //pageNavigator(context, controller.googleAccount);
+              //     throw (e);
+              //   },
+              // )),
             ),
             SizedBox(
               height: height / 75,

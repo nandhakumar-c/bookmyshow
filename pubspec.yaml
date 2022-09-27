@@ -47,7 +47,7 @@ dependencies:
   get: ^4.6.5
   firebase_messaging:
 
-  
+  provider:
 
 dev_dependencies:
   flutter_test:
