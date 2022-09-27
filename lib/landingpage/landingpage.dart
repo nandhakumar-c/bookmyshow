@@ -4,6 +4,7 @@ import 'package:bookmyshow/bottomnavigation/bottomnavigator.dart';
 import 'package:bookmyshow/landingpage/pagebuilder/trendingtvshows.dart';
 import 'package:bookmyshow/landingpage/pagebuilder/trending.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:tmdb_api/tmdb_api.dart';
 
 class LandingPage extends StatefulWidget {
@@ -51,7 +52,13 @@ class LandingPageState extends State<LandingPage> {
     h = MediaQuery.of(context).size.height * 0.23;
     w = MediaQuery.of(context).size.width * 0.25;
     //size = MediaQuery.of(context).size;
-
+    List<String> items = ['English', 'Tamil', 'Hindi'];
+    String? selectedItem = 'English';
+    Map<String, List<String>> langList = {
+      'English': ['en', 'US'],
+      'Tamil': ['ta', 'US'],
+      'Hindi': ['hi', 'IN']
+    };
     return Container(
       child: Scaffold(
         backgroundColor: Colors.white,
@@ -106,24 +113,85 @@ class LandingPageState extends State<LandingPage> {
         body: ListView(
           padding: EdgeInsets.all(h! / 25),
           children: [
+            Container(
+              decoration: BoxDecoration(
+                  color: Color.fromARGB(255, 226, 217, 217),
+                  borderRadius: BorderRadius.circular(10)),
+              child: Column(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(top: 8.0),
+                    child: Text(
+                      "Choose Your Language",
+                      style: GoogleFonts.dmSans(
+                          fontSize: 18,
+                          color: Color.fromARGB(255, 1, 8, 44),
+                          fontWeight: FontWeight.w600),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Container(
+                    height: 75,
+                    width: 250,
+                    child: SizedBox(
+                        width: 240,
+                        child: DropdownButtonFormField<String>(
+                          focusColor: Colors.white,
+                          decoration: InputDecoration(
+                            enabledBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(12),
+                                borderSide:
+                                    BorderSide(width: 3, color: Colors.blue)),
+                          ),
+                          value: selectedItem,
+                          items: items
+                              .map((e) => DropdownMenuItem(
+                                  value: e,
+                                  child: Text(
+                                    e,
+                                    style: TextStyle(fontSize: 15),
+                                  )))
+                              .toList(),
+                          onChanged: ((value) => setState(() {
+                                selectedItem = value;
+                                var locale = Locale(langList[value]![0],
+                                    langList[value]![1].toString());
+                                Get.updateLocale(locale);
+                              })),
+                        )),
+                  ),
+                ],
+              ),
+            ),
+            SizedBox(
+              height: 20,
+            ),
             TrendingMovies(
-              titleText: 'Recommended Movies'.tr,
+              titleText: 'recommended movies'.tr,
               trendingMovies: trendingMovies,
             ),
             TrendingMovies(
-              titleText: 'Top Rated Movies'.tr,
+              titleText: 'top rated movies'.tr,
               trendingMovies: topRatedMovies,
             ),
             TrendingTvShows(
-              titleText: 'TV Shows'.tr,
+              titleText: 'tv shows'.tr,
               trendingShows: tv,
             ),
             ElevatedButton(
                 onPressed: () {
-                  var locale = Locale('tn', 'IN');
+                  var locale = Locale('ta', 'IN');
                   Get.updateLocale(locale);
                 },
-                child: Text("Change Language"))
+                child: Text("Change Language")),
+            ElevatedButton(
+                onPressed: () {
+                  var locale = Locale('en', 'US');
+                  Get.updateLocale(locale);
+                },
+                child: Text("Revert Change"))
           ],
         ),
       ),

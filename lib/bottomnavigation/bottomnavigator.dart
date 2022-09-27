@@ -7,23 +7,21 @@ import 'package:google_sign_in/google_sign_in.dart';
 
 class BottomNavigation extends StatefulWidget {
   Rx<GoogleSignInAccount?>? data;
-  BottomNavigation({Key? key, this.data}) : super(key: key);
+  //BottomNavigation({Key? key, this.data}) : super(key: key);
   @override
   State<StatefulWidget> createState() {
-    return BottomNavigationState(data1: data);
+    return BottomNavigationState();
   }
 }
 
 class BottomNavigationState extends State<BottomNavigation> {
   Rx<GoogleSignInAccount?>? data1;
-  BottomNavigationState({this.data1});
+  //BottomNavigationState({this.data1});
   int currentIndex = 0;
   final screens = [
     LandingPage(),
     BuzzPage(),
-    ProfilePage(
-      data: BottomNavigationState().data1,
-    ),
+    ProfilePage(),
   ];
   @override
   Widget build(BuildContext context) {

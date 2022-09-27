@@ -21,7 +21,6 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(body: UserInterface());
-    ;
   }
 }
 
@@ -192,8 +191,8 @@ class UserInterfaceState extends State<UserInterface> {
   }
 
   void pageNavigator(BuildContext context, var googleAccount) {
-    Navigator.of(context).push(MaterialPageRoute(
-        builder: (context) => BottomNavigation(data: googleAccount)));
+    Navigator.of(context)
+        .push(MaterialPageRoute(builder: (context) => BottomNavigation()));
   }
 
   Container buildLoginButton(double height, double width) {
@@ -207,14 +206,13 @@ class UserInterfaceState extends State<UserInterface> {
               image: AssetImage("assets/icons/Google.png"),
               height: height / 35,
             ),
-            Row(
-              children: [
-                Text(
-                  "Continue with Google",
-                  style: TextStyle(
-                      fontSize: 17, color: Color.fromARGB(255, 129, 129, 129)),
-                ),
-              ],
+            Padding(
+              padding: const EdgeInsets.only(left: 65),
+              child: Text(
+                "Continue with Google",
+                style: TextStyle(
+                    fontSize: 17, color: Color.fromARGB(255, 129, 129, 129)),
+              ),
             ),
           ],
         ),
