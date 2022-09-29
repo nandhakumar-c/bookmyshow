@@ -10,20 +10,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 import 'package:overlay_support/overlay_support.dart';
-
 import 'package:provider/provider.dart';
+//Todo
 
-// void main() async {
-//   WidgetsFlutterBinding.ensureInitialized();
-//   await Firebase.initializeApp();
-//   runApp(BookMyShow());
-// }
+import 'dart:io';
+import 'dart:async';
+
+import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 Future main() async {
-  //FirebaseMessaging.onBackgroundMessage(handleBackgroundMessaging);
-  //Firebase.initializeApp();
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+  print(FirebaseMessaging.instance.getToken());
   runApp(BookMyShow());
 }
 
@@ -50,4 +49,30 @@ class BookMyShowState extends State<BookMyShow> {
 
 Future<void> handleBackgroundMessaging(RemoteMessage message) async {
   //Notification Click Listener
+}
+
+class MessageHandler extends StatefulWidget {
+  const MessageHandler({Key? key}) : super(key: key);
+
+  @override
+  State<MessageHandler> createState() => _MessageHandlerState();
+}
+
+class _MessageHandlerState extends State<MessageHandler> {
+  final FirebaseFirestore _db = FirebaseFirestore.instance;
+  final FirebaseMessaging _fcm = FirebaseMessaging.instance;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    // _fcm.configure(
+    //   onMessage:
+    // );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Container();
+  }
 }
