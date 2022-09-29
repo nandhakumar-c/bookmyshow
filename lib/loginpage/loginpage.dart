@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:bookmyshow/bottomnavigation/bottomnavigator.dart';
+import 'package:bookmyshow/cubit/google_sign_in/cubit/google_sign_in_cubit.dart';
 import 'package:bookmyshow/loginpage/frontscrollable.dart';
 import 'package:bookmyshow/loginpage/mobilelogin.dart';
 import 'package:bookmyshow/loginpagevalidation/emailvalidation.dart';
@@ -9,6 +10,7 @@ import 'package:bookmyshow/loginpagevalidation/login_controller.dart';
 import 'package:bookmyshow/profilepage/profilepage.dart';
 import 'package:bookmyshow/widgets/testfile.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:provider/provider.dart';
@@ -95,22 +97,12 @@ class UserInterfaceState extends State<UserInterface> {
                   ),
                 ),
                 onPressed: () {
-                  final provider =
-                      Provider.of<GoogleSignInProvider>(context, listen: false);
-                  provider.googleLogin();
+                  final provider = BlocProvider.of<GoogleSignInCubit>(context,
+                      listen: false);
+                  provider.signInWithGoogle();
                 },
                 child: buildLoginButton(height, width),
               ),
-              // child: Obx(
-              //   () {
-              //     if (controller.googleAccount.value == null)
-              //       return buildLoginButton(height, width);
-              //     else
-              //       return ProfilePage();
-              //     //pageNavigator(context, controller.googleAccount);
-              //     throw (e);
-              //   },
-              // )),
             ),
             SizedBox(
               height: height / 75,

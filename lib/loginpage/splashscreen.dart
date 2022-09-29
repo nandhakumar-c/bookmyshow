@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:bookmyshow/bottomnavigation/bottomnavigator.dart';
 import 'package:bookmyshow/loginpage/nointernet.dart';
+import 'package:bookmyshow/loginpagevalidation/home_page.dart';
 import 'package:bookmyshow/widgets/testing.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/cupertino.dart';
@@ -32,8 +33,8 @@ class _SplashScreenState extends State<SplashScreen> {
         if (hasInternet) {
           Timer(
               Duration(seconds: 3),
-              () => Navigator.pushReplacement(
-                  context, MaterialPageRoute(builder: (context) => MyApp())));
+              () => Navigator.pushReplacement(context,
+                  MaterialPageRoute(builder: (context) => HomePage())));
         } else {
           Timer(
               Duration(seconds: 3),

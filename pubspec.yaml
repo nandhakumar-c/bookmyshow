@@ -46,7 +46,7 @@ dependencies:
   google_sign_in: ^5.4.1
   get: ^4.6.5
   firebase_messaging:
-
+  flutter_bloc: ^8.1.1
   provider:
 
 dev_dependencies:
