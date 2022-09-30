@@ -5,9 +5,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
+// ignore: must_be_immutable
 class BottomNavigation extends StatefulWidget {
-  Rx<GoogleSignInAccount?>? data;
-  //BottomNavigation({Key? key, this.data}) : super(key: key);
+  BottomNavigation({Key? key}) : super(key: key);
+
   @override
   State<StatefulWidget> createState() {
     return BottomNavigationState();
@@ -15,8 +16,6 @@ class BottomNavigation extends StatefulWidget {
 }
 
 class BottomNavigationState extends State<BottomNavigation> {
-  Rx<GoogleSignInAccount?>? data1;
-  //BottomNavigationState({this.data1});
   int currentIndex = 0;
   final screens = [
     LandingPage(),
