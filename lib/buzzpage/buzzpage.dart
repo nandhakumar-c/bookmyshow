@@ -8,7 +8,7 @@ class FeedList {
   FeedList({this.feedTitle, this.imageURL, this.profileURL, this.time});
 }
 
-final Feeds = [
+final feeds = [
   FeedList(
       feedTitle: 'Tamil Thriller \'Naane Varuven\' Is Deliciously Chilling',
       imageURL: 'assets/images/image.jpeg',
@@ -53,18 +53,28 @@ class BuzzPage extends StatelessWidget {
             ],
           )),
       body: ListView.builder(
-          itemCount: Feeds.length,
+          itemCount: feeds.length,
           scrollDirection: Axis.vertical,
           itemBuilder: ((context, index) => FeedGenerator(
-                feed: Feeds[index],
+                feed: feeds[index],
               ))),
     );
   }
 }
 
-class FeedGenerator extends StatelessWidget {
+class FeedGenerator extends StatefulWidget {
   FeedList? feed;
   FeedGenerator({this.feed});
+  @override
+  State<StatefulWidget> createState() {
+    // TODO: implement createState
+    return FeedGeneratorState(feed: feed);
+  }
+}
+
+class FeedGeneratorState extends State<FeedGenerator> {
+  FeedList? feed;
+  FeedGeneratorState({this.feed});
   @override
   Widget build(BuildContext context) {
     double? height = MediaQuery.of(context).size.height;
@@ -90,7 +100,7 @@ class FeedGenerator extends StatelessWidget {
                 ),
                 Container(
                   height: 100,
-                  width: 260,
+                  width: 250,
                   child: Column(
                     children: [
                       Container(
@@ -106,7 +116,7 @@ class FeedGenerator extends StatelessWidget {
                         ),
                       ),
                       Container(
-                        height: 50,
+                        height: 45,
                         width: double.infinity,
                         child: Align(
                           alignment: Alignment.bottomLeft,

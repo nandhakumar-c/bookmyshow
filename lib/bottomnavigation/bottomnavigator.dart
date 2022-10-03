@@ -2,12 +2,12 @@ import 'package:bookmyshow/buzzpage/buzzpage.dart';
 import 'package:bookmyshow/landingpage/landingpage.dart';
 import 'package:bookmyshow/profilepage/profilepage.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:google_sign_in/google_sign_in.dart';
+//import 'package:get/get.dart';
+//import 'package:google_sign_in/google_sign_in.dart';
 
 // ignore: must_be_immutable
 class BottomNavigation extends StatefulWidget {
-  BottomNavigation({Key? key}) : super(key: key);
+  const BottomNavigation({Key? key}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() {
@@ -19,7 +19,7 @@ class BottomNavigationState extends State<BottomNavigation> {
   int currentIndex = 0;
   final screens = [
     LandingPage(),
-    BuzzPage(),
+    const BuzzPage(),
     ProfilePage(),
   ];
   @override
@@ -30,7 +30,7 @@ class BottomNavigationState extends State<BottomNavigation> {
         fixedColor: Colors.red,
         currentIndex: currentIndex,
         onTap: (index) => setState(() => currentIndex = index),
-        items: [
+        items: const [
           BottomNavigationBarItem(
             icon: ImageIcon(
               AssetImage('assets/icons/BookMyShowLogo-modified.png'),

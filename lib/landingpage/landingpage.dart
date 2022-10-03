@@ -1,3 +1,4 @@
+import 'package:bookmyshow/notifications/notification_page.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:get/get.dart';
 import 'package:bookmyshow/LocaleString.dart';
@@ -80,7 +81,10 @@ class LandingPageState extends State<LandingPage> {
                 ),
                 iconSize: 27),
             IconButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => NotificationPage()));
+              },
               icon: Icon(Icons.notifications_none_outlined),
               iconSize: 27,
             ),
