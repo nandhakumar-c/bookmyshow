@@ -1,5 +1,8 @@
+import 'package:bookmyshow/landingpage/cardgeneration/homeicon.dart';
 import 'package:bookmyshow/notifications/notification_page.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:get/get.dart';
 import 'package:bookmyshow/LocaleString.dart';
 import 'package:bookmyshow/bottomnavigation/bottomnavigator.dart';
@@ -19,6 +22,7 @@ class LandingPage extends StatefulWidget {
 double? h, w, size;
 
 class LandingPageState extends State<LandingPage> {
+  String? qrCode = 'Unknown';
   List? trendingMovies = [];
   List? tv = [];
   List? topRatedMovies = [];
@@ -89,7 +93,7 @@ class LandingPageState extends State<LandingPage> {
               iconSize: 27,
             ),
             IconButton(
-              onPressed: () {},
+              onPressed: scanQrCode,
               icon: Icon(Icons.qr_code),
               iconSize: 27,
             ),
@@ -125,6 +129,15 @@ class LandingPageState extends State<LandingPage> {
         body: ListView(
           padding: EdgeInsets.all(h! / 25),
           children: [
+            Container(
+              height: 60,
+              child: ListView.builder(
+                itemCount: iconList.length,
+                scrollDirection: Axis.horizontal,
+                itemBuilder: (context, index) =>
+                    IconGenerator(icon: iconList[index]),
+              ),
+            ),
             Container(
               decoration: BoxDecoration(
                   color: Color.fromARGB(255, 226, 217, 217),
@@ -196,20 +209,49 @@ class LandingPageState extends State<LandingPage> {
               titleText: 'tv shows'.tr,
               trendingShows: tv,
             ),
-            ElevatedButton(
-                onPressed: () {
-                  var locale = Locale('ta', 'IN');
-                  Get.updateLocale(locale);
-                },
-                child: Text("Change Language")),
-            ElevatedButton(
-                onPressed: () {
-                  var locale = Locale('en', 'US');
-                  Get.updateLocale(locale);
-                },
-                child: Text("Revert Change"))
+            Container(
+              color: Colors.red[400],
+              padding: EdgeInsets.all(20),
+              child: Text(
+                'QR TEXT : ${qrCode}',
+                textAlign: TextAlign.center,
+              ),
+            ),
+            TextButton(
+              onPressed: () => throw Exception(),
+              child: const Text("Throw Test Exception"),
+            ),
           ],
         ),
+      ),
+    );
+  }
+
+  Future<void> scanQrCode() async {
+    try {
+      final qrCode = await FlutterBarcodeScanner.scanBarcode(
+          '#00FBE3', 'Cancel', true, ScanMode.QR);
+      if (!mounted) return;
+      setState(() {
+        this.qrCode = qrCode;
+      });
+    } on PlatformException {
+      qrCode = 'Failed to Scan OR';
+    }
+  }
+}
+
+class IconGenerator extends StatelessWidget {
+  HomeIcon? icon;
+  IconGenerator({this.icon});
+  @override
+  Widget build(BuildContext context) {
+    // TODO: implement build
+    return Container(
+      height: 60,
+      width: 60,
+      child: Image(
+        image: NetworkImage(icon!.iconUrl.toString()),
       ),
     );
   }

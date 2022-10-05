@@ -49,8 +49,12 @@ dependencies:
   firebase_messaging: ^13.0.3
   cloud_firestore: ^3.4.9
   flutter_bloc: ^8.1.1
+  flutter_barcode_scanner: ^2.0.0
   provider:
-
+  firebase: ^9.0.3
+  firebase_crashlytics: ^2.8.12
+  pin_code_fields: ^7.4.0
+  
 dev_dependencies:
   flutter_test:
     sdk: flutter
