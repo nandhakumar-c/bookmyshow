@@ -34,12 +34,12 @@ class LandingPageState extends State<LandingPage> {
     loadmovies();
     super.initState();
 
-    FirebaseMessaging.instance.getInitialMessage();
+    // FirebaseMessaging.instance.getInitialMessage();
 
-    FirebaseMessaging.onMessage.listen((message) {
-      print(message.notification!.body);
-      print(message.notification!.title);
-    });
+    // FirebaseMessaging.onMessage.listen((message) {
+    //   print(message.notification!.body);
+    //   print(message.notification!.title);
+    // });
   }
 
   loadmovies() async {
@@ -98,6 +98,9 @@ class LandingPageState extends State<LandingPage> {
               iconSize: 27,
             ),
           ],
+          leading: IconButton(
+              icon: Icon(Icons.chevron_left),
+              onPressed: () => Navigator.of(context).pop()),
           backgroundColor: Color.fromARGB(255, 10, 21, 46),
           title: Container(
               child: Column(
@@ -130,7 +133,7 @@ class LandingPageState extends State<LandingPage> {
           padding: EdgeInsets.all(h! / 25),
           children: [
             Container(
-              height: 60,
+              height: 70,
               child: ListView.builder(
                 itemCount: iconList.length,
                 scrollDirection: Axis.horizontal,
@@ -248,8 +251,8 @@ class IconGenerator extends StatelessWidget {
   Widget build(BuildContext context) {
     // TODO: implement build
     return Container(
-      height: 60,
-      width: 60,
+      height: 70,
+      width: 70,
       child: Image(
         image: NetworkImage(icon!.iconUrl.toString()),
       ),

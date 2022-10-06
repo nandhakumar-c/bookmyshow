@@ -1,7 +1,6 @@
 import 'package:bookmyshow/LocaleString.dart';
-import 'package:bookmyshow/cubit/google_sign_in/cubit/google_sign_in_cubit.dart';
-import 'package:bookmyshow/loginpage/splashscreen.dart';
-import 'package:bookmyshow/loginpagevalidation/google_sign_in.dart';
+import 'package:bookmyshow/loginpagevalidation/google_sign_in_cubit.dart';
+
 import 'package:bookmyshow/loginpagevalidation/home_page.dart';
 
 import 'package:firebase_core/firebase_core.dart';
@@ -21,6 +20,8 @@ import 'dart:async';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
+import 'loginpage/splashscreen.dart';
+
 const AndroidNotificationChannel channel =
     AndroidNotificationChannel('high_importance_channel', 'Grab Your Seats Now',
         // 'Book the tickets for PS-I',
@@ -39,6 +40,7 @@ void main() async {
   runZonedGuarded<Future<void>>(() async {
     WidgetsFlutterBinding.ensureInitialized();
     await Firebase.initializeApp();
+
     FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHnadler);
 
     await flutterLocalNotificationsPlugin
@@ -79,34 +81,4 @@ class BookMyShowState extends State<BookMyShow> {
           //supportedLocales: L10n.all,
         ),
       );
-}
-
-Future<void> handleBackgroundMessaging(RemoteMessage message) async {
-  //Notification Click Listener
-}
-
-class MessageHandler extends StatefulWidget {
-  const MessageHandler({Key? key}) : super(key: key);
-
-  @override
-  State<MessageHandler> createState() => _MessageHandlerState();
-}
-
-class _MessageHandlerState extends State<MessageHandler> {
-  final FirebaseFirestore _db = FirebaseFirestore.instance;
-  final FirebaseMessaging _fcm = FirebaseMessaging.instance;
-
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    // _fcm.configure(
-    //   onMessage:
-    // );
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Container();
-  }
 }

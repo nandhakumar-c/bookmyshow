@@ -1,3 +1,4 @@
+import 'package:bookmyshow/buzzpage/stories/stories.dart';
 import 'package:flutter/material.dart';
 
 class FeedList {
@@ -52,12 +53,25 @@ class BuzzPage extends StatelessWidget {
               )
             ],
           )),
-      body: ListView.builder(
-          itemCount: feeds.length,
-          scrollDirection: Axis.vertical,
-          itemBuilder: ((context, index) => FeedGenerator(
-                feed: feeds[index],
-              ))),
+      body: ListView(
+        children: [
+          Container(
+            padding: EdgeInsets.all(10),
+            width: double.infinity,
+            height: 105,
+            child: Stories(),
+          ),
+          ListView.builder(
+            shrinkWrap: true,
+            physics: ScrollPhysics(),
+            itemCount: feeds.length,
+            scrollDirection: Axis.vertical,
+            itemBuilder: ((context, index) => FeedGenerator(
+                  feed: feeds[index],
+                )),
+          ),
+        ],
+      ),
     );
   }
 }

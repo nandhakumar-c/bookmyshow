@@ -1,12 +1,10 @@
 import 'dart:math';
 
 import 'package:bookmyshow/bottomnavigation/bottomnavigator.dart';
-import 'package:bookmyshow/cubit/google_sign_in/cubit/google_sign_in_cubit.dart';
+import 'package:bookmyshow/loginpagevalidation/google_sign_in_cubit.dart';
 import 'package:bookmyshow/loginpage/frontscrollable.dart';
-import 'package:bookmyshow/loginpage/mobilelogin.dart';
-import 'package:bookmyshow/loginpagevalidation/emailvalidation.dart';
-import 'package:bookmyshow/loginpagevalidation/google_sign_in.dart';
-import 'package:bookmyshow/loginpagevalidation/login_controller.dart';
+import 'package:bookmyshow/loginpagevalidation/mobilelogin.dart';
+
 import 'package:bookmyshow/profilepage/profilepage.dart';
 import 'package:bookmyshow/widgets/testfile.dart';
 import 'package:flutter/material.dart';
@@ -46,12 +44,11 @@ class UserInterfaceState extends State<UserInterface> {
     });
   }
 
-  final controller = Get.put(LoginController());
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
-    print(width / 1.85);
+
     return Form(
       autovalidateMode: AutovalidateMode.onUserInteraction,
       child: Padding(

@@ -45,12 +45,6 @@ class _SplashScreenState extends State<SplashScreen> {
     });
   }
 
-  // @override
-  // void dispose() {
-  //   subscription.cancel();
-  //   super.dispose();
-  // }
-
   getConnectivity() => subscription = Connectivity()
           .onConnectivityChanged
           .listen((ConnectivityResult result) async {
@@ -110,7 +104,6 @@ class _SplashScreenState extends State<SplashScreen> {
               ),
               textAlign: TextAlign.center,
             ),
-
             Container(
                 width: MediaQuery.of(context).size.width / 2.8,
                 height: MediaQuery.of(context).size.height / 6.0,
@@ -119,12 +112,6 @@ class _SplashScreenState extends State<SplashScreen> {
                     'assets/lottie/dotLoader.json',
                   ),
                 )),
-
-            // SpinKitRing(
-            //   size: 35,
-            //   lineWidth: 3,
-            //   color: Colors.grey,
-            // ),
           ],
         ),
       ),

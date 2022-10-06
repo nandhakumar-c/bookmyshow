@@ -67,12 +67,18 @@ class _NotificationPageState extends State<NotificationPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(actions: [
-          IconButton(
-            onPressed: showNotification,
-            icon: Icon(Icons.notification_add),
-          )
-        ], title: Text("Notifications")),
+        appBar: AppBar(
+            leading: IconButton(
+                icon: Icon(Icons.chevron_left),
+                onPressed: () => Navigator.of(context).pop()),
+            backgroundColor: Color.fromARGB(255, 10, 21, 46),
+            actions: [
+              IconButton(
+                onPressed: showNotification,
+                icon: Icon(Icons.notification_add),
+              )
+            ],
+            title: Text("Notifications")),
         body: Center(
           child: Container(
             child: Text('No New Notifications'),

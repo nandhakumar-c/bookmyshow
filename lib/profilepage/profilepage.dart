@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../cubit/google_sign_in/cubit/google_sign_in_cubit.dart';
+import '../loginpagevalidation/google_sign_in_cubit.dart';
 
 class CardDetails {
   String? text = "";
