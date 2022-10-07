@@ -23,6 +23,22 @@ List<StoriesClass> storiesList = [
       img:
           'https://assets-in.bmscdn.com/content-buzz/2021/07/upcomingnetflix.jpg',
       title: 'Netflix Movies'),
+  StoriesClass(
+      img:
+          'https://assets-in.bmscdn.com/content-buzz/2021/07/upcomingprimevideo.jpg',
+      title: 'Prime Movies'),
+  StoriesClass(
+      img:
+          'https://assets-in.bmscdn.com/content-buzz/2021/07/upcomingnetflix.jpg',
+      title: 'Netflix Movies'),
+  StoriesClass(
+      img:
+          'https://assets-in.bmscdn.com/content-buzz/2021/07/upcomingprimevideo.jpg',
+      title: 'Prime Movies'),
+  StoriesClass(
+      img:
+          'https://assets-in.bmscdn.com/content-buzz/2021/07/upcomingnetflix.jpg',
+      title: 'Netflix Movies'),
 ];
 
 class Stories extends StatefulWidget {
@@ -57,10 +73,18 @@ class StoryGenerator extends StatelessWidget {
     return Column(children: [
       Container(
         child: CircleAvatar(
-          backgroundImage: NetworkImage(
-            story!.img.toString(),
+          radius: 33,
+          backgroundColor: Colors.red,
+          child: CircleAvatar(
+            backgroundColor: Colors.white,
+            radius: 32,
+            child: CircleAvatar(
+              backgroundImage: NetworkImage(
+                story!.img.toString(),
+              ),
+              radius: 30,
+            ),
           ),
-          radius: 35,
         ),
       ),
       SizedBox(

@@ -31,3 +31,19 @@ List<HomeIcon> iconList = [
       iconUrl:
           'https://assets-in.bmscdn.com/discovery-catalog/collections/tr:w-800,h-800:w-300:q-80/icd-see-all-collection-202201201113.png'),
 ];
+
+class IconGenerator extends StatelessWidget {
+  HomeIcon? icon;
+  IconGenerator({this.icon});
+  @override
+  Widget build(BuildContext context) {
+    // TODO: implement build
+    return Container(
+      height: 70,
+      width: 70,
+      child: Image(
+        image: NetworkImage(icon!.iconUrl.toString()),
+      ),
+    );
+  }
+}

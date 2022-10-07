@@ -15,19 +15,22 @@ class TrendingTvShows extends StatelessWidget {
 
     return Container(
       child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-        Text(
-          titleText!,
-          style: TextStyle(
-            // fontFamily: 'RobotoCondensed',
-            fontWeight: FontWeight.w500,
-            fontSize: MediaQuery.of(context).size.height / 45,
+        Padding(
+          padding: EdgeInsets.only(left: w * 0.02),
+          child: Text(
+            titleText!,
+            style: TextStyle(
+              // fontFamily: 'RobotoCondensed',
+              fontWeight: FontWeight.w500,
+              fontSize: MediaQuery.of(context).size.height / 45,
+            ),
           ),
         ),
         SizedBox(
-          height: 10,
+          height: h * 0.015,
         ),
         Container(
-          height: h / 2.9,
+          height: h * 0.32,
           child: ListView.builder(
               itemCount: trendingShows?.length,
               scrollDirection: Axis.horizontal,
@@ -35,32 +38,52 @@ class TrendingTvShows extends StatelessWidget {
                 return InkWell(
                   onTap: () {},
                   child: Container(
-                      width: w / 2.8,
-                      margin: EdgeInsets.all(h / 300),
+                      //width: w / 2.8,
+                      margin: EdgeInsets.only(right: h * 0.01),
                       child: Column(
                         children: [
                           Container(
-                            height: h / 3.685,
-                            decoration: BoxDecoration(
-                              shape: BoxShape.rectangle,
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(10.0)),
-                              image: DecorationImage(
+                            height: h * 0.26,
+                            width: w * 0.33,
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(8),
+                              child: Image(
+                                fit: BoxFit.cover,
                                 image: NetworkImage(
                                     'https://image.tmdb.org/t/p/w500/' +
                                         trendingShows![index]['poster_path']),
                               ),
                             ),
                           ),
+
+                          // Container(
+                          //   height: h * 0.26,
+                          //   width: w * 0.33,
+                          //   decoration: BoxDecoration(
+                          //     shape: BoxShape.rectangle,
+                          //     borderRadius:
+                          //         BorderRadius.all(Radius.circular(10.0)),
+                          //     image: DecorationImage(
+                          //       image: NetworkImage(
+                          //           'https://image.tmdb.org/t/p/w500/' +
+                          //               trendingShows![index]['poster_path']),
+                          //     ),
+                          //   ),
+                          // ),
+                          SizedBox(
+                            height: h * 0.008,
+                          ),
                           Container(
+                              width: w * 0.32,
                               child: Text(
                                   trendingShows![index]['name'] != null
                                       ? trendingShows![index]['name']
                                       : "Loading",
                                   style: GoogleFonts.roboto(
-                                    fontWeight: FontWeight.w500,
+                                    fontWeight: FontWeight.w400,
                                     fontSize:
-                                        MediaQuery.of(context).size.height / 60,
+                                        MediaQuery.of(context).size.height *
+                                            0.015,
                                   ))),
                         ],
                       )),

@@ -1,17 +1,21 @@
-import 'package:bookmyshow/LocaleString.dart';
-import 'package:bookmyshow/loginpagevalidation/google_sign_in_cubit.dart';
+import 'package:flutter/material.dart';
 
 import 'package:bookmyshow/loginpagevalidation/home_page.dart';
 
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:flutter/material.dart';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get/get.dart';
 import 'package:overlay_support/overlay_support.dart';
 import 'package:provider/provider.dart';
+
+import 'package:bookmyshow/LocaleString.dart';
+import 'package:bookmyshow/loginpagevalidation/google_sign_in_cubit.dart';
+
+
 //Todo
 
 import 'dart:io';

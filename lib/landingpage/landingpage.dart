@@ -1,3 +1,4 @@
+import 'package:bookmyshow/landingpage/cardgeneration/gridview.dart';
 import 'package:bookmyshow/landingpage/cardgeneration/homeicon.dart';
 import 'package:bookmyshow/notifications/notification_page.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -66,7 +67,7 @@ class LandingPageState extends State<LandingPage> {
     w = MediaQuery.of(context).size.width * 0.25;
     //size = MediaQuery.of(context).size;
     List<String> items = ['English', 'Tamil', 'Hindi'];
-    String? selectedItem = 'English';
+    String? selectedItem;
     Map<String, List<String>> langList = {
       'English': ['en', 'US'],
       'Tamil': ['ta', 'US'],
@@ -141,6 +142,37 @@ class LandingPageState extends State<LandingPage> {
                     IconGenerator(icon: iconList[index]),
               ),
             ),
+            SizedBox(
+              height: 20,
+            ),
+            TrendingMovies(
+              titleText: 'recommended movies'.tr,
+              trendingMovies: trendingMovies,
+            ),
+            GridList(),
+            SizedBox(
+              height: 20,
+            ),
+            TrendingMovies(
+              titleText: 'top rated movies'.tr,
+              trendingMovies: topRatedMovies,
+            ),
+            TrendingTvShows(
+              titleText: 'tv shows'.tr,
+              trendingShows: tv,
+            ),
+            Container(
+              color: Colors.red[400],
+              padding: EdgeInsets.all(20),
+              child: Text(
+                'QR TEXT : ${qrCode}',
+                textAlign: TextAlign.center,
+              ),
+            ),
+            TextButton(
+              onPressed: () => throw Exception(),
+              child: const Text("Throw Test Exception"),
+            ),
             Container(
               decoration: BoxDecoration(
                   color: Color.fromARGB(255, 226, 217, 217),
@@ -197,33 +229,6 @@ class LandingPageState extends State<LandingPage> {
                 ],
               ),
             ),
-            SizedBox(
-              height: 20,
-            ),
-            TrendingMovies(
-              titleText: 'recommended movies'.tr,
-              trendingMovies: trendingMovies,
-            ),
-            TrendingMovies(
-              titleText: 'top rated movies'.tr,
-              trendingMovies: topRatedMovies,
-            ),
-            TrendingTvShows(
-              titleText: 'tv shows'.tr,
-              trendingShows: tv,
-            ),
-            Container(
-              color: Colors.red[400],
-              padding: EdgeInsets.all(20),
-              child: Text(
-                'QR TEXT : ${qrCode}',
-                textAlign: TextAlign.center,
-              ),
-            ),
-            TextButton(
-              onPressed: () => throw Exception(),
-              child: const Text("Throw Test Exception"),
-            ),
           ],
         ),
       ),
@@ -241,21 +246,5 @@ class LandingPageState extends State<LandingPage> {
     } on PlatformException {
       qrCode = 'Failed to Scan OR';
     }
-  }
-}
-
-class IconGenerator extends StatelessWidget {
-  HomeIcon? icon;
-  IconGenerator({this.icon});
-  @override
-  Widget build(BuildContext context) {
-    // TODO: implement build
-    return Container(
-      height: 70,
-      width: 70,
-      child: Image(
-        image: NetworkImage(icon!.iconUrl.toString()),
-      ),
-    );
   }
 }
