@@ -54,6 +54,8 @@ dependencies:
   firebase: ^9.0.3
   firebase_crashlytics: ^2.8.12
   pin_code_fields: ^7.4.0
+  carousel_slider: ^4.1.1
+  smooth_page_indicator: ^1.0.0+2
   
 dev_dependencies:
   flutter_test:
@@ -83,6 +85,7 @@ flutter:
     - assets/icons/
     - assets/images/
     - assets/lottie/
+    - assets/images/carousel/
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
 

@@ -27,10 +27,28 @@ class TrendingMovies extends StatelessWidget {
                   fontSize: MediaQuery.of(context).size.height / 45,
                 ),
               ),
-              InkWell(
-                  onTap: () => Navigator.of(context).push(
-                      MaterialPageRoute(builder: (context) => SeeAllPage())),
-                  child: Text("See All"))
+              Spacer(),
+              Padding(
+                padding: EdgeInsets.only(right: h * 0.01),
+                child: Row(children: [
+                  InkWell(
+                      onTap: () => Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) =>
+                              SeeAllPage(trendingList: trendingMovies))),
+                      child: Text(
+                        "See All",
+                        style: TextStyle(
+                          fontSize: h * 0.018,
+                          color: Color.fromARGB(255, 190, 25, 13),
+                        ),
+                      )),
+                  Icon(
+                    Icons.chevron_right_outlined,
+                    size: h * 0.02,
+                    color: Color.fromARGB(255, 190, 25, 13),
+                  )
+                ]),
+              )
             ],
           ),
         ),

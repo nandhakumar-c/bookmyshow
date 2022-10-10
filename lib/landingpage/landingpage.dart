@@ -1,3 +1,4 @@
+import 'package:bookmyshow/landingpage/cardgeneration/carouselbuilder.dart';
 import 'package:bookmyshow/landingpage/cardgeneration/gridview.dart';
 import 'package:bookmyshow/landingpage/cardgeneration/homeicon.dart';
 import 'package:bookmyshow/notifications/notification_page.dart';
@@ -75,7 +76,7 @@ class LandingPageState extends State<LandingPage> {
     };
     return Container(
       child: Scaffold(
-        backgroundColor: Colors.white,
+        backgroundColor: Color.fromARGB(255, 248, 245, 245),
         appBar: AppBar(
           actions: [
             IconButton(
@@ -142,6 +143,7 @@ class LandingPageState extends State<LandingPage> {
                     IconGenerator(icon: iconList[index]),
               ),
             ),
+            CarouselBuilder(),
             SizedBox(
               height: 20,
             ),
