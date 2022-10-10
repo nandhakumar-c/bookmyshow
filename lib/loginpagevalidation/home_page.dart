@@ -7,6 +7,8 @@ import 'package:flutter/material.dart';
 
 import '../bottomnavigation/bottomnavigator.dart';
 
+var num = 0;
+
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
   @override
@@ -20,10 +22,12 @@ class HomePage extends StatelessWidget {
                   child: CircularProgressIndicator(),
                 );
               } else if (snapshot.hasData) {
+                num = 1;
                 return BottomNavigation();
               } else if (snapshot.hasError)
                 return Center(child: Text("Oops ! Something went wrong"));
               else {
+                num = 0;
                 return MyApp();
               }
             }));

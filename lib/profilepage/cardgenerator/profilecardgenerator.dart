@@ -14,6 +14,7 @@ class _ProfileCardState extends State<ProfileCard> {
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
     return ListView(
+      physics: ScrollPhysics(),
       children: [
         SizedBox(
           height: 10,

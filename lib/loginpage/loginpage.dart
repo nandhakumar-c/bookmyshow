@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:bookmyshow/bottomnavigation/bottomnavigator.dart';
 import 'package:bookmyshow/loginpagevalidation/google_sign_in_cubit.dart';
 import 'package:bookmyshow/loginpage/frontscrollable.dart';
+import 'package:bookmyshow/loginpagevalidation/home_page.dart';
 import 'package:bookmyshow/loginpagevalidation/mobilelogin.dart';
 
 import 'package:bookmyshow/profilepage/profilepage.dart';
@@ -61,6 +62,9 @@ class UserInterfaceState extends State<UserInterface> {
               children: [
                 TextButton(
                     onPressed: () {
+                      setState(() {
+                        num = 0;
+                      });
                       Navigator.of(context).push(MaterialPageRoute(
                           builder: (context) => BottomNavigation()));
                     },

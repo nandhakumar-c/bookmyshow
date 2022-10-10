@@ -1,4 +1,5 @@
 import 'package:bookmyshow/landingpage/pagebuilder/description.dart';
+import 'package:bookmyshow/landingpage/pagebuilder/seeallpage.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -16,13 +17,21 @@ class TrendingMovies extends StatelessWidget {
       child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
         Padding(
           padding: EdgeInsets.only(left: w * 0.02),
-          child: Text(
-            titleText!,
-            style: TextStyle(
-              // fontFamily: 'RobotoCondensed',
-              fontWeight: FontWeight.w500,
-              fontSize: MediaQuery.of(context).size.height / 45,
-            ),
+          child: Row(
+            children: [
+              Text(
+                titleText!,
+                style: TextStyle(
+                  // fontFamily: 'RobotoCondensed',
+                  fontWeight: FontWeight.w500,
+                  fontSize: MediaQuery.of(context).size.height / 45,
+                ),
+              ),
+              InkWell(
+                  onTap: () => Navigator.of(context).push(
+                      MaterialPageRoute(builder: (context) => SeeAllPage())),
+                  child: Text("See All"))
+            ],
           ),
         ),
         SizedBox(

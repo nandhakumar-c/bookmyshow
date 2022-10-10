@@ -30,7 +30,7 @@ class TrendingTvShows extends StatelessWidget {
           height: h * 0.015,
         ),
         Container(
-          height: h * 0.32,
+          height: h * 0.33,
           child: ListView.builder(
               itemCount: trendingShows?.length,
               scrollDirection: Axis.horizontal,
