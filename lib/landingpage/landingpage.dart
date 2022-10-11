@@ -1,6 +1,7 @@
 import 'package:bookmyshow/landingpage/cardgeneration/carouselbuilder.dart';
 import 'package:bookmyshow/landingpage/cardgeneration/gridview.dart';
 import 'package:bookmyshow/landingpage/cardgeneration/homeicon.dart';
+import 'package:bookmyshow/landingpage/pagebuilder/seeallpage.dart';
 import 'package:bookmyshow/notifications/notification_page.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/services.dart';
@@ -25,7 +26,7 @@ double? h, w, size;
 
 class LandingPageState extends State<LandingPage> {
   String? qrCode = 'Unknown';
-  List? trendingMovies = [];
+  static List? trendingMovies = [];
   List? tv = [];
   List? topRatedMovies = [];
   final String apikey = '4d787d53b25af3a115347b6db2063faa';
@@ -74,6 +75,7 @@ class LandingPageState extends State<LandingPage> {
       'Tamil': ['ta', 'US'],
       'Hindi': ['hi', 'IN']
     };
+    IconGenerator();
     return Container(
       child: Scaffold(
         backgroundColor: Color.fromARGB(255, 248, 245, 245),
@@ -134,15 +136,7 @@ class LandingPageState extends State<LandingPage> {
         body: ListView(
           padding: EdgeInsets.all(h! / 25),
           children: [
-            Container(
-              height: 70,
-              child: ListView.builder(
-                itemCount: iconList.length,
-                scrollDirection: Axis.horizontal,
-                itemBuilder: (context, index) =>
-                    IconGenerator(icon: iconList[index]),
-              ),
-            ),
+            Container(height: 70, child: IconGenerator()),
             CarouselBuilder(),
             SizedBox(
               height: 20,

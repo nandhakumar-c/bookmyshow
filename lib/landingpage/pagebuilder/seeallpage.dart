@@ -1,25 +1,24 @@
 import 'package:flutter/material.dart';
+
 import 'package:google_fonts/google_fonts.dart';
 
 class SeeAllPage extends StatefulWidget {
-  List<dynamic>? trendingList;
+  List? trendingList;
   SeeAllPage({this.trendingList});
 
   @override
-  State<SeeAllPage> createState() => _SeeAllPageState();
+  State<SeeAllPage> createState() =>
+      _SeeAllPageState(trendingList: trendingList);
 }
 
 class _SeeAllPageState extends State<SeeAllPage> {
+  List? trendingList;
+  _SeeAllPageState({this.trendingList});
   @override
   Widget build(BuildContext context) {
     double h = MediaQuery.of(context).size.height;
     double w = MediaQuery.of(context).size.width;
-    int index = 0;
-    void stateSet() {
-      setState(() {
-        index = index + 1;
-      });
-    }
+    //int index = 0;
 
     return Scaffold(
       appBar: AppBar(
@@ -28,28 +27,43 @@ class _SeeAllPageState extends State<SeeAllPage> {
             "Now Showing",
             style: TextStyle(color: Colors.white),
           )),
-      body: GridView.count(crossAxisCount: 2, children: [
-        ...widget.trendingList!.map(
-          (singleList) {
-            stateSet();
-            return CardBuilder(h, w, singleList, index);
-          },
-        ).toList()
-      ]),
+      body: ListView(
+        children: [
+          Container(
+            padding: EdgeInsets.only(
+              left: w * 0.02,
+              right: w * 0.02,
+              top: w * 0.04,
+            ),
+            child: GridView.builder(
+              shrinkWrap: true,
+              physics: ScrollPhysics(),
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,
+                mainAxisSpacing: h * 0.035,
+                //crossAxisSpacing: w * 0.01,
+                mainAxisExtent: h * 0.41,
+              ),
+              itemCount: trendingList?.length,
+              itemBuilder: (context, index) {
+                return CardBuilder(h, w, trendingList!, index);
+              },
+            ),
+          ),
+        ],
+      ),
     );
   }
 
   CardBuilder(double h, double w, List trendingList, int index) {
     return Container(
-      //width: w / 2.8,
-      margin: EdgeInsets.only(right: h * 0.01),
       child: Column(
         children: [
           Container(
-              height: h * 0.26,
-              width: w * 0.33,
+              height: h * 0.35,
+              width: w * 0.43,
               child: ClipRRect(
-                borderRadius: BorderRadius.circular(8),
+                borderRadius: BorderRadius.circular(7),
                 child: Image(
                     fit: BoxFit.cover,
                     image: NetworkImage('https://image.tmdb.org/t/p/w500/' +
@@ -57,16 +71,22 @@ class _SeeAllPageState extends State<SeeAllPage> {
               )),
           SizedBox(
             height: h * 0.008,
+            // width: w * 0.32,
           ),
           Container(
-              width: w * 0.32,
+              //height: h * 0.10,
+              width: w * 0.43,
               child: Text(
-                  trendingList![index]['title'] != null
-                      ? trendingList![index]['title']
+                  trendingList[index]['title'] != null
+                      ? trendingList[index]['title']
                       : "Loading",
                   style: GoogleFonts.roboto(
-                    fontWeight: FontWeight.w400,
-                    fontSize: MediaQuery.of(context).size.height * 0.015,
+                    fontWeight: FontWeight.w600,
+                    fontSize: trendingList[index]['title'] != null
+                        ? trendingList[index]['title'].toString().length <= 24
+                            ? MediaQuery.of(context).size.height * 0.018
+                            : MediaQuery.of(context).size.height * 0.013
+                        : MediaQuery.of(context).size.height * 0.018,
                   ))),
         ],
       ),

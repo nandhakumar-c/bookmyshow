@@ -85,17 +85,17 @@ class TrendingMovies extends StatelessWidget {
                     child: Column(
                       children: [
                         Container(
-                            height: h * 0.26,
-                            width: w * 0.33,
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(8),
-                              child: Image(
-                                  fit: BoxFit.cover,
-                                  image: NetworkImage(
-                                      'https://image.tmdb.org/t/p/w500/' +
-                                          trendingMovies![index]
-                                              ['poster_path'])),
-                            )),
+                          height: h * 0.26,
+                          width: w * 0.33,
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(8),
+                            child: Image(
+                                fit: BoxFit.cover,
+                                image: NetworkImage(
+                                    'https://image.tmdb.org/t/p/w500/' +
+                                        trendingMovies![index]['poster_path'])),
+                          ),
+                        ),
 
                         // Container(
                         //   height: h / 3.685,
@@ -114,16 +114,18 @@ class TrendingMovies extends StatelessWidget {
                           height: h * 0.008,
                         ),
                         Container(
-                            width: w * 0.32,
-                            child: Text(
-                                trendingMovies![index]['title'] != null
-                                    ? trendingMovies![index]['title']
-                                    : "Loading",
-                                style: GoogleFonts.roboto(
-                                  fontWeight: FontWeight.w400,
-                                  fontSize: MediaQuery.of(context).size.height *
-                                      0.015,
-                                ))),
+                          width: w * 0.32,
+                          child: Text(
+                            trendingMovies![index]['title'] != null
+                                ? trendingMovies![index]['title']
+                                : "Loading",
+                            style: GoogleFonts.roboto(
+                              fontWeight: FontWeight.w400,
+                              fontSize:
+                                  MediaQuery.of(context).size.height * 0.015,
+                            ),
+                          ),
+                        ),
                       ],
                     ),
                   ),
