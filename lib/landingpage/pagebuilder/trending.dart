@@ -1,4 +1,4 @@
-import 'package:bookmyshow/landingpage/pagebuilder/description.dart';
+import 'package:bookmyshow/landingpage/pagebuilder/descriptionpage/description.dart';
 import 'package:bookmyshow/landingpage/pagebuilder/seeallpage.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -75,6 +75,8 @@ class TrendingMovies extends StatelessWidget {
                           posterurl: 'https://image.tmdb.org/t/p/w500/' +
                               trendingMovies![index]['poster_path'],
                           launchon: trendingMovies![index]['release_date'],
+                          movieImgUrl: 'https://image.tmdb.org/t/p/w500/' +
+                              trendingMovies![index]['poster_path'],
                         ),
                       ),
                     );
