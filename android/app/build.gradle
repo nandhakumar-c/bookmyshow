@@ -51,7 +51,7 @@ android {
         // You can update the following values to match your application needs.
         // For more information, see: https://docs.flutter.dev/deployment/android#reviewing-the-build-configuration.
        
-       minSdkVersion 19
+       minSdkVersion 21
        targetSdkVersion 33
        // minSdkVersion flutter.minSdkVersion 
        // targetSdkVersion flutter.targetSdkVersion
@@ -59,6 +59,7 @@ android {
         versionName flutterVersionName
         multiDexEnabled true
     }
+    
 
     buildTypes {
         release {
@@ -67,7 +68,32 @@ android {
             signingConfig signingConfigs.debug
         }
     }
+
+    flavorDimensions "app"
+
+    productFlavors{
+        dev{
+            dimension "app"
+            applicationId "com.example.bookmyshow.dev"
+            versionCode 1
+            versionName "1.0"
+        }
+        qa{
+            dimension "app"
+            applicationId "com.example.bookmyshow.qa"
+            versionCode 1
+            versionName "1.0"
+        }
+        prod{
+            dimension "app"
+            applicationId "com.example.bookmyshow"
+            versionCode 1
+            versionName "1.0"
+        }
+    }
 }
+
+
 
 flutter {
     source '../..'
