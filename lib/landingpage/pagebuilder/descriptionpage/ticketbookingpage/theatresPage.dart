@@ -1,22 +1,6 @@
 import 'package:bookmyshow/landingpage/pagebuilder/descriptionpage/ticketbookingpage/theatrePageBuilder/theatreList.dart';
 import 'package:flutter/material.dart';
-
-class Dates {
-  String? day;
-  String? date;
-  String? month;
-  Dates({this.date, this.day, this.month});
-}
-
-List<Dates> datesAndDayList = [
-  Dates(day: "MON", date: "17", month: "OCT"),
-  Dates(day: "TUE", date: "18", month: "OCT"),
-  Dates(day: "WED", date: "19", month: "OCT"),
-  Dates(day: "THU", date: "20", month: "OCT"),
-  Dates(day: "FRI", date: "21", month: "OCT"),
-  Dates(day: "SAT", date: "22", month: "OCT"),
-  Dates(day: "SUN", date: "23", month: "OCT"),
-];
+import 'package:intl/intl.dart';
 
 class TheatresPage extends StatefulWidget {
   String? movieName;
@@ -27,6 +11,17 @@ class TheatresPage extends StatefulWidget {
 }
 
 class _TheatresPageState extends State<TheatresPage> {
+  List<Map<String, Object>> get dateAndMonthList {
+    return List.generate(7, (index) {
+      final weekDay = DateTime.now().add(Duration(days: index));
+      return ({
+        'date': DateFormat.d().format(weekDay),
+        'month': DateFormat('MMM').format(weekDay),
+        'day': DateFormat.E().format(weekDay).substring(0, 3)
+      });
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     double h = MediaQuery.of(context).size.height;
@@ -56,9 +51,9 @@ class _TheatresPageState extends State<TheatresPage> {
           height: h * 0.10,
           child: Row(
             children: [
-              ...datesAndDayList
+              ...dateAndMonthList
                   .map(
-                    (e) => dateAndTimeCardGenerator(e, h, w),
+                    (data) => dateAndTimeCardGenerator(data, h, w),
                   )
                   .toList(),
             ],
@@ -102,7 +97,7 @@ class _TheatresPageState extends State<TheatresPage> {
     );
   }
 
-  dateAndTimeCardGenerator(Dates e, double h, double w) {
+  dateAndTimeCardGenerator(Map<String, Object> e, double h, double w) {
     return InkWell(
       onTap: () {
         Navigator.of(context).pushReplacement(MaterialPageRoute(
@@ -118,12 +113,12 @@ class _TheatresPageState extends State<TheatresPage> {
           child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(e.day.toString()),
+                Text("${e['day'].toString().toUpperCase()}"),
                 Text(
-                  e.date.toString(),
+                  e['date'].toString(),
                   style: TextStyle(fontWeight: FontWeight.bold),
                 ),
-                Text(e.month.toString())
+                Text(e['month'].toString().toUpperCase())
               ]),
         ),
       ),
