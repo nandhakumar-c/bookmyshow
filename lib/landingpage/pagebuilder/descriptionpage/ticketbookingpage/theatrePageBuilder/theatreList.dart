@@ -1,4 +1,8 @@
+import 'package:bookmyshow/bottomnavigation/bottomnavigator.dart';
+import 'package:bookmyshow/landingpage/pagebuilder/descriptionpage/ticketbookingpage/seatingpage/seatingpage.dart';
 import 'package:flutter/material.dart';
+
+import '../theatresPage.dart';
 
 class TheatreList {
   String? theatreName;
@@ -32,7 +36,8 @@ List<TheatreList> theatreLists = [
 ];
 
 class TheatreLists extends StatefulWidget {
-  const TheatreLists({Key? key}) : super(key: key);
+  String? movieName;
+  TheatreLists({this.movieName});
 
   @override
   State<TheatreLists> createState() => _TheatreListState();
@@ -50,14 +55,14 @@ class _TheatreListState extends State<TheatreLists> {
         itemCount: theatreLists.length,
         itemBuilder: (context, index) {
           return theatreCardGenerator(
-              theatreLists[index], timeList[index], h, w);
+              theatreLists[index], timeList[index], h, w, context);
         },
       ),
     );
   }
 
-  Widget theatreCardGenerator(
-      TheatreList theatreList, List timeList, double h, double w) {
+  Widget theatreCardGenerator(TheatreList theatreList, List timeList, double h,
+      double w, BuildContext context) {
     return Container(
       color: Colors.white,
       padding: EdgeInsets.all(w * 0.03),
@@ -142,7 +147,96 @@ class _TheatreListState extends State<TheatreLists> {
               ...timeList
                   .map(
                     (e) => OutlinedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        showModalBottomSheet(
+                          isScrollControlled: true,
+                          isDismissible: true,
+                          backgroundColor: Colors.transparent,
+                          context: context,
+                          builder: (context) {
+                            return DraggableScrollableSheet(
+                              initialChildSize: 0.5,
+                              minChildSize: 0.4,
+                              maxChildSize: 0.9,
+                              builder: (context, scrollController) => Container(
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.vertical(
+                                      top: Radius.circular(w * 0.035)),
+                                ),
+                                child: ListView(
+                                  controller: scrollController,
+                                  children: [
+                                    Container(
+                                      decoration: BoxDecoration(
+                                          color: Colors.grey,
+                                          borderRadius: BorderRadius.vertical(
+                                              top: Radius.circular(w * 0.035))),
+                                      alignment: Alignment.center,
+                                      //  color: Colors.grey,
+                                      height: h * 0.02,
+                                      width: w * 0.01,
+                                    ),
+                                    Container(
+                                      width: double.infinity,
+                                      padding: EdgeInsets.all(w * 0.035),
+                                      child: Text(
+                                        "Terms & Conditions",
+                                        textAlign: TextAlign.left,
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: w * 0.05),
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      height: h * 0.01,
+                                    ),
+                                    Container(
+                                      height: h * 0.50,
+                                      padding: EdgeInsets.all(w * 0.025),
+                                      width: double.infinity,
+                                      child: ListView(
+                                          controller: scrollController,
+                                          children: const [
+                                            Text(
+                                                "Kindly check your showtimes while booking as there are mid-night shows available as well.\nTicket price inclusive of 3D glass charges.\n1.As per the State Government Guidelines, In order to enter the cinema, It is mandatory to have Covid 19 Vaccine (One dose at least), for patrons above 18 years old. Vaccination certificate will be verified at the cinema entry, no entry will be permitted for non-vaccinated patrons and tickets will not be refunded\n2.Tickets once purchased cannot be cancelled, exchanged or refunded.\n3.Tickets purchased online are not eligible for discounts, schemes or promotions of any kind.\n4.To collect tickets from the Box Office, it is mandatory for the cardholder to be present in person with the card used for the transaction, along with the booking confirmation (SMS/computer printout) to help minimize the risk of fraud.\n5.Online bookings on our site are carried out over a secure payment gateway.\n6.Tickets purchased online for a particular multiplex are valid for that multiplex only.\n7.Children below the age of 18 cannot be admitted for movies certified `A`.\n8.Please carry proof of age for movies certified 'A'\n9.Please purchase tickets for children 3 years and above.\n10.To counter unforeseen delays, please collect your tickets half an hour before show time.\n11.Outside food and beverages are not allowed inside the cinema premises.\n12.A convenience fee per ticket is levied on all tickets booked online.\n13.Ticket holders are required to abide by the policies laid down by the AGS Cinemas management.\n14.Smoking is strictly prohibited inside the theatre premises.\n15.People under the influence of Alcohol/Drugs will not be allowed inside the cinema premises."),
+                                          ]),
+                                    ),
+                                    Container(
+                                      height: h * 0.0725,
+                                      padding: EdgeInsets.all(w * 0.02),
+                                      child: ElevatedButton(
+                                        onPressed: () {
+                                          Navigator.of(context)
+                                              .push(MaterialPageRoute(
+                                            builder: (context) => SeatingPage(
+                                              movieName: widget.movieName,
+                                              theatreName:
+                                                  theatreList.toString(),
+                                            ),
+                                          ));
+                                        },
+                                        style: ElevatedButton.styleFrom(
+                                          primary: const Color.fromARGB(
+                                              255, 231, 48, 72),
+                                          minimumSize:
+                                              const Size.fromHeight(50),
+                                        ),
+                                        child: Text(
+                                          "Okay",
+                                          style: TextStyle(
+                                              fontSize: w * 0.04,
+                                              fontWeight: FontWeight.w600),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            );
+                          },
+                        );
+                      },
                       child: Text(
                         e,
                         style: TextStyle(

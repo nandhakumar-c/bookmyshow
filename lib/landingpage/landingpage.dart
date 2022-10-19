@@ -80,6 +80,8 @@ class LandingPageState extends State<LandingPage> {
       child: Scaffold(
         backgroundColor: Color.fromARGB(255, 248, 245, 245),
         appBar: AppBar(
+          backgroundColor: Color.fromARGB(255, 10, 21, 46),
+          automaticallyImplyLeading: false,
           actions: [
             IconButton(
                 onPressed: () {},
@@ -102,10 +104,6 @@ class LandingPageState extends State<LandingPage> {
               iconSize: 27,
             ),
           ],
-          leading: IconButton(
-              icon: Icon(Icons.chevron_left),
-              onPressed: () => Navigator.of(context).pop()),
-          backgroundColor: Color.fromARGB(255, 10, 21, 46),
           title: Container(
               child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
@@ -136,6 +134,7 @@ class LandingPageState extends State<LandingPage> {
         body: ListView(
           padding: EdgeInsets.all(h! / 25),
           children: [
+            //Text("CodingMart"),
             Container(height: 70, child: IconGenerator()),
             CarouselBuilder(),
             SizedBox(
