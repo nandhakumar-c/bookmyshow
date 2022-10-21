@@ -7,7 +7,7 @@ class TrendingMovies extends StatelessWidget {
   List? trendingMovies;
   String? titleText;
   TrendingMovies({Key? key, this.trendingMovies, this.titleText})
-      : super(key: key);
+      : super(key: key) {}
   @override
   Widget build(BuildContext context) {
     double h = (MediaQuery.of(context).size.height);
@@ -27,7 +27,7 @@ class TrendingMovies extends StatelessWidget {
                   fontSize: MediaQuery.of(context).size.height / 45,
                 ),
               ),
-              Spacer(),
+              const Spacer(),
               Padding(
                 padding: EdgeInsets.only(right: h * 0.01),
                 child: Row(children: [
@@ -61,77 +61,82 @@ class TrendingMovies extends StatelessWidget {
               itemCount: trendingMovies?.length,
               scrollDirection: Axis.horizontal,
               itemBuilder: (context, index) {
-                return InkWell(
-                  onTap: () {
-                    Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (context) => Description(
-                          name: trendingMovies![index]['title'],
-                          description: trendingMovies![index]['overview'],
-                          vote:
-                              trendingMovies![index]['vote_average'].toString(),
-                          bannerurl: 'https://image.tmdb.org/t/p/w500/' +
-                              trendingMovies![index]['backdrop_path'],
-                          posterurl: 'https://image.tmdb.org/t/p/w500/' +
-                              trendingMovies![index]['poster_path'],
-                          launchon: trendingMovies![index]['release_date'],
-                          movieImgUrl: 'https://image.tmdb.org/t/p/w500/' +
-                              trendingMovies![index]['poster_path'],
-                        ),
-                      ),
-                    );
-                  },
-                  child: Container(
-                    //width: w / 2.8,
-                    margin: EdgeInsets.only(right: h * 0.01),
-                    child: Column(
-                      children: [
-                        Container(
-                          height: h * 0.26,
-                          width: w * 0.33,
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(8),
-                            child: Image(
-                                fit: BoxFit.cover,
-                                image: NetworkImage(
-                                    'https://image.tmdb.org/t/p/w500/' +
-                                        trendingMovies![index]['poster_path'])),
-                          ),
-                        ),
-
-                        // Container(
-                        //   height: h / 3.685,
-                        //   decoration: BoxDecoration(
-                        //     shape: BoxShape.rectangle,
-                        //     borderRadius:
-                        //         BorderRadius.all(Radius.circular(10.0)),
-                        //     image: DecorationImage(
-                        //       image: NetworkImage(
-                        //           'https://image.tmdb.org/t/p/w500/' +
-                        //               trendingMovies![index]['poster_path']),
-                        //     ),
-                        //   ),
-                        // ),
-                        SizedBox(
-                          height: h * 0.008,
-                        ),
-                        Container(
-                          width: w * 0.32,
-                          child: Text(
-                            trendingMovies![index]['title'] != null
-                                ? trendingMovies![index]['title']
-                                : "Loading",
-                            style: GoogleFonts.roboto(
-                              fontWeight: FontWeight.w400,
-                              fontSize:
-                                  MediaQuery.of(context).size.height * 0.015,
+                return trendingMovies![index]['poster_path'] == null
+                    ? Container()
+                    : InkWell(
+                        onTap: () {
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (context) => Description(
+                                name: trendingMovies![index]['title'],
+                                description: trendingMovies![index]['overview'],
+                                vote: trendingMovies![index]['vote_average']
+                                    .toString(),
+                                bannerurl:
+                                    'https://image.tmdb.org/t/p/w500/${trendingMovies![index]['backdrop_path']}',
+                                posterurl:
+                                    'https://image.tmdb.org/t/p/w500/${trendingMovies![index]['poster_path']}',
+                                launchon: trendingMovies![index]
+                                    ['release_date'],
+                                movieImgUrl:
+                                    'https://image.tmdb.org/t/p/w500/${trendingMovies![index]['poster_path']}',
+                              ),
                             ),
+                          );
+                        },
+                        child: Container(
+                          //width: w / 2.8,
+                          margin: EdgeInsets.only(right: h * 0.01),
+                          child: Column(
+                            children: [
+                              Container(
+                                height: h * 0.26,
+                                width: w * 0.33,
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(8),
+                                  child: Image(
+                                      fit: BoxFit.cover,
+                                      image: NetworkImage(
+                                          'https://image.tmdb.org/t/p/w500/' +
+                                              trendingMovies![index]
+                                                  ['poster_path'])),
+                                ),
+                              ),
+
+                              // Container(
+                              //   height: h / 3.685,
+                              //   decoration: BoxDecoration(
+                              //     shape: BoxShape.rectangle,
+                              //     borderRadius:
+                              //         BorderRadius.all(Radius.circular(10.0)),
+                              //     image: DecorationImage(
+                              //       image: NetworkImage(
+                              //           'https://image.tmdb.org/t/p/w500/' +
+                              //               trendingMovies![index]['poster_path']),
+                              //     ),
+                              //   ),
+                              // ),
+                              SizedBox(
+                                height: h * 0.008,
+                              ),
+                              Container(
+                                width: w * 0.32,
+                                child: Text(
+                                  trendingMovies![index]['title'] != null
+                                      ? trendingMovies![index]['title']
+                                      : "Loading",
+                                  style: GoogleFonts.roboto(
+                                    fontWeight: FontWeight.w400,
+                                    fontSize:
+                                        MediaQuery.of(context).size.height *
+                                            0.015,
+                                  ),
+                                ),
+                              ),
+                            ],
                           ),
                         ),
-                      ],
-                    ),
-                  ),
-                );
+                      );
               }),
         )
       ]),

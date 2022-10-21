@@ -15,7 +15,6 @@ import 'package:provider/provider.dart';
 import 'package:bookmyshow/LocaleString.dart';
 import 'package:bookmyshow/loginpagevalidation/google_sign_in_cubit.dart';
 
-
 //Todo
 
 import 'dart:io';
@@ -79,9 +78,9 @@ class BookMyShowState extends State<BookMyShow> {
         create: (context) => GoogleSignInCubit(),
         child: GetMaterialApp(
           translations: LocaleString(),
-          locale: Locale('en', 'US'),
+          locale: const Locale('en', 'US'),
           debugShowCheckedModeBanner: false,
-          home: SplashScreen(),
+          home: const SplashScreen(),
           //supportedLocales: L10n.all,
         ),
       );

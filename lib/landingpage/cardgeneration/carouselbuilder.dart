@@ -43,7 +43,7 @@ class _CarouselBuilderState extends State<CarouselBuilder> {
                 viewportFraction: 1,
                 //height: h * 0.24,
                 autoPlay: true,
-                autoPlayInterval: Duration(seconds: 2),
+                autoPlayInterval: const Duration(seconds: 2),
                 onPageChanged: (index, reason) => state(index),
               ),
               itemCount: imgUrl.length,
@@ -53,7 +53,7 @@ class _CarouselBuilderState extends State<CarouselBuilder> {
               },
             ),
             Container(
-                padding: EdgeInsets.only(bottom: 10),
+                padding: const EdgeInsets.only(bottom: 10),
                 alignment: Alignment.bottomCenter,
                 child: buildIndicator(h, w)),
           ],

@@ -15,33 +15,34 @@ class _ProfilePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          backgroundColor: Color.fromARGB(255, 10, 21, 46),
-          title: Column(
-            children: [
-              Text(
-                "Hey!",
-                style: TextStyle(color: Colors.white),
-              )
-            ],
-          ),
+      appBar: AppBar(
+        backgroundColor: Color.fromARGB(255, 10, 21, 46),
+        title: Column(
+          children: [
+            Text(
+              "Hey!",
+              style: TextStyle(color: Colors.white),
+            )
+          ],
         ),
-        backgroundColor: Colors.grey[300],
-        body: StreamBuilder(
-            stream: FirebaseAuth.instance.authStateChanges(),
-            builder: (context, snapshot) {
-              if (snapshot.connectionState == ConnectionState.waiting) {
-                return Center(
-                  child: CircularProgressIndicator(),
-                );
-              } else if (snapshot.hasData) {
-                return signedInScreen(context);
-              } else if (snapshot.hasError)
-                return Center(child: Text("Oops ! Something went wrong"));
-              else {
-                return ProfileCard();
-              }
-            }));
+      ),
+      backgroundColor: Colors.grey[300],
+      body: StreamBuilder(
+          stream: FirebaseAuth.instance.authStateChanges(),
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return const Center(
+                child: CircularProgressIndicator(),
+              );
+            } else if (snapshot.hasData) {
+              return signedInScreen(context);
+            } else if (snapshot.hasError) {
+              return const Center(child: Text("Oops ! Something went wrong"));
+            } else {
+              return const ProfileCard();
+            }
+          }),
+    );
   }
 
   ListView signedInScreen(BuildContext context) {
@@ -71,23 +72,23 @@ class _ProfilePageState extends State<ProfilePage> {
             ],
           ),
         ),
-        SizedBox(
+        const SizedBox(
           height: 10,
         ),
         ListView.builder(
             shrinkWrap: true,
-            physics: ScrollPhysics(),
+            physics: const ScrollPhysics(),
             scrollDirection: Axis.vertical,
             itemCount: card2.length,
             itemBuilder: (BuildContext context, int index) {
               return CardGenerator(card2[index]);
             }),
-        SizedBox(
+        const SizedBox(
           height: 10,
         ),
         ListView.builder(
             shrinkWrap: true,
-            physics: ScrollPhysics(),
+            physics: const ScrollPhysics(),
             scrollDirection: Axis.vertical,
             itemCount: cards.length,
             itemBuilder: (BuildContext context, int index) {

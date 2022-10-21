@@ -24,11 +24,13 @@ class AlwaysDisabledFocusNode extends FocusNode {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(body: UserInterface());
+    return Scaffold(backgroundColor: Colors.white, body: UserInterface());
   }
 }
 
 class UserInterface extends StatefulWidget {
+  const UserInterface({Key? key}) : super(key: key);
+
   @override
   State<StatefulWidget> createState() {
     return UserInterfaceState();
@@ -66,7 +68,7 @@ class UserInterfaceState extends State<UserInterface> {
                         num = 0;
                       });
                       Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => BottomNavigation()));
+                          builder: (context) => const BottomNavigation()));
                     },
                     child: const Text(
                       "SKIP",
@@ -79,17 +81,17 @@ class UserInterfaceState extends State<UserInterface> {
             ),
             Container(
               child: Container(
-                height: 175,
+                height: height * 0.2,
                 child: const FrontScrollables(),
               ),
             ),
-            const SizedBox(
-              height: 10,
+            SizedBox(
+              height: height * 0.05,
             ),
             Container(
               child: OutlinedButton(
                 style: OutlinedButton.styleFrom(
-                  side: BorderSide(width: 1, color: Colors.grey),
+                  side: const BorderSide(width: 1, color: Colors.grey),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(width / 70),
                     side: const BorderSide(
@@ -123,7 +125,7 @@ class UserInterfaceState extends State<UserInterface> {
               ),
             ),
             SizedBox(
-              height: height / 75,
+              height: height * 0.025,
             ),
             const Text(
               "OR",
@@ -141,7 +143,7 @@ class UserInterfaceState extends State<UserInterface> {
                 readOnly: true,
                 onTap: () => Navigator.of(context).push(
                     MaterialPageRoute(builder: (context) => MobileLogin())),
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   label: Text(
                     'Continue with phone number',
                     style: TextStyle(),
@@ -168,7 +170,7 @@ class UserInterfaceState extends State<UserInterface> {
             ),
             Center(
               widthFactor: width / 220,
-              child: Text(
+              child: const Text(
                 "Continue with Email",
                 style: TextStyle(
                     fontSize: 17, color: Color.fromARGB(255, 129, 129, 129)),
@@ -182,8 +184,8 @@ class UserInterfaceState extends State<UserInterface> {
   }
 
   void pageNavigator(BuildContext context, var googleAccount) {
-    Navigator.of(context)
-        .push(MaterialPageRoute(builder: (context) => BottomNavigation()));
+    Navigator.of(context).push(
+        MaterialPageRoute(builder: (context) => const BottomNavigation()));
   }
 
   Container buildLoginButton(double height, double width) {
@@ -197,8 +199,8 @@ class UserInterfaceState extends State<UserInterface> {
               image: AssetImage("assets/icons/Google.png"),
               height: height / 35,
             ),
-            Padding(
-              padding: const EdgeInsets.only(left: 65),
+            const Padding(
+              padding: EdgeInsets.only(left: 65),
               child: Text(
                 "Continue with Google",
                 style: TextStyle(

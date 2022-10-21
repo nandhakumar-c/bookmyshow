@@ -14,7 +14,7 @@ class Description extends StatefulWidget {
       launchon,
       movieImgUrl;
 
-  Description(
+  const Description(
       {super.key,
       required this.name,
       required this.description,
@@ -38,7 +38,7 @@ class _DescriptionState extends State<Description> {
         elevation: 0,
         backgroundColor: Colors.white,
         leading: IconButton(
-            icon: Icon(Icons.chevron_left, color: Colors.black87),
+            icon: const Icon(Icons.chevron_left, color: Colors.black87),
             onPressed: () => Navigator.of(context).pop()),
         title: Text(
           widget.name,
@@ -52,7 +52,7 @@ class _DescriptionState extends State<Description> {
                 await Share.share(
                     'https://www.youtube.com/watch?v=CNUBhb_cM6E');
               },
-              child: Icon(
+              child: const Icon(
                 Icons.share_outlined,
                 color: Colors.black,
               ),
@@ -101,7 +101,7 @@ class _DescriptionState extends State<Description> {
           ),
           Row(
             children: [
-              Icon(
+              const Icon(
                 Icons.favorite_rounded,
                 color: Colors.redAccent,
               ),
@@ -109,8 +109,8 @@ class _DescriptionState extends State<Description> {
                 width: w * 0.02,
               ),
               Text(
-                "IMDb " + widget.vote,
-                style: TextStyle(fontWeight: FontWeight.w600),
+                "IMDb ${widget.vote}",
+                style: const TextStyle(fontWeight: FontWeight.w600),
               ),
             ],
           ),
@@ -135,7 +135,7 @@ class _DescriptionState extends State<Description> {
                           style: TextStyle(
                               fontWeight: FontWeight.bold, fontSize: w * 0.038),
                         ),
-                        Spacer(),
+                        const Spacer(),
                         Text(
                           'Your ratings matter',
                           style:
@@ -144,7 +144,7 @@ class _DescriptionState extends State<Description> {
                       ],
                     ),
                   ),
-                  Spacer(),
+                  const Spacer(),
                   Container(
                     height: h * 0.04,
                     width: w * 0.21,
@@ -159,7 +159,7 @@ class _DescriptionState extends State<Description> {
                           // primary: Colors.red[800],
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(10)),
-                          side: BorderSide(
+                          side: const BorderSide(
                             color: Colors.red,
                             width: 2,
                           )),
@@ -187,7 +187,7 @@ class _DescriptionState extends State<Description> {
               ));
             },
             style: ElevatedButton.styleFrom(
-                primary: Color.fromARGB(255, 231, 48, 72)),
+                primary: const Color.fromARGB(255, 231, 48, 72)),
             child: Text(
               "Book tickets",
               style: TextStyle(fontSize: w * 0.04, fontWeight: FontWeight.w600),

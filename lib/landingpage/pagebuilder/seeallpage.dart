@@ -3,11 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class SeeAllPage extends StatefulWidget {
-  List? trendingList;
-  SeeAllPage({this.trendingList});
+  final List? trendingList;
+  // ignore: use_key_in_widget_constructors
+  const SeeAllPage({this.trendingList});
 
   @override
   State<SeeAllPage> createState() =>
+      // ignore: no_logic_in_create_state
       _SeeAllPageState(trendingList: trendingList);
 }
 
@@ -23,7 +25,7 @@ class _SeeAllPageState extends State<SeeAllPage> {
     return Scaffold(
       appBar: AppBar(
           backgroundColor: Color.fromARGB(255, 10, 21, 46),
-          title: Text(
+          title: const Text(
             "Now Showing",
             style: TextStyle(color: Colors.white),
           )),
@@ -37,7 +39,7 @@ class _SeeAllPageState extends State<SeeAllPage> {
             ),
             child: GridView.builder(
               shrinkWrap: true,
-              physics: ScrollPhysics(),
+              physics: const ScrollPhysics(),
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2,
                 mainAxisSpacing: h * 0.035,
@@ -46,6 +48,15 @@ class _SeeAllPageState extends State<SeeAllPage> {
               ),
               itemCount: trendingList?.length,
               itemBuilder: (context, index) {
+                if (trendingList![index]['poster_path'] == null) {
+                  return Container(
+                      color: Colors.grey,
+                      height: h * 0.35,
+                      width: w * 0.43,
+                      child: const Center(
+                        child: Text("Coming soon"),
+                      ));
+                }
                 return CardBuilder(h, w, trendingList!, index);
               },
             ),
@@ -66,20 +77,17 @@ class _SeeAllPageState extends State<SeeAllPage> {
                 borderRadius: BorderRadius.circular(7),
                 child: Image(
                     fit: BoxFit.cover,
-                    image: NetworkImage('https://image.tmdb.org/t/p/w500/' +
-                        trendingList[index]['poster_path'])),
+                    image: NetworkImage(
+                        'https://image.tmdb.org/t/p/w500/${trendingList[index]['poster_path']}')),
               )),
           SizedBox(
             height: h * 0.008,
             // width: w * 0.32,
           ),
-          Container(
+          SizedBox(
               //height: h * 0.10,
               width: w * 0.43,
-              child: Text(
-                  trendingList[index]['title'] != null
-                      ? trendingList[index]['title']
-                      : "Loading",
+              child: Text(trendingList[index]['title'] ?? "Loading",
                   style: GoogleFonts.roboto(
                     fontWeight: FontWeight.w600,
                     fontSize: trendingList[index]['title'] != null

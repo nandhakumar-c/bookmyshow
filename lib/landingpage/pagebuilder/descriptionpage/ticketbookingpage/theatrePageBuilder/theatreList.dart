@@ -1,14 +1,14 @@
-import 'package:bookmyshow/bottomnavigation/bottomnavigator.dart';
+// import 'package:bookmyshow/bottomnavigation/bottomnavigator.dart';
 import 'package:bookmyshow/landingpage/pagebuilder/descriptionpage/ticketbookingpage/seatingpage/seatingpage.dart';
 import 'package:flutter/material.dart';
 
-import '../theatresPage.dart';
+// import '../theatresPage.dart';
 
 class TheatreList {
-  String? theatreName;
-  String? Offers = "";
-  bool? cancellation_available = false;
-  TheatreList({this.theatreName, this.Offers, this.cancellation_available});
+  final String? theatreName;
+  final String? offers;
+  final bool? cancellationAvailable;
+  TheatreList({this.theatreName, this.offers, this.cancellationAvailable});
 }
 
 List timeList = [
@@ -25,19 +25,21 @@ List timeList = [
 List<TheatreList> theatreLists = [
   TheatreList(
       theatreName: "Murugan Cinemas A/C 4K Atmos: Thudiyalur",
-      Offers: "5% off for Superstars | Use code: STAR5"),
+      offers: "5% off for Superstars | Use code: STAR5",
+      cancellationAvailable: false),
   TheatreList(
       theatreName: "SPI: The Cinema, Brookefields Mall",
-      cancellation_available: true),
+      cancellationAvailable: true),
   TheatreList(theatreName: "Karpagam Theatres 4K Dolby Atmos: Coimbatore"),
   TheatreList(
       theatreName: "SPI: The Cinema, Brookefields Mall",
-      cancellation_available: true),
+      cancellationAvailable: true),
 ];
 
 class TheatreLists extends StatefulWidget {
-  String? movieName;
-  TheatreLists({this.movieName});
+  final String? movieName;
+  // ignore: use_key_in_widget_constructors
+  const TheatreLists({this.movieName});
 
   @override
   State<TheatreLists> createState() => _TheatreListState();
@@ -89,7 +91,7 @@ class _TheatreListState extends State<TheatreLists> {
                         theatreList.theatreName.toString(),
                         maxLines: 2,
                         softWrap: true,
-                        style: TextStyle(
+                        style: const TextStyle(
                             fontWeight: FontWeight.w600, color: Colors.black87),
                       ),
                     )
@@ -114,7 +116,7 @@ class _TheatreListState extends State<TheatreLists> {
                         theatreList.theatreName.toString(),
                         maxLines: 2,
                         softWrap: true,
-                        style: TextStyle(
+                        style: const TextStyle(
                             fontWeight: FontWeight.w600, color: Colors.black87),
                       ),
                     )
@@ -124,19 +126,19 @@ class _TheatreListState extends State<TheatreLists> {
         SizedBox(
           height: h * 0.01,
         ),
-        theatreList.cancellation_available == true
+        theatreList.cancellationAvailable == true
             ? Text(
                 "Cancellation Available",
                 style: TextStyle(fontSize: w * 0.03),
               )
-            : Text(""),
-        SizedBox(
+            : const Text(""),
+        const SizedBox(
           height: 10,
         ),
         Container(
           height: 120,
           child: GridView.count(
-            physics: ScrollPhysics(),
+            physics: const ScrollPhysics(),
             crossAxisCount: 3,
             crossAxisSpacing: 10,
             childAspectRatio: 2,
@@ -237,19 +239,19 @@ class _TheatreListState extends State<TheatreLists> {
                           },
                         );
                       },
-                      child: Text(
-                        e,
-                        style: TextStyle(
-                            fontSize: w * 0.035, fontWeight: FontWeight.bold),
-                      ),
                       style: OutlinedButton.styleFrom(
                         primary: Colors.green,
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(w * 0.02)),
-                        side: BorderSide(
+                        side: const BorderSide(
                           color: Colors.black54,
                           width: 1,
                         ),
+                      ),
+                      child: Text(
+                        e,
+                        style: TextStyle(
+                            fontSize: w * 0.035, fontWeight: FontWeight.bold),
                       ),
                     ),
                   )

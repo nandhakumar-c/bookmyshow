@@ -1,14 +1,10 @@
 import 'package:bookmyshow/landingpage/cardgeneration/carouselbuilder.dart';
 import 'package:bookmyshow/landingpage/cardgeneration/gridview.dart';
 import 'package:bookmyshow/landingpage/cardgeneration/homeicon.dart';
-import 'package:bookmyshow/landingpage/pagebuilder/seeallpage.dart';
 import 'package:bookmyshow/notifications/notification_page.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:get/get.dart';
-import 'package:bookmyshow/LocaleString.dart';
-import 'package:bookmyshow/bottomnavigation/bottomnavigator.dart';
 import 'package:bookmyshow/landingpage/pagebuilder/trendingtvshows.dart';
 import 'package:bookmyshow/landingpage/pagebuilder/trending.dart';
 import 'package:flutter/material.dart';
@@ -48,7 +44,7 @@ class LandingPageState extends State<LandingPage> {
   loadmovies() async {
     TMDB tmdbWithCustomLogs = TMDB(
       ApiKeys(apikey, readAccessToken),
-      logConfig: ConfigLogger(showLogs: true, showErrorLogs: true),
+      logConfig: const ConfigLogger(showLogs: true, showErrorLogs: true),
     );
 
     Map trendingResult = await tmdbWithCustomLogs.v3.trending.getTrending();
@@ -60,7 +56,7 @@ class LandingPageState extends State<LandingPage> {
       topRatedMovies = topRatedResults['results'];
       tv = tvresult['results'];
     });
-    //print(tvresult);
+    //print(trendingMovies![2]);
   }
 
   @override
@@ -78,14 +74,14 @@ class LandingPageState extends State<LandingPage> {
     IconGenerator();
     return Container(
       child: Scaffold(
-        backgroundColor: Color.fromARGB(255, 248, 245, 245),
+        backgroundColor: const Color.fromARGB(255, 248, 245, 245),
         appBar: AppBar(
-          backgroundColor: Color.fromARGB(255, 10, 21, 46),
+          backgroundColor: const Color.fromARGB(255, 10, 21, 46),
           automaticallyImplyLeading: false,
           actions: [
             IconButton(
                 onPressed: () {},
-                icon: Icon(
+                icon: const Icon(
                   Icons.search,
                   color: Colors.white,
                 ),
@@ -95,7 +91,7 @@ class LandingPageState extends State<LandingPage> {
                 Navigator.of(context).push(MaterialPageRoute(
                     builder: (context) => NotificationPage()));
               },
-              icon: Icon(Icons.notifications_none_outlined),
+              icon: const Icon(Icons.notifications_none_outlined),
               iconSize: 27,
             ),
             IconButton(
@@ -112,15 +108,15 @@ class LandingPageState extends State<LandingPage> {
               FittedBox(
                 child: Text(
                   "It All Starts Here".tr,
-                  style: TextStyle(
+                  style: const TextStyle(
                     color: Colors.white,
                   ),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 4,
               ),
-              Text(
+              const Text(
                 "Coimbatore",
                 style: TextStyle(
                   color: Colors.white,
@@ -135,9 +131,9 @@ class LandingPageState extends State<LandingPage> {
           padding: EdgeInsets.all(h! / 25),
           children: [
             //Text("CodingMart"),
-            Container(height: 70, child: IconGenerator()),
-            CarouselBuilder(),
-            SizedBox(
+            SizedBox(height: 70, child: IconGenerator()),
+            const CarouselBuilder(),
+            const SizedBox(
               height: 20,
             ),
             TrendingMovies(
@@ -145,7 +141,7 @@ class LandingPageState extends State<LandingPage> {
               trendingMovies: trendingMovies,
             ),
             GridList(),
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
             TrendingMovies(
@@ -184,7 +180,7 @@ class LandingPageState extends State<LandingPage> {
                           fontWeight: FontWeight.w600),
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 10,
                   ),
                   Container(
@@ -197,7 +193,7 @@ class LandingPageState extends State<LandingPage> {
                           decoration: InputDecoration(
                             enabledBorder: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(12),
-                                borderSide: BorderSide(
+                                borderSide: const BorderSide(
                                     width: 3,
                                     color: Color.fromARGB(255, 0, 17, 73))),
                           ),

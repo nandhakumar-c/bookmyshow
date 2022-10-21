@@ -3,8 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 class TheatresPage extends StatefulWidget {
-  String? movieName;
-  TheatresPage(this.movieName);
+  final String? movieName;
+  // ignore: use_key_in_widget_constructors
+  const TheatresPage(this.movieName);
 
   @override
   State<TheatresPage> createState() => _TheatresPageState();
@@ -28,13 +29,13 @@ class _TheatresPageState extends State<TheatresPage> {
     double w = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: AppBar(
-          actions: [],
+          //actions: [],
           leading: IconButton(
-              icon: Icon(Icons.chevron_left),
+              icon: const Icon(Icons.chevron_left),
               onPressed: () {
                 Navigator.of(context).pop();
               }),
-          backgroundColor: Color.fromARGB(255, 10, 21, 46),
+          backgroundColor: const Color.fromARGB(255, 10, 21, 46),
           title: Text(
             widget.movieName.toString(),
             style: TextStyle(fontSize: w * 0.04),
