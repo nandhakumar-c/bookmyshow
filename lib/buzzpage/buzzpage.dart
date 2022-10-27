@@ -9,11 +9,11 @@ class BuzzPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          backgroundColor: Color.fromARGB(255, 10, 21, 46),
+          backgroundColor: const Color.fromARGB(255, 10, 21, 46),
           title: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
+              const Text(
                 "BUZZ",
                 style: TextStyle(color: Colors.white),
               ),
@@ -28,17 +28,17 @@ class BuzzPage extends StatelessWidget {
             ],
           )),
       body: ListView(
-        physics: ScrollPhysics(),
+        physics: const ScrollPhysics(),
         children: [
           Container(
-            padding: EdgeInsets.all(10),
+            padding: const EdgeInsets.all(10),
             width: double.infinity,
             height: 105,
-            child: Stories(),
+            child: const Stories(),
           ),
           ListView.builder(
             shrinkWrap: true,
-            physics: ScrollPhysics(),
+            physics: const ScrollPhysics(),
             itemCount: feeds.length,
             scrollDirection: Axis.vertical,
             itemBuilder: ((context, index) => FeedGenerator(

@@ -18,15 +18,15 @@ class HomePage extends StatelessWidget {
             stream: FirebaseAuth.instance.authStateChanges(),
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
-                return Center(
+                return const Center(
                   child: CircularProgressIndicator(),
                 );
               } else if (snapshot.hasData) {
                 num = 1;
-                return BottomNavigation();
-              } else if (snapshot.hasError)
-                return Center(child: Text("Oops ! Something went wrong"));
-              else {
+                return const BottomNavigation();
+              } else if (snapshot.hasError) {
+                return const Center(child: Text("Oops ! Something went wrong"));
+              } else {
                 num = 0;
                 return MyApp();
               }

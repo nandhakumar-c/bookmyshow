@@ -54,7 +54,7 @@ class FeedGeneratorState extends State<FeedGenerator> {
   Widget build(BuildContext context) {
     double? height = MediaQuery.of(context).size.height;
     double? width = MediaQuery.of(context).size.width;
-    return Container(
+    return SizedBox(
         height: height / 6,
         width: 200,
         child: Card(
@@ -73,29 +73,29 @@ class FeedGeneratorState extends State<FeedGenerator> {
                 SizedBox(
                   width: width / 15,
                 ),
-                Container(
+                SizedBox(
                   height: 100,
                   width: 250,
                   child: Column(
                     children: [
-                      Container(
+                      SizedBox(
                         height: 45,
                         child: Row(
                           children: [
-                            Container(
+                            SizedBox(
                                 width: width / 2,
                                 child: Text(
                                   '${feed?.feedTitle}',
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                     fontWeight: FontWeight.w600,
                                   ),
                                 )),
-                            Spacer(),
-                            Icon(Icons.bookmark_border_rounded)
+                            const Spacer(),
+                            const Icon(Icons.bookmark_border_rounded)
                           ],
                         ),
                       ),
-                      Container(
+                      SizedBox(
                         height: 45,
                         width: double.infinity,
                         child: Align(
@@ -110,16 +110,16 @@ class FeedGeneratorState extends State<FeedGenerator> {
                                     height: 22.5,
                                     width: 22.5,
                                   ),
-                                  SizedBox(
+                                  const SizedBox(
                                     width: 10,
                                   ),
-                                  Text(
+                                  const Text(
                                     '2 mins ago',
-                                    style: TextStyle(color: Colors.grey),
+                                    style: const TextStyle(color: Colors.grey),
                                   )
                                 ],
                               ),
-                              Spacer(),
+                              const Spacer(),
                               Row(
                                 children: [
                                   InkWell(
@@ -129,16 +129,17 @@ class FeedGeneratorState extends State<FeedGenerator> {
                                       });
                                     },
                                     child: tap
-                                        ? Icon(Icons.favorite_border_outlined)
-                                        : Icon(Icons.favorite,
+                                        ? const Icon(
+                                            Icons.favorite_border_outlined)
+                                        : const Icon(Icons.favorite,
                                             color: Colors.red),
                                   ),
-                                  SizedBox(
+                                  const SizedBox(
                                     width: 10,
                                   ),
                                   InkWell(
                                     onTap: () {},
-                                    child: Icon(Icons.share_outlined),
+                                    child: const Icon(Icons.share_outlined),
                                   )
                                 ],
                               ),

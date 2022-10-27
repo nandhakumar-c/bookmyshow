@@ -23,6 +23,8 @@ import 'dart:async';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
+import 'bottomnavigation/bottomnavigator.dart';
+import 'loginpage/loginpage.dart';
 import 'loginpage/splashscreen.dart';
 
 const AndroidNotificationChannel channel =
@@ -80,7 +82,13 @@ class BookMyShowState extends State<BookMyShow> {
           translations: LocaleString(),
           locale: const Locale('en', 'US'),
           debugShowCheckedModeBanner: false,
-          home: const SplashScreen(),
+          // home: const SplashScreen(),
+          initialRoute: "/splashscreen",
+          routes: {
+            "/splashscreen": (ctx) => const SplashScreen(),
+            "/loginpage": (ctx) => MyApp(),
+            "/bottomnavigation": (ctx) => const BottomNavigation(),
+          },
           //supportedLocales: L10n.all,
         ),
       );

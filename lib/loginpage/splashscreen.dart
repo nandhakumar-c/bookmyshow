@@ -91,12 +91,12 @@ class _SplashScreenState extends State<SplashScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Image(
+            const Image(
               image: AssetImage('assets/icons/PngItem_1896899.png'),
               width: 150,
               fit: BoxFit.contain,
             ),
-            Text(
+            const Text(
               'It All Starts Here',
               style: TextStyle(
                 color: Color.fromARGB(255, 97, 89, 89),

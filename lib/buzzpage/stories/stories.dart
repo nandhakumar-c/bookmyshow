@@ -52,7 +52,7 @@ class _StoriesState extends State<Stories> {
   @override
   Widget build(BuildContext context) {
     return ListView.separated(
-        separatorBuilder: (context, index) => SizedBox(
+        separatorBuilder: (context, index) => const SizedBox(
               width: 10,
             ),
         itemCount: storiesList.length,
@@ -63,27 +63,25 @@ class _StoriesState extends State<Stories> {
   }
 }
 
+// ignore: must_be_immutable
 class StoryGenerator extends StatelessWidget {
   StoriesClass? story;
-  StoryGenerator({this.story});
+  StoryGenerator({Key? key, this.story}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return Column(children: [
-      Container(
+      CircleAvatar(
+        radius: 33,
+        backgroundColor: Colors.red,
         child: CircleAvatar(
-          radius: 33,
-          backgroundColor: Colors.red,
+          backgroundColor: Colors.white,
+          radius: 32,
           child: CircleAvatar(
-            backgroundColor: Colors.white,
-            radius: 32,
-            child: CircleAvatar(
-              backgroundImage: NetworkImage(
-                story!.img.toString(),
-              ),
-              radius: 30,
+            backgroundImage: NetworkImage(
+              story!.img.toString(),
             ),
+            radius: 30,
           ),
         ),
       ),
