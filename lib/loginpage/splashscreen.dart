@@ -33,8 +33,8 @@ class _SplashScreenState extends State<SplashScreen> {
         if (hasInternet) {
           Timer(
               Duration(seconds: 3),
-              () => Navigator.pushReplacement(context,
-                  MaterialPageRoute(builder: (context) => HomePage())));
+              () =>
+                  Navigator.pushReplacementNamed(context, HomePage.routeName));
         } else {
           Timer(
               Duration(seconds: 3),

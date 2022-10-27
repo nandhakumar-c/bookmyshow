@@ -3,11 +3,12 @@ import 'package:bookmyshow/landingpage/pagebuilder/seeallpage.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+// ignore: must_be_immutable
 class TrendingMovies extends StatelessWidget {
   List? trendingMovies;
   String? titleText;
   TrendingMovies({Key? key, this.trendingMovies, this.titleText})
-      : super(key: key) {}
+      : super(key: key);
   @override
   Widget build(BuildContext context) {
     double h = (MediaQuery.of(context).size.height);
@@ -39,13 +40,13 @@ class TrendingMovies extends StatelessWidget {
                         "See All",
                         style: TextStyle(
                           fontSize: h * 0.018,
-                          color: Color.fromARGB(255, 190, 25, 13),
+                          color: const Color.fromARGB(255, 190, 25, 13),
                         ),
                       )),
                   Icon(
                     Icons.chevron_right_outlined,
                     size: h * 0.02,
-                    color: Color.fromARGB(255, 190, 25, 13),
+                    color: const Color.fromARGB(255, 190, 25, 13),
                   )
                 ]),
               )
@@ -68,6 +69,7 @@ class TrendingMovies extends StatelessWidget {
                           Navigator.of(context).push(
                             MaterialPageRoute(
                               builder: (context) => Description(
+                                id: trendingMovies![index]['id'],
                                 name: trendingMovies![index]['title'],
                                 description: trendingMovies![index]['overview'],
                                 vote: trendingMovies![index]['vote_average']

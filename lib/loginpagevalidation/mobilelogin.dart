@@ -118,13 +118,13 @@ class MobileLoginState extends State<MobileLogin> {
               children: [
                 Container(
                   alignment: Alignment.centerLeft,
-                  child: Text(
+                  child: const Text(
                     "Login with Mobile Number",
                     style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                     textAlign: TextAlign.left,
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
                 IntlPhoneField(
@@ -163,10 +163,10 @@ class MobileLoginState extends State<MobileLogin> {
       child: Scaffold(
         appBar: AppBar(
           leading: IconButton(
-            icon: Icon(Icons.chevron_left),
+            icon: const Icon(Icons.chevron_left),
             onPressed: () => Navigator.of(context).pop(),
           ),
-          iconTheme: IconThemeData(
+          iconTheme: const IconThemeData(
             color: Colors.grey, //change your color here
           ),
           elevation: 0,

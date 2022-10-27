@@ -1,12 +1,14 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:provider/provider.dart';
 import './cardgenerator/profilecardgenerator.dart';
-import '../loginpagevalidation/google_sign_in_cubit.dart';
+import '../provider/googlesignin_provider.dart';
 import 'cardgenerator/profilecarddetails.dart';
 
 class ProfilePage extends StatefulWidget {
+  const ProfilePage({Key? key}) : super(key: key);
+
   @override
   State<ProfilePage> createState() => _ProfilePageState();
 }
@@ -16,9 +18,10 @@ class _ProfilePageState extends State<ProfilePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         backgroundColor: Color.fromARGB(255, 10, 21, 46),
         title: Column(
-          children: [
+          children: const [
             Text(
               "Hey!",
               style: TextStyle(color: Colors.white),
@@ -55,15 +58,14 @@ class _ProfilePageState extends State<ProfilePage> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text(
-                  "Hello , :${FirebaseAuth.instance.currentUser!.displayName}"),
-              SizedBox(
+              Text("Hello :${FirebaseAuth.instance.currentUser!.displayName}"),
+              const SizedBox(
                 width: 10,
               ),
               ElevatedButton(
                 onPressed: () {
-                  final provider = BlocProvider.of<GoogleSignInCubit>(context,
-                      listen: false);
+                  final provider =
+                      Provider.of<GoogleSignInCubit>(context, listen: false);
                   provider.signOutWithGoogle();
                   FirebaseAuth.instance.signOut();
                 },

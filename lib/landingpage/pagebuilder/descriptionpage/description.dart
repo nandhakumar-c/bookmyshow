@@ -2,7 +2,6 @@ import 'package:bookmyshow/landingpage/pagebuilder/descriptionpage/expandedtext.
 import 'package:bookmyshow/landingpage/pagebuilder/descriptionpage/ratingpage/ratingpage.dart';
 import 'package:bookmyshow/landingpage/pagebuilder/descriptionpage/ticketbookingpage/theatresPage.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:share_plus/share_plus.dart';
 
 class Description extends StatefulWidget {
@@ -13,9 +12,11 @@ class Description extends StatefulWidget {
       vote,
       launchon,
       movieImgUrl;
+  final int id;
 
   const Description(
       {super.key,
+      required this.id,
       required this.name,
       required this.description,
       required this.bannerurl,
@@ -79,24 +80,6 @@ class _DescriptionState extends State<Description> {
                       )),
                 ),
               ),
-              // Positioned(
-              //   bottom: 10,
-              //   child: Container(
-              //     margin: EdgeInsets.only(left: 10),
-              //     padding: EdgeInsets.all(5),
-              //     decoration: BoxDecoration(
-              //         color: Colors.white,
-              //         borderRadius: BorderRadius.all(Radius.circular(5))),
-              //     child: Text(
-              //       " Average Rating : " + vote,
-              //       style: GoogleFonts.roboto(
-              //         fontSize: 15,
-              //         fontWeight: FontWeight.w600,
-              //         backgroundColor: Colors.white,
-              //       ),
-              //     ),
-              //   ),
-              // ),
             ]),
           ),
           Row(

@@ -1,7 +1,7 @@
 import 'dart:math';
 
 import 'package:bookmyshow/bottomnavigation/bottomnavigator.dart';
-import 'package:bookmyshow/loginpagevalidation/google_sign_in_cubit.dart';
+import 'package:bookmyshow/provider/googlesignin_provider.dart';
 import 'package:bookmyshow/loginpage/frontscrollable.dart';
 import 'package:bookmyshow/loginpagevalidation/home_page.dart';
 import 'package:bookmyshow/loginpagevalidation/mobilelogin.dart';
@@ -100,8 +100,8 @@ class UserInterfaceState extends State<UserInterface> {
                   ),
                 ),
                 onPressed: () {
-                  final provider = BlocProvider.of<GoogleSignInCubit>(context,
-                      listen: false);
+                  final provider =
+                      Provider.of<GoogleSignInCubit>(context, listen: false);
                   provider.signInWithGoogle();
                 },
                 child: buildLoginButton(height, width),

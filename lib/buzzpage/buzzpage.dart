@@ -9,6 +9,7 @@ class BuzzPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+          automaticallyImplyLeading: false,
           backgroundColor: const Color.fromARGB(255, 10, 21, 46),
           title: Column(
             crossAxisAlignment: CrossAxisAlignment.start,

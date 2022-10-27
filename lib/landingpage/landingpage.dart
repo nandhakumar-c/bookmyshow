@@ -2,6 +2,7 @@ import 'package:bookmyshow/landingpage/cardgeneration/carouselbuilder.dart';
 import 'package:bookmyshow/landingpage/cardgeneration/gridview.dart';
 import 'package:bookmyshow/landingpage/cardgeneration/homeicon.dart';
 import 'package:bookmyshow/notifications/notification_page.dart';
+import 'package:bookmyshow/provider/movielist_provider.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:get/get.dart';
@@ -9,7 +10,7 @@ import 'package:bookmyshow/landingpage/pagebuilder/trendingtvshows.dart';
 import 'package:bookmyshow/landingpage/pagebuilder/trending.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:tmdb_api/tmdb_api.dart';
+import 'package:provider/provider.dart';
 
 class LandingPage extends StatefulWidget {
   @override
@@ -22,42 +23,6 @@ double? h, w, size;
 
 class LandingPageState extends State<LandingPage> {
   String? qrCode = 'Unknown';
-  static List? trendingMovies = [];
-  List? tv = [];
-  List? topRatedMovies = [];
-  final String apikey = '4d787d53b25af3a115347b6db2063faa';
-  final readAccessToken =
-      'eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI0ZDc4N2Q1M2IyNWFmM2ExMTUzNDdiNmRiMjA2M2ZhYSIsInN1YiI6IjYzMjA1ODQ4Y2U5ZTkxMDA3Zjc1ZWRlYyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.-SzjQqBNJ2trYEMfcKXP0tH0VB8HRY2kVAhP9fGIZ4Q';
-  @override
-  void initState() {
-    loadmovies();
-    super.initState();
-
-    // FirebaseMessaging.instance.getInitialMessage();
-
-    // FirebaseMessaging.onMessage.listen((message) {
-    //   print(message.notification!.body);
-    //   print(message.notification!.title);
-    // });
-  }
-
-  loadmovies() async {
-    TMDB tmdbWithCustomLogs = TMDB(
-      ApiKeys(apikey, readAccessToken),
-      logConfig: const ConfigLogger(showLogs: true, showErrorLogs: true),
-    );
-
-    Map trendingResult = await tmdbWithCustomLogs.v3.trending.getTrending();
-    Map topRatedResults = await tmdbWithCustomLogs.v3.movies.getTopRated();
-    Map tvresult = await tmdbWithCustomLogs.v3.tv.getAiringToday();
-
-    setState(() {
-      trendingMovies = trendingResult['results'];
-      topRatedMovies = topRatedResults['results'];
-      tv = tvresult['results'];
-    });
-    //print(trendingMovies![2]);
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -89,14 +54,14 @@ class LandingPageState extends State<LandingPage> {
             IconButton(
               onPressed: () {
                 Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => NotificationPage()));
+                    builder: (context) => const NotificationPage()));
               },
               icon: const Icon(Icons.notifications_none_outlined),
               iconSize: 27,
             ),
             IconButton(
               onPressed: scanQrCode,
-              icon: Icon(Icons.qr_code),
+              icon: const Icon(Icons.qr_code),
               iconSize: 27,
             ),
           ],
@@ -136,21 +101,33 @@ class LandingPageState extends State<LandingPage> {
             const SizedBox(
               height: 20,
             ),
-            TrendingMovies(
-              titleText: 'recommended movies'.tr,
-              trendingMovies: trendingMovies,
+            Consumer<MovieList>(
+              builder: (context, value, child) {
+                return TrendingMovies(
+                  titleText: 'recommended movies'.tr,
+                  trendingMovies: value.trendingMoviesList,
+                );
+              },
             ),
-            GridList(),
+            const GridList(),
             const SizedBox(
               height: 20,
             ),
-            TrendingMovies(
-              titleText: 'top rated movies'.tr,
-              trendingMovies: topRatedMovies,
+            Consumer<MovieList>(
+              builder: (context, value, child) {
+                return TrendingMovies(
+                  titleText: 'top rated movies'.tr,
+                  trendingMovies: value.topRatedMoviesList,
+                );
+              },
             ),
-            TrendingTvShows(
-              titleText: 'tv shows'.tr,
-              trendingShows: tv,
+            Consumer<MovieList>(
+              builder: (context, state, child) {
+                return TrendingTvShows(
+                  titleText: 'tv shows'.tr,
+                  trendingShows: state.tvShowsList,
+                );
+              },
             ),
             Container(
               color: Colors.red[400],
@@ -166,7 +143,7 @@ class LandingPageState extends State<LandingPage> {
             ),
             Container(
               decoration: BoxDecoration(
-                  color: Color.fromARGB(255, 226, 217, 217),
+                  color: const Color.fromARGB(255, 226, 217, 217),
                   borderRadius: BorderRadius.circular(10)),
               child: Column(
                 children: [
@@ -176,7 +153,7 @@ class LandingPageState extends State<LandingPage> {
                       "Choose Your Language",
                       style: GoogleFonts.dmSans(
                           fontSize: 18,
-                          color: Color.fromARGB(255, 1, 8, 44),
+                          color: const Color.fromARGB(255, 1, 8, 44),
                           fontWeight: FontWeight.w600),
                     ),
                   ),

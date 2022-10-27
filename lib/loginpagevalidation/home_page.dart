@@ -1,8 +1,5 @@
-import 'package:bookmyshow/landingpage/landingpage.dart';
 import 'package:bookmyshow/loginpage/loginpage.dart';
-import 'package:bookmyshow/profilepage/profilepage.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
 import '../bottomnavigation/bottomnavigator.dart';
@@ -11,6 +8,7 @@ var num = 0;
 
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
+  static const routeName = '/home-login-page';
   @override
   Widget build(BuildContext context) {
     return Scaffold(
