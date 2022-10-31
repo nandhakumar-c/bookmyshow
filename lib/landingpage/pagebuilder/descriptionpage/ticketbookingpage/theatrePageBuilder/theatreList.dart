@@ -8,32 +8,47 @@ class TheatreList {
   final String? theatreName;
   final String? offers;
   final bool? cancellationAvailable;
-  TheatreList({this.theatreName, this.offers, this.cancellationAvailable});
+  List<String> timeList;
+  TheatreList(
+      {this.theatreName,
+      this.offers,
+      this.cancellationAvailable,
+      required this.timeList});
 }
 
-List timeList = [
-  ["10:30 AM", "02:30 PM", "06:30 PM", "10:00 PM"],
-  ["11:10 AM", "11:30 AM", "02:50 PM", '03:10 PM', '06:25 PM', '06:45 PM'],
-  ["10:30 AM", "02:30 PM", "06:30 PM", "10:00 PM", '10:20 PM'],
-  [
-    "10:30 AM",
-    "02:30 PM",
-    "06:30 PM",
-  ],
-];
+List timeList = [];
 
 List<TheatreList> theatreLists = [
   TheatreList(
       theatreName: "Murugan Cinemas A/C 4K Atmos: Thudiyalur",
       offers: "5% off for Superstars | Use code: STAR5",
-      cancellationAvailable: false),
+      cancellationAvailable: false,
+      timeList: ["10:30 AM", "02:30 PM", "06:30 PM", "10:00 PM"]),
   TheatreList(
-      theatreName: "SPI: The Cinema, Brookefields Mall",
-      cancellationAvailable: true),
-  TheatreList(theatreName: "Karpagam Theatres 4K Dolby Atmos: Coimbatore"),
+    theatreName: "SPI: The Cinema, Brookefields Mall",
+    cancellationAvailable: true,
+    timeList: [
+      "11:10 AM",
+      "11:30 AM",
+      "02:50 PM",
+      '03:10 PM',
+      '06:25 PM',
+      '06:45 PM'
+    ],
+  ),
   TheatreList(
-      theatreName: "SPI: The Cinema, Brookefields Mall",
-      cancellationAvailable: true),
+    theatreName: "Karpagam Theatres 4K Dolby Atmos: Coimbatore",
+    timeList: ["10:30 AM", "02:30 PM", "06:30 PM", "10:00 PM", '10:20 PM'],
+  ),
+  TheatreList(
+    theatreName: "SPI: The Cinema, Brookefields Mall",
+    cancellationAvailable: true,
+    timeList: [
+      "10:30 AM",
+      "02:30 PM",
+      "06:30 PM",
+    ],
+  ),
 ];
 
 class TheatreLists extends StatefulWidget {
@@ -57,14 +72,14 @@ class _TheatreListState extends State<TheatreLists> {
         itemCount: theatreLists.length,
         itemBuilder: (context, index) {
           return theatreCardGenerator(
-              theatreLists[index], timeList[index], h, w, context);
+              theatreLists[index], h, w, index, context);
         },
       ),
     );
   }
 
-  Widget theatreCardGenerator(TheatreList theatreList, List timeList, double h,
-      double w, BuildContext context) {
+  Widget theatreCardGenerator(TheatreList theatreList, double h, double w,
+      int index, BuildContext context) {
     return Container(
       color: Colors.white,
       padding: EdgeInsets.all(w * 0.03),
@@ -146,7 +161,7 @@ class _TheatreListState extends State<TheatreLists> {
 
             //shrinkWrap: true,
             children: [
-              ...timeList
+              ...theatreList.timeList
                   .map(
                     (e) => OutlinedButton(
                       onPressed: () {
@@ -157,9 +172,9 @@ class _TheatreListState extends State<TheatreLists> {
                           context: context,
                           builder: (context) {
                             return DraggableScrollableSheet(
-                              initialChildSize: 0.5,
+                              initialChildSize: 0.68,
                               minChildSize: 0.4,
-                              maxChildSize: 0.9,
+                              maxChildSize: 0.68,
                               builder: (context, scrollController) => Container(
                                 decoration: BoxDecoration(
                                   color: Colors.white,
@@ -170,15 +185,23 @@ class _TheatreListState extends State<TheatreLists> {
                                   controller: scrollController,
                                   children: [
                                     Container(
-                                      decoration: BoxDecoration(
-                                          color: Colors.grey,
-                                          borderRadius: BorderRadius.vertical(
-                                              top: Radius.circular(w * 0.035))),
-                                      alignment: Alignment.center,
-                                      //  color: Colors.grey,
-                                      height: h * 0.02,
-                                      width: w * 0.01,
-                                    ),
+                                        height: 10,
+                                        decoration: BoxDecoration(
+                                            color: Colors.white,
+                                            borderRadius: BorderRadius.vertical(
+                                                top: Radius.circular(
+                                                    w * 0.035))),
+                                        child: Container(
+                                          height: 6,
+                                          width: 30,
+                                          child: const Image(
+                                            image: AssetImage(
+                                                'assets/icons/grey-rounded-button.jpg'),
+                                            fit: BoxFit.fitHeight,
+                                            height: 4,
+                                            width: 30,
+                                          ),
+                                        )),
                                     Container(
                                       width: double.infinity,
                                       padding: EdgeInsets.all(w * 0.035),
@@ -213,8 +236,11 @@ class _TheatreListState extends State<TheatreLists> {
                                               .push(MaterialPageRoute(
                                             builder: (context) => SeatingPage(
                                               movieName: widget.movieName,
-                                              theatreName:
-                                                  theatreList.toString(),
+                                              theatreName: theatreList
+                                                  .theatreName
+                                                  .toString(),
+                                              time: e,
+                                              id: index,
                                             ),
                                           ));
                                         },

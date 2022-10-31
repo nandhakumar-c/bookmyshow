@@ -1,4 +1,6 @@
 import 'package:bookmyshow/provider/movielist_provider.dart';
+import 'package:bookmyshow/provider/notification_provider.dart';
+import 'package:bookmyshow/provider/tickets_provider.dart';
 import 'package:flutter/material.dart';
 
 import 'package:bookmyshow/loginpagevalidation/home_page.dart';
@@ -15,7 +17,7 @@ import 'package:provider/provider.dart';
 import 'package:bookmyshow/LocaleString.dart';
 import 'package:bookmyshow/provider/googlesignin_provider.dart';
 
-//Todo
+import 'package:onesignal_flutter/onesignal_flutter.dart';
 
 import 'dart:io';
 import 'dart:async';
@@ -23,6 +25,7 @@ import 'dart:async';
 import 'bottomnavigation/bottomnavigator.dart';
 import 'loginpage/loginpage.dart';
 import 'loginpage/splashscreen.dart';
+import 'notifications/notification_page.dart';
 
 const AndroidNotificationChannel channel =
     AndroidNotificationChannel('high_importance_channel', 'Grab Your Seats Now',
@@ -75,6 +78,20 @@ class BookMyShow extends StatefulWidget {
 
 class BookMyShowState extends State<BookMyShow> {
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+
+    OneSignal.shared.setLogLevel(OSLogLevel.verbose, OSLogLevel.none);
+
+    OneSignal.shared.setAppId("6c72e096-055c-4e9c-847e-8b79c6a8e65c");
+
+    OneSignal.shared.promptUserForPushNotificationPermission().then((accepted) {
+      print("Accepted permission: $accepted");
+    });
+  }
+
+  @override
   Widget build(BuildContext context) => MultiProvider(
         providers: [
           ChangeNotifierProvider(
@@ -82,6 +99,12 @@ class BookMyShowState extends State<BookMyShow> {
           ),
           ChangeNotifierProvider(
             create: (context) => GoogleSignInCubit(),
+          ),
+          ChangeNotifierProvider(
+            create: (context) => TicketList(),
+          ),
+          ChangeNotifierProvider(
+            create: (context) => NotificationList(),
           ),
         ],
         child: GetMaterialApp(

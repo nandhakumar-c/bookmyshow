@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 
+// ignore: must_be_immutable
 class SliderPage extends StatefulWidget {
   Function callback;
-  SliderPage(this.callback);
+  SliderPage(this.callback, {Key? key}) : super(key: key);
   @override
   State<SliderPage> createState() => _SliderPageState();
 }
@@ -50,8 +51,8 @@ class _SliderPageState extends State<SliderPage> {
                         activeTrackColor: Colors.red,
                         inactiveTrackColor: Colors.grey,
                         thumbColor: Colors.redAccent,
-                        trackShape: RectangularSliderTrackShape(),
-                        thumbShape: RoundSliderThumbShape(
+                        trackShape: const RectangularSliderTrackShape(),
+                        thumbShape: const RoundSliderThumbShape(
                             elevation: 0, enabledThumbRadius: 8)),
                     child: Slider(
                       value: value,
@@ -68,7 +69,7 @@ class _SliderPageState extends State<SliderPage> {
                     )),
               ),
               buildTextRating(value),
-              Spacer(),
+              const Spacer(),
             ],
           ),
         ),
@@ -78,8 +79,8 @@ class _SliderPageState extends State<SliderPage> {
 
   buildTextRating(double value) {
     return Text(
-      value.toInt().toString() + "/10",
-      style: TextStyle(fontWeight: FontWeight.bold),
+      "${value.toInt()}/10",
+      style: const TextStyle(fontWeight: FontWeight.bold),
     );
   }
 }

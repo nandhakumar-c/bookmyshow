@@ -2,9 +2,10 @@ import 'package:bookmyshow/landingpage/pagebuilder/descriptionpage/ratingpage/sl
 import 'package:bookmyshow/landingpage/pagebuilder/trending.dart';
 import 'package:flutter/material.dart';
 
+// ignore: must_be_immutable
 class RatingPage extends StatefulWidget {
   String? movieImgUrl, name;
-  RatingPage(this.movieImgUrl, this.name);
+  RatingPage(this.movieImgUrl, this.name, {Key? key}) : super(key: key);
 
   @override
   State<RatingPage> createState() => _RatingPageState();
@@ -36,7 +37,7 @@ class _RatingPageState extends State<RatingPage> {
               Positioned(
                 child: Container(
                   alignment: Alignment.center,
-                  child: Text(
+                  child: const Text(
                     "How was the movie?",
                     style: TextStyle(color: Colors.black),
                   ),
@@ -102,12 +103,12 @@ class _RatingPageState extends State<RatingPage> {
               left: w * 0.03, right: w * 0.03, bottom: w * 0.02),
           child: ElevatedButton(
             onPressed: () {},
+            style: ElevatedButton.styleFrom(
+                primary: value == 0 ? Colors.grey[700] : Colors.red),
             child: Text(
               "Submit Rating",
               style: TextStyle(fontSize: w * 0.04, fontWeight: FontWeight.w400),
             ),
-            style: ElevatedButton.styleFrom(
-                primary: value == 0 ? Colors.grey[700] : Colors.red),
           ),
         ),
       ),

@@ -60,8 +60,8 @@ class _SplashScreenState extends State<SplashScreen> {
   showDialogBox() => showCupertinoDialog(
       context: context,
       builder: (BuildContext context) => CupertinoAlertDialog(
-            title: Text("No Connection"),
-            content: Text("Please Check Your Internet Connection"),
+            title: const Text("No Connection"),
+            content: const Text("Please Check Your Internet Connection"),
             actions: [
               TextButton(
                   onPressed: () async {

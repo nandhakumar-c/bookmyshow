@@ -27,7 +27,7 @@ class MovieList with ChangeNotifier {
     trendingMovies = trendingResult['results'];
     topRatedMovies = topRatedResults['results'];
     tv = tvresult['results'];
-    print(trendingMovies![0]);
+    // print(trendingMovies![0]);
     notifyListeners();
   }
 

@@ -36,12 +36,12 @@ final feeds = [
       profileURL: 'assets/icons/BookMyShowLogo.png'),
 ];
 
+// ignore: must_be_immutable
 class FeedGenerator extends StatefulWidget {
   FeedList? feed;
-  FeedGenerator({this.feed});
+  FeedGenerator({Key? key, this.feed}) : super(key: key);
   @override
   State<StatefulWidget> createState() {
-    // TODO: implement createState
     return FeedGeneratorState(feed: feed);
   }
 }

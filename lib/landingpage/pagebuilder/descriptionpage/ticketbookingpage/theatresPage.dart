@@ -23,6 +23,7 @@ class _TheatresPageState extends State<TheatresPage> {
     });
   }
 
+  var isSelected = false;
   @override
   Widget build(BuildContext context) {
     double h = MediaQuery.of(context).size.height;
@@ -54,7 +55,7 @@ class _TheatresPageState extends State<TheatresPage> {
             children: [
               ...dateAndMonthList
                   .map(
-                    (data) => dateAndTimeCardGenerator(data, h, w),
+                    (data) => dateAndTimeCardGenerator(data, h, w, isSelected),
                   )
                   .toList(),
             ],
@@ -80,7 +81,7 @@ class _TheatresPageState extends State<TheatresPage> {
                 Icons.circle,
                 size: w * 0.01,
               ),
-              SizedBox(width: w * 0.02),
+              const Divider(),
               Text(
                 "2D",
                 style:
@@ -98,15 +99,19 @@ class _TheatresPageState extends State<TheatresPage> {
     );
   }
 
-  dateAndTimeCardGenerator(Map<String, Object> e, double h, double w) {
+  dateAndTimeCardGenerator(
+      Map<String, Object> e, double h, double w, bool isSelected) {
     return InkWell(
       onTap: () {
+        setState(() {
+          isSelected = !isSelected;
+        });
         Navigator.of(context).pushReplacement(MaterialPageRoute(
           builder: (context) => TheatresPage(widget.movieName),
         ));
       },
       child: Container(
-        color: Colors.white,
+        color: isSelected ? Colors.green : Colors.white,
         height: h * 0.1,
         width: w * 0.14,
         child: Padding(
@@ -114,10 +119,10 @@ class _TheatresPageState extends State<TheatresPage> {
           child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text("${e['day'].toString().toUpperCase()}"),
+                Text(e['day'].toString().toUpperCase()),
                 Text(
                   e['date'].toString(),
-                  style: TextStyle(fontWeight: FontWeight.bold),
+                  style: const TextStyle(fontWeight: FontWeight.bold),
                 ),
                 Text(e['month'].toString().toUpperCase())
               ]),
