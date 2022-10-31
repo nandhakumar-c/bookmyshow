@@ -6,6 +6,7 @@ class Tickets {
   bool isSelected = false;
   String? time = " ";
   List<String> seat;
+
   Tickets(
       {this.theatreName,
       this.movieName,
@@ -18,7 +19,15 @@ class TicketList with ChangeNotifier {
   Map<String, Tickets> ticketmap = {};
   Map<int, Tickets> confirmedTickets = {};
   List<String> seats = [];
+  List<List<Map<String, bool>>> selectedSeats = List.generate(
+      5,
+      (index) => List.generate(
+            10,
+            (i) => {"${String.fromCharCode(65 + index)}$i}": false},
+          ));
+
   void addSeats(String seat) {
+    print(selectedSeats);
     seats.add(seat);
     print(seats);
     notifyListeners();
@@ -43,6 +52,7 @@ class TicketList with ChangeNotifier {
     ticketmap.removeWhere((key, value) {
       return key == id;
     });
+    //print(selectedSeats);
     print(
         "${ticketmap.keys.map((e) => e)} -> ${ticketmap.values.map((e) => e.theatreName)}");
     notifyListeners();
@@ -54,13 +64,8 @@ class TicketList with ChangeNotifier {
 
   int i = 0;
   void confirmTickets() {
-    //print(i);
     confirmedTickets.putIfAbsent(i, () => ticketmap.values.first);
     i++;
-
-    // print("${confirmedTickets.values.map((e) {
-    //   return [e.theatreName, e.movieName];
-    // })}");
     notifyListeners();
   }
 }

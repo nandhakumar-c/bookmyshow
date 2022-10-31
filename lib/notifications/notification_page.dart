@@ -109,9 +109,9 @@ class _NotificationPageState extends State<NotificationPage> {
               icon: Icon(Icons.notification_add),
             )
           ],
-          title: Text("Notifications")),
+          title: const Text("Notifications")),
       body: notify.notificationsList.isEmpty
-          ? Center(child: Text("No New Notifications"))
+          ? const Center(child: Text("No New Notifications"))
           : SingleChildScrollView(
               child: Column(children: [
                 ListView.builder(

@@ -60,39 +60,39 @@ class _SeatingPageState extends State<SeatingPage> {
                 height: 200,
                 width: 400,
                 alignment: Alignment.center,
-                padding: EdgeInsets.all(10),
+                padding: const EdgeInsets.all(10),
                 // color: Color.fromARGB(255, 3, 142, 255),
                 child: Row(
                   children: [
-                    Spacer(),
+                    const Spacer(),
                     seatsBuilder(5, 12, ticket),
-                    Spacer(),
+                    const Spacer(),
                   ],
                 )),
             Container(
                 height: 130,
                 width: 400,
                 alignment: Alignment.center,
-                padding: EdgeInsets.all(10),
+                padding: const EdgeInsets.all(10),
                 // color: Color.fromARGB(255, 3, 142, 255),
                 child: Row(
                   children: [
-                    Spacer(),
+                    const Spacer(),
                     seatsBuilder(3, 12, ticket),
-                    Spacer(),
+                    const Spacer(),
                   ],
                 )),
             Container(
                 height: 150,
                 width: double.infinity,
                 alignment: Alignment.center,
-                padding: EdgeInsets.all(10),
+                padding: const EdgeInsets.all(10),
                 // color: Color.fromARGB(255, 3, 142, 255),
                 child: Row(
                   children: [
-                    Spacer(),
+                    const Spacer(),
                     seatsBuilder(2, 12, ticket),
-                    Spacer(),
+                    const Spacer(),
                   ],
                 )),
             const SizedBox(
@@ -104,7 +104,7 @@ class _SeatingPageState extends State<SeatingPage> {
               width: 200,
               child: Column(
                 children: [
-                  if (ticket.ticketmap.isEmpty) Text("select seat"),
+                  if (ticket.ticketmap.isEmpty) const Text("select seat"),
                   if (ticket.ticketmap.isNotEmpty)
                     if (ticket.availableTickets.values.first.theatreName !=
                         null)
@@ -118,7 +118,7 @@ class _SeatingPageState extends State<SeatingPage> {
             ),
             ElevatedButton(
                 onPressed: () => ticket.confirmTickets(),
-                child: Text("Confirm seats"))
+                child: const Text("Confirm seats"))
           ],
         ),
       ),
