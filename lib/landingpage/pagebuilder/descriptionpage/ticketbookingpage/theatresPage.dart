@@ -1,33 +1,72 @@
+import 'dart:collection';
+
 import 'package:bookmyshow/landingpage/pagebuilder/descriptionpage/ticketbookingpage/theatrePageBuilder/theatreList.dart';
+import 'package:bookmyshow/provider/date_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get_state_manager/src/simple/get_widget_cache.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 
 class TheatresPage extends StatefulWidget {
+  static const routeName = "/theatre-list-page";
   final String? movieName;
+  int? index;
   // ignore: use_key_in_widget_constructors
-  const TheatresPage(this.movieName);
+  TheatresPage({this.index, this.movieName});
 
   @override
   State<TheatresPage> createState() => _TheatresPageState();
 }
 
 class _TheatresPageState extends State<TheatresPage> {
-  List<Map<String, Object>> get dateAndMonthList {
-    return List.generate(7, (index) {
-      final weekDay = DateTime.now().add(Duration(days: index));
-      return ({
-        'date': DateFormat.d().format(weekDay),
-        'month': DateFormat('MMM').format(weekDay),
-        'day': DateFormat.E().format(weekDay).substring(0, 3)
-      });
-    });
+  int? isDateSelected = 0;
+  String? date;
+  // String? movieName;
+  int? index = 0;
+  @override
+  void initState() {
+    super.initState();
+    isDateSelected = widget.index;
+    final dateAndMonthList = Provider.of<DatesProvider>(context, listen: false);
+    Map<String, Object> dateAndDay = dateAndMonthList.dateList[0];
+    date = "${dateAndDay['date']} ${dateAndDay['day']} ${dateAndDay['month']}";
   }
 
-  var isSelected = false;
   @override
   Widget build(BuildContext context) {
+    // final TheatresPage args =
+    //     ModalRoute.of(context)!.settings.arguments as TheatresPage;
+
+    // widget.movieName = args.movieName;
+    // movieName = widget.movieName;
+    // widget.index = args.index;
+    //index = widget.index;
+
     double h = MediaQuery.of(context).size.height;
     double w = MediaQuery.of(context).size.width;
+    //  int isDateSelected = 0;
+    final dateAndMonthList = Provider.of<DatesProvider>(context);
+    Map<String, Object> dateAndDay = dateAndMonthList.dateList[0];
+
+    List dateWidgets = dateAndMonthList.dateList.map(
+      (data) {
+        int index = dateAndMonthList.dateList.indexOf(data);
+        //onSelected(index);
+        return dateAndTimeCardGenerator(
+            data, h, w, data['isDateSelected'] as bool, index);
+      },
+    ).toList();
+    print(date);
+    void onSelected(int index) {
+      setState(() {
+        isDateSelected = index;
+        Map<String, Object> dateAndDay = dateAndMonthList.dateList[index];
+        date =
+            "${dateAndDay['date']} ${dateAndDay['day']} ${dateAndDay['month']}";
+      });
+    }
+
+    // print(date);
     return Scaffold(
       appBar: AppBar(
           //actions: [],
@@ -51,14 +90,35 @@ class _TheatresPageState extends State<TheatresPage> {
         Container(
           color: Colors.white,
           height: h * 0.10,
-          child: Row(
-            children: [
-              ...dateAndMonthList
-                  .map(
-                    (data) => dateAndTimeCardGenerator(data, h, w, isSelected),
-                  )
-                  .toList(),
-            ],
+          child: ListView.builder(
+            //shrinkWrap: true,
+            scrollDirection: Axis.horizontal,
+            itemCount: dateWidgets.length,
+            itemBuilder: (context, index) => (Container(
+                color: isDateSelected != null && isDateSelected == index
+                    ? Colors.red[700]
+                    : Colors.white,
+                height: h * 0.1,
+                width: w * 0.14,
+                child: InkWell(
+                    onTap: () {
+                      print(index);
+
+                      Navigator.of(context)
+                          // .pushReplacementNamed(TheatresPage.routeName,
+                          //     arguments: TheatresPage(
+                          //       index: widget.index,
+                          //       movieName: movieName,
+                          //     ));
+                          .pushReplacement(MaterialPageRoute(
+                        builder: (context) => TheatresPage(
+                          index: index,
+                          movieName: widget.movieName,
+                        ),
+                      ));
+                      return onSelected(index);
+                    },
+                    child: dateWidgets[index]))),
           ),
         ),
         SizedBox(
@@ -92,6 +152,7 @@ class _TheatresPageState extends State<TheatresPage> {
         ),
         Flexible(
             child: TheatreLists(
+          date: date,
           movieName: widget.movieName,
         )),
       ]),
@@ -100,34 +161,18 @@ class _TheatresPageState extends State<TheatresPage> {
   }
 
   dateAndTimeCardGenerator(
-      Map<String, Object> e, double h, double w, bool isSelected) {
-    return InkWell(
-      onTap: () {
-        setState(() {
-          isSelected = !isSelected;
-        });
-        Navigator.of(context).pushReplacement(MaterialPageRoute(
-          builder: (context) => TheatresPage(widget.movieName),
-        ));
-      },
-      child: Container(
-        color: isSelected ? Colors.green : Colors.white,
-        height: h * 0.1,
-        width: w * 0.14,
-        child: Padding(
-          padding: EdgeInsets.all(w * 0.02),
-          child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(e['day'].toString().toUpperCase()),
-                Text(
-                  e['date'].toString(),
-                  style: const TextStyle(fontWeight: FontWeight.bold),
-                ),
-                Text(e['month'].toString().toUpperCase())
-              ]),
+      Map<String, Object> e, double h, double w, bool isSelected, int index) {
+    return Padding(
+      padding: EdgeInsets.all(w * 0.02),
+      child:
+          Column(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+        Text(e['day'].toString().toUpperCase()),
+        Text(
+          e['date'].toString(),
+          style: const TextStyle(fontWeight: FontWeight.bold),
         ),
-      ),
+        Text(e['month'].toString().toUpperCase())
+      ]),
     );
   }
 }

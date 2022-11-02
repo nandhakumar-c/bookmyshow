@@ -6,11 +6,13 @@ import 'package:flutter/material.dart';
 
 class TheatreList {
   final String? theatreName;
+  final String? date;
   final String? offers;
   final bool? cancellationAvailable;
   List<String> timeList;
   TheatreList(
       {this.theatreName,
+      this.date,
       this.offers,
       this.cancellationAvailable,
       required this.timeList});
@@ -53,8 +55,9 @@ List<TheatreList> theatreLists = [
 
 class TheatreLists extends StatefulWidget {
   final String? movieName;
+  final String? date;
   // ignore: use_key_in_widget_constructors
-  const TheatreLists({this.movieName});
+  const TheatreLists({this.date, this.movieName});
 
   @override
   State<TheatreLists> createState() => _TheatreListState();
@@ -235,6 +238,7 @@ class _TheatreListState extends State<TheatreLists> {
                                           Navigator.of(context)
                                               .push(MaterialPageRoute(
                                             builder: (context) => SeatingPage(
+                                              date: widget.date,
                                               movieName: widget.movieName,
                                               theatreName: theatreList
                                                   .theatreName

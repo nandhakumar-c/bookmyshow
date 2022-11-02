@@ -1,3 +1,4 @@
+import 'package:bookmyshow/landingpage/pagebuilder/descriptionpage/ticketbookingpage/seatingpage/seatcount.dart';
 import 'package:bookmyshow/provider/tickets_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -6,10 +7,12 @@ class SeatingPage extends StatefulWidget {
   String? theatreName;
   String? movieName;
   int id;
+  String? date;
   String time;
   SeatingPage(
       {Key? key,
       this.theatreName,
+      this.date,
       this.movieName,
       required this.time,
       required this.id})
@@ -57,68 +60,65 @@ class _SeatingPageState extends State<SeatingPage> {
         child: Column(
           children: [
             Container(
-                height: 200,
-                width: 400,
                 alignment: Alignment.center,
                 padding: const EdgeInsets.all(10),
                 // color: Color.fromARGB(255, 3, 142, 255),
                 child: Row(
                   children: [
-                    const Spacer(),
-                    seatsBuilder(5, 12, ticket),
-                    const Spacer(),
+                    Expanded(child: seatsBuilder(10, 12, ticket)),
                   ],
                 )),
-            Container(
-                height: 130,
-                width: 400,
-                alignment: Alignment.center,
-                padding: const EdgeInsets.all(10),
-                // color: Color.fromARGB(255, 3, 142, 255),
-                child: Row(
-                  children: [
-                    const Spacer(),
-                    seatsBuilder(3, 12, ticket),
-                    const Spacer(),
-                  ],
-                )),
-            Container(
-                height: 150,
-                width: double.infinity,
-                alignment: Alignment.center,
-                padding: const EdgeInsets.all(10),
-                // color: Color.fromARGB(255, 3, 142, 255),
-                child: Row(
-                  children: [
-                    const Spacer(),
-                    seatsBuilder(2, 12, ticket),
-                    const Spacer(),
-                  ],
-                )),
-            const SizedBox(
-              height: 5,
-            ),
+            // Container(
+            //     height: 130,
+            //     width: 400,
+            //     alignment: Alignment.center,
+            //     padding: const EdgeInsets.all(10),
+            //     // color: Color.fromARGB(255, 3, 142, 255),
+            //     child: Row(
+            //       children: [
+            //         const Spacer(),
+            //         seatsBuilder(3, 12, ticket),
+            //         const Spacer(),
+            //       ],
+            //     )),
+            // Container(
+            //     height: 150,
+            //     width: double.infinity,
+            //     alignment: Alignment.center,
+            //     padding: const EdgeInsets.all(10),
+            //     // color: Color.fromARGB(255, 3, 142, 255),
+            //     child: Row(
+            //       children: [
+            //         const Spacer(),
+            //         seatsBuilder(2, 12, ticket),
+            //         const Spacer(),
+            //       ],
+            //     )),
+            // const SizedBox(
+            //   height: 5,
+            // ),
             Container(
               color: Colors.blue[100],
               height: 100,
               width: 200,
               child: Column(
-                children: [
-                  if (ticket.ticketmap.isEmpty) const Text("select seat"),
-                  if (ticket.ticketmap.isNotEmpty)
-                    if (ticket.availableTickets.values.first.theatreName !=
-                        null)
-                      Text(
-                          "${ticket.availableTickets.values.map((e) => e.theatreName)}")
-                ],
+                children: [Text("testing")],
               ),
             ),
             const SizedBox(
               height: 20,
             ),
             ElevatedButton(
-                onPressed: () => ticket.confirmTickets(),
-                child: const Text("Confirm seats"))
+                style: ElevatedButton.styleFrom(
+                    primary: ticket.numberOfSeats == ticket.seatsFilled
+                        ? Colors.green
+                        : Colors.grey[400]),
+                onPressed: () {},
+                child: const Text("Confirm seats")),
+            const SizedBox(
+              height: 30,
+            ),
+            Container(height: 20, child: SeatCount())
           ],
         ),
       ),
@@ -135,53 +135,16 @@ class _SeatingPageState extends State<SeatingPage> {
               (index) => Row(
                 children: List.generate(
                   row,
-                  (i) => i == 0
-                      ? Padding(
-                          padding: const EdgeInsets.all(5.0),
-                          child: Container(
-                            height: 20,
-                            width: 20,
-                            child: Text(
-                              String.fromCharCode(65 + index),
-                              textAlign: TextAlign.center,
+                  (i) => index == 5 || index == 8
+                      ? Column(
+                          children: [
+                            const SizedBox(
+                              height: 25,
                             ),
-                          ),
+                            seatsGenerator(ticket, index, i),
+                          ],
                         )
-                      : GestureDetector(
-                          onTap: () {
-                            setState(() {
-                              isSelected = !isSelected;
-                            });
-                            if (true) {
-                              ticket.addSeats(
-                                  "${String.fromCharCode(65 + index)}$i");
-                              ticket.addTickets(
-                                  widget.id.toString(),
-                                  widget.theatreName!,
-                                  widget.movieName!,
-                                  isSelected,
-                                  widget.time,
-                                  ["$index"]);
-                            } else {
-                              ticket.removeTickets(widget.id.toString());
-                            }
-                          },
-                          child: Padding(
-                            padding: const EdgeInsets.all(5.0),
-                            child: Container(
-                              height: 20,
-                              width: 20,
-                              color: isSelectedFunction(i, index)
-                                  ? Colors.green
-                                  : Colors.grey,
-                              child: Text(
-                                i.toString(),
-                                textAlign: TextAlign.center,
-                                style: const TextStyle(fontSize: 13),
-                              ),
-                            ),
-                          ),
-                        ),
+                      : seatsGenerator(ticket, index, i),
                 ),
               ),
             ),
@@ -191,10 +154,73 @@ class _SeatingPageState extends State<SeatingPage> {
     );
   }
 
-  bool isSelectedFunction(int i, int index) {
-    selectedSeats[index][index] = !selectedSeats[index][index]!;
-    // print(selectedSeats);
-    // print("hello");
-    return selectedSeats[index][index]!;
+  Widget seatsGenerator(TicketList ticket, int index, int i) {
+    return i == 0
+        ? Padding(
+            padding: const EdgeInsets.all(5.0),
+            child: Container(
+              height: 20,
+              width: 20,
+              child: Center(
+                child: Text(
+                  String.fromCharCode(65 + index),
+                  textAlign: TextAlign.center,
+                ),
+              ),
+            ),
+          )
+        : GestureDetector(
+            onTap: () {
+              String seatID = "${String.fromCharCode(65 + index)}$i";
+              if (ticket.selectedSeats[index][i][seatID] == false &&
+                  ticket.numberOfSeats > ticket.seatsFilled) {
+                //adding seat id
+                ticket.addSeats(seatID);
+                //for changing color
+                ticket.selectedSeats[index][i][seatID] = true;
+                //adding seat count
+                ticket.fillSeat();
+              } else if (ticket.numberOfSeats > ticket.seatsFilled) {
+                print(ticket.selectedSeats[index][i][seatID]);
+                //for removing the color
+                ticket.selectedSeats[index][i][seatID] = false;
+                //for removing the seats in the list
+                ticket.removeSeats(seatID);
+                //subtracting the seat count
+                ticket.removeSeat();
+              } else if (ticket.numberOfSeats == ticket.seatsFilled) {
+                //changing the  seats once it is filled
+                ticket.refreshSeats();
+                ticket.addSeats(seatID);
+                ticket.fillSeat();
+                ticket.selectedSeats[index][i][seatID] = true;
+                ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                  content: Text("Seats filled !"),
+                ));
+              }
+            },
+            child: Padding(
+              padding: const EdgeInsets.all(5.0),
+              child: Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(2),
+                  color: ticket.selectedSeats[index][i]
+                              ["${String.fromCharCode(65 + index)}$i"] ==
+                          true
+                      ? Colors.green[500]
+                      : Colors.grey[400],
+                ),
+                height: 20,
+                width: 20,
+                child: Center(
+                  child: Text(
+                    i.toString(),
+                    textAlign: TextAlign.center,
+                    style: TextStyle(fontSize: 11, color: Colors.grey[600]),
+                  ),
+                ),
+              ),
+            ),
+          );
   }
 }

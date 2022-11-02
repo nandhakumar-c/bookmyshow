@@ -1,3 +1,5 @@
+import 'package:bookmyshow/landingpage/pagebuilder/descriptionpage/ticketbookingpage/theatresPage.dart';
+import 'package:bookmyshow/provider/date_provider.dart';
 import 'package:bookmyshow/provider/movielist_provider.dart';
 import 'package:bookmyshow/provider/notification_provider.dart';
 import 'package:bookmyshow/provider/tickets_provider.dart';
@@ -106,6 +108,9 @@ class BookMyShowState extends State<BookMyShow> {
           ChangeNotifierProvider(
             create: (context) => NotificationList(),
           ),
+          ChangeNotifierProvider(
+            create: (context) => DatesProvider(),
+          ),
         ],
         child: GetMaterialApp(
           translations: LocaleString(),
@@ -118,6 +123,7 @@ class BookMyShowState extends State<BookMyShow> {
             HomePage.routeName: (ctx) => const HomePage(),
             "/loginpage": (ctx) => MyApp(),
             "/bottomnavigation": (ctx) => const BottomNavigation(),
+            TheatresPage.routeName: (ctx) => TheatresPage()
           },
           theme: ThemeData(
               primaryColor: Color.fromARGB(255, 4, 28, 48),
