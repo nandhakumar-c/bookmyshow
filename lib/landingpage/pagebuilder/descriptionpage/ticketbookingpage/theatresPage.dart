@@ -1,9 +1,7 @@
-import 'dart:collection';
-
+import 'package:bookmyshow/landingpage/cardgeneration/carouselbuilder.dart';
 import 'package:bookmyshow/landingpage/pagebuilder/descriptionpage/ticketbookingpage/theatrePageBuilder/theatreList.dart';
 import 'package:bookmyshow/provider/date_provider.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get_state_manager/src/simple/get_widget_cache.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
@@ -11,8 +9,9 @@ class TheatresPage extends StatefulWidget {
   static const routeName = "/theatre-list-page";
   final String? movieName;
   int? index;
+  String? imgUrl;
   // ignore: use_key_in_widget_constructors
-  TheatresPage({this.index, this.movieName});
+  TheatresPage({this.imgUrl, this.index, this.movieName});
 
   @override
   State<TheatresPage> createState() => _TheatresPageState();
@@ -21,52 +20,34 @@ class TheatresPage extends StatefulWidget {
 class _TheatresPageState extends State<TheatresPage> {
   int? isDateSelected = 0;
   String? date;
-  // String? movieName;
-  int? index = 0;
+
+  int? dateindex = 0;
   @override
   void initState() {
     super.initState();
     isDateSelected = widget.index;
-    final dateAndMonthList = Provider.of<DatesProvider>(context, listen: false);
-    Map<String, Object> dateAndDay = dateAndMonthList.dateList[0];
-    date = "${dateAndDay['date']} ${dateAndDay['day']} ${dateAndDay['month']}";
+    dateindex = widget.index;
   }
 
   @override
   Widget build(BuildContext context) {
-    // final TheatresPage args =
-    //     ModalRoute.of(context)!.settings.arguments as TheatresPage;
-
-    // widget.movieName = args.movieName;
-    // movieName = widget.movieName;
-    // widget.index = args.index;
-    //index = widget.index;
-
     double h = MediaQuery.of(context).size.height;
     double w = MediaQuery.of(context).size.width;
-    //  int isDateSelected = 0;
-    final dateAndMonthList = Provider.of<DatesProvider>(context);
-    Map<String, Object> dateAndDay = dateAndMonthList.dateList[0];
 
+    final dateAndMonthList = Provider.of<DatesProvider>(context);
+
+    Map<String, Object> dateAndDay = dateAndMonthList.dateList[dateindex!];
+    date =
+        "${dateAndDay['day']}, ${dateAndDay['date']}  ${dateAndDay['month']}";
     List dateWidgets = dateAndMonthList.dateList.map(
       (data) {
         int index = dateAndMonthList.dateList.indexOf(data);
-        //onSelected(index);
+
         return dateAndTimeCardGenerator(
             data, h, w, data['isDateSelected'] as bool, index);
       },
     ).toList();
     print(date);
-    void onSelected(int index) {
-      setState(() {
-        isDateSelected = index;
-        Map<String, Object> dateAndDay = dateAndMonthList.dateList[index];
-        date =
-            "${dateAndDay['date']} ${dateAndDay['day']} ${dateAndDay['month']}";
-      });
-    }
-
-    // print(date);
     return Scaffold(
       appBar: AppBar(
           //actions: [],
@@ -104,19 +85,14 @@ class _TheatresPageState extends State<TheatresPage> {
                     onTap: () {
                       print(index);
 
-                      Navigator.of(context)
-                          // .pushReplacementNamed(TheatresPage.routeName,
-                          //     arguments: TheatresPage(
-                          //       index: widget.index,
-                          //       movieName: movieName,
-                          //     ));
-                          .pushReplacement(MaterialPageRoute(
+                      Navigator.of(context).pushReplacement(MaterialPageRoute(
                         builder: (context) => TheatresPage(
+                          imgUrl: widget.imgUrl,
                           index: index,
                           movieName: widget.movieName,
                         ),
                       ));
-                      return onSelected(index);
+                      //return onSelected(index);
                     },
                     child: dateWidgets[index]))),
           ),
@@ -152,6 +128,7 @@ class _TheatresPageState extends State<TheatresPage> {
         ),
         Flexible(
             child: TheatreLists(
+          imgUrl: widget.imgUrl,
           date: date,
           movieName: widget.movieName,
         )),

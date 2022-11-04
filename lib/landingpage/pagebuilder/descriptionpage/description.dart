@@ -165,15 +165,11 @@ class _DescriptionState extends State<Description> {
               left: w * 0.03, right: w * 0.03, bottom: w * 0.02),
           child: ElevatedButton(
             onPressed: () {
-              // Navigator.of(context)
-              // .pushNamed(TheatresPage.routeName,
-              //     arguments: TheatresPage(
-              //       index: 0,
-              //       movieName: widget.name,
-              //     ));
               Navigator.of(context).push(MaterialPageRoute(
-                builder: (context) =>
-                    TheatresPage(index: 0, movieName: widget.name),
+                builder: (context) => TheatresPage(
+                    imgUrl: widget.movieImgUrl,
+                    index: 0,
+                    movieName: widget.name),
               ));
             },
             style: ElevatedButton.styleFrom(

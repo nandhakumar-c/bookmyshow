@@ -1,10 +1,12 @@
+import 'package:bookmyshow/profilepage/cardgenerator/screens/orders_screen.dart';
 import 'package:flutter/material.dart';
 
 class CardDetails {
   String? text = "";
   String? description = "";
   final icon;
-  CardDetails({this.text, this.description, this.icon});
+  Function? navigation;
+  CardDetails({this.text, this.description, this.icon, this.navigation});
 }
 
 List<CardDetails> cards = [
@@ -38,11 +40,18 @@ List<CardDetails> cards = [
       icon: Icons.shop_two_outlined),
 ];
 
+Future pageNavigation(BuildContext context) {
+  return Navigator.of(context).push(MaterialPageRoute(
+    builder: (context) => OrdersPage(),
+  ));
+}
+
 List<CardDetails> card2 = [
   CardDetails(
       text: 'Your Orders',
       description: 'View all your bookings & purchase',
-      icon: Icons.shopping_bag_outlined),
+      icon: Icons.shopping_bag_outlined,
+      navigation: () {}),
   CardDetails(
       text: 'Stream Library',
       description: 'Rented, Purchased and Downloaded movies',

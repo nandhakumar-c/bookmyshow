@@ -1,16 +1,22 @@
 import 'package:bookmyshow/landingpage/pagebuilder/descriptionpage/ticketbookingpage/seatingpage/seatcount.dart';
+import 'package:bookmyshow/profilepage/cardgenerator/screens/orders_screen.dart';
+import 'package:bookmyshow/provider/orders_provider.dart';
 import 'package:bookmyshow/provider/tickets_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../../../../bottomnavigation/bottomnavigator.dart';
+
 class SeatingPage extends StatefulWidget {
   String? theatreName;
+  String? imgUrl;
   String? movieName;
   int id;
   String? date;
   String time;
   SeatingPage(
       {Key? key,
+      this.imgUrl,
       this.theatreName,
       this.date,
       this.movieName,
@@ -32,7 +38,7 @@ class _SeatingPageState extends State<SeatingPage> {
   @override
   Widget build(BuildContext context) {
     final ticket = Provider.of<TicketList>(context);
-
+    final orders = Provider.of<OrdersList>(context);
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
@@ -113,7 +119,13 @@ class _SeatingPageState extends State<SeatingPage> {
                     primary: ticket.numberOfSeats == ticket.seatsFilled
                         ? Colors.green
                         : Colors.grey[400]),
-                onPressed: () {},
+                onPressed: () {
+                  orders.addOrder(widget.imgUrl, widget.theatreName,
+                      widget.date, widget.movieName, widget.time, ticket.seats);
+                  Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => BottomNavigation(),
+                  ));
+                },
                 child: const Text("Confirm seats")),
             const SizedBox(
               height: 30,

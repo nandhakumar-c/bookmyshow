@@ -1,3 +1,4 @@
+import 'package:bookmyshow/profilepage/cardgenerator/screens/orders_screen.dart';
 import 'package:flutter/material.dart';
 import './profilecarddetails.dart';
 
@@ -51,38 +52,42 @@ class CardGenerator extends StatelessWidget {
   CardGenerator(this.card);
   @override
   Widget build(BuildContext context) {
-    return Card(
-      margin: EdgeInsets.all(1),
-      child: Container(
-        width: double.infinity,
-        height: MediaQuery.of(context).size.height / 13.5,
-        child: Padding(
-          padding: const EdgeInsets.all(10),
-          child: Row(
-            children: [
-              Icon(card?.icon),
-              SizedBox(
-                width: 15,
-              ),
-              Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  if (card?.description != null) ...[
-                    Text('${card?.text}'),
-                    SizedBox(
-                      height: 3,
-                    ),
-                    Text(
-                      '${card?.description}',
-                      style: TextStyle(fontSize: 10, color: Colors.grey[700]),
-                    )
+    return InkWell(
+      onTap: () => Navigator.of(context)
+          .push(MaterialPageRoute(builder: (context) => OrdersPage())),
+      child: Card(
+        margin: EdgeInsets.all(1),
+        child: Container(
+          width: double.infinity,
+          height: MediaQuery.of(context).size.height / 13.5,
+          child: Padding(
+            padding: const EdgeInsets.all(10),
+            child: Row(
+              children: [
+                Icon(card?.icon),
+                const SizedBox(
+                  width: 15,
+                ),
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    if (card?.description != null) ...[
+                      Text('${card?.text}'),
+                      const SizedBox(
+                        height: 3,
+                      ),
+                      Text(
+                        '${card?.description}',
+                        style: TextStyle(fontSize: 10, color: Colors.grey[700]),
+                      )
+                    ],
+                    if (card?.description == null)
+                      Center(child: Text('${card?.text}')),
                   ],
-                  if (card?.description == null)
-                    Center(child: Text('${card?.text}')),
-                ],
-              ),
-            ],
+                ),
+              ],
+            ),
           ),
         ),
       ),

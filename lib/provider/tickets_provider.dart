@@ -1,4 +1,4 @@
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
 class Tickets {
   final String? theatreName;
@@ -79,5 +79,7 @@ class TicketList with ChangeNotifier {
     seats.removeWhere((element) => element == seat);
     print("rmv seats ${seats}");
     notifyListeners();
+
+    void confirmSeats() {}
   }
 }

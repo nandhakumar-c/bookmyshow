@@ -55,9 +55,10 @@ List<TheatreList> theatreLists = [
 
 class TheatreLists extends StatefulWidget {
   final String? movieName;
+  final String? imgUrl;
   final String? date;
   // ignore: use_key_in_widget_constructors
-  const TheatreLists({this.date, this.movieName});
+  const TheatreLists({this.imgUrl, this.date, this.movieName});
 
   @override
   State<TheatreLists> createState() => _TheatreListState();
@@ -238,6 +239,7 @@ class _TheatreListState extends State<TheatreLists> {
                                           Navigator.of(context)
                                               .push(MaterialPageRoute(
                                             builder: (context) => SeatingPage(
+                                              imgUrl: widget.imgUrl,
                                               date: widget.date,
                                               movieName: widget.movieName,
                                               theatreName: theatreList

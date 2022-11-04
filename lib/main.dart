@@ -2,6 +2,7 @@ import 'package:bookmyshow/landingpage/pagebuilder/descriptionpage/ticketbooking
 import 'package:bookmyshow/provider/date_provider.dart';
 import 'package:bookmyshow/provider/movielist_provider.dart';
 import 'package:bookmyshow/provider/notification_provider.dart';
+import 'package:bookmyshow/provider/orders_provider.dart';
 import 'package:bookmyshow/provider/tickets_provider.dart';
 import 'package:flutter/material.dart';
 
@@ -21,7 +22,7 @@ import 'package:bookmyshow/provider/googlesignin_provider.dart';
 
 import 'package:onesignal_flutter/onesignal_flutter.dart';
 
-import 'dart:io';
+// import 'dart:io';
 import 'dart:async';
 
 import 'bottomnavigation/bottomnavigator.dart';
@@ -111,6 +112,9 @@ class BookMyShowState extends State<BookMyShow> {
           ChangeNotifierProvider(
             create: (context) => DatesProvider(),
           ),
+          ChangeNotifierProvider(
+            create: (context) => OrdersList(),
+          )
         ],
         child: GetMaterialApp(
           translations: LocaleString(),
