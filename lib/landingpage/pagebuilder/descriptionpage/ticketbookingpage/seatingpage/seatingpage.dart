@@ -1,5 +1,4 @@
 import 'package:bookmyshow/landingpage/pagebuilder/descriptionpage/ticketbookingpage/seatingpage/seatcount.dart';
-import 'package:bookmyshow/profilepage/cardgenerator/screens/orders_screen.dart';
 import 'package:bookmyshow/provider/orders_provider.dart';
 import 'package:bookmyshow/provider/tickets_provider.dart';
 import 'package:flutter/material.dart';

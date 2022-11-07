@@ -126,6 +126,8 @@ class _OrdersPageState extends State<OrdersPage> {
                       ),
                       const Divider(
                         indent: 15,
+                        height: 10,
+                        thickness: 1,
                         endIndent: 15,
                       ),
                       Flexible(
@@ -219,7 +221,9 @@ class _OrdersPageState extends State<OrdersPage> {
                       color: Colors.grey[400],
                       onPressed: () {
                         TextButton cancelButton = TextButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                          },
                           child: const Text("NO",
                               style: TextStyle(color: Colors.red)),
                         );
