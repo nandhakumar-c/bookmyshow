@@ -2,6 +2,7 @@ import 'package:bookmyshow/landingpage/pagebuilder/descriptionpage/ticketbooking
 import 'package:bookmyshow/provider/orders_provider.dart';
 import 'package:bookmyshow/provider/tickets_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../../bottomnavigation/bottomnavigator.dart';
@@ -30,7 +31,7 @@ class SeatingPage extends StatefulWidget {
 class _SeatingPageState extends State<SeatingPage> {
   List<Container> rows = [];
   bool isSelected = false;
-
+  String vehicleImg = "";
   List<Map<int, bool>> selectedSeats =
       List.generate(5, (index) => {index: false});
 
@@ -75,136 +76,128 @@ class _SeatingPageState extends State<SeatingPage> {
               height: 30,
               padding: const EdgeInsets.only(right: 20),
               alignment: Alignment.centerRight,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  TextButton(
-                      onPressed: () {
-                        showModalBottomSheet(
-                          context: context,
-                          builder: (BuildContext context) => SafeArea(
-                            child: Container(
-                              height: 350,
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Flexible(
-                                    child: Container(
-                                      height: 40,
-                                      padding: const EdgeInsets.all(10),
-                                      child: const Text(
-                                        "How many seats? ",
-                                        style: TextStyle(
-                                            fontSize: 15,
-                                            fontWeight: FontWeight.bold),
-                                        textAlign: TextAlign.start,
-                                      ),
-                                    ),
-                                  ),
-                                  Container(
-                                    height: 150,
-                                    color: Colors.blueGrey,
-                                  ),
-                                  Flexible(
-                                    child: Container(
-                                      height: 30,
-                                      child: SeatCount(),
-                                    ),
-                                  ),
-                                  Container(
-                                    padding: const EdgeInsets.all(20),
-                                    child: ElevatedButton(
-                                        style: ElevatedButton.styleFrom(
-                                          primary: const Color.fromARGB(
-                                              255, 231, 48, 72),
-                                          minimumSize:
-                                              const Size.fromHeight(50),
-                                        ),
-                                        onPressed: () {
-                                          Navigator.of(context).pop();
-                                        },
-                                        child: const Text("Select Seats")),
-                                  )
-                                ],
+              child: GestureDetector(
+                onTap: () {
+                  showModalBottomSheet(
+                    context: context,
+                    builder: (BuildContext context) => SafeArea(
+                      child: Container(
+                        height: 350,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Flexible(
+                              child: Container(
+                                height: 50,
+                                padding: const EdgeInsets.all(10),
+                                child: const Text(
+                                  "How many seats? ",
+                                  style: TextStyle(
+                                      fontSize: 17,
+                                      fontWeight: FontWeight.w500),
+                                  textAlign: TextAlign.start,
+                                ),
                               ),
                             ),
-                          ),
-                        );
-                      },
-                      child: Text(
-                        "${ticket.numberOfSeats}Tickets",
-                        textAlign: TextAlign.right,
-                        style: TextStyle(color: Colors.red),
-                      )),
-                ],
+                            Consumer<TicketList>(
+                              builder: (context, value, child) {
+                                return Container(
+                                    alignment: Alignment.center,
+                                    height: 150,
+                                    child: SizedBox(
+                                      height: 150,
+                                      child: ticket.img,
+                                    ));
+                              },
+                            ),
+                            Flexible(
+                              child: Container(
+                                height: 40,
+                                width: double.infinity,
+                                alignment: Alignment.center,
+                                child: SeatCount(),
+                              ),
+                            ),
+                            Container(
+                              padding: const EdgeInsets.all(20),
+                              child: ElevatedButton(
+                                  style: ElevatedButton.styleFrom(
+                                    primary:
+                                        const Color.fromARGB(255, 231, 48, 72),
+                                    minimumSize: const Size.fromHeight(40),
+                                  ),
+                                  onPressed: () {
+                                    ticket.selectSeats();
+                                    ticket.emptySeat();
+                                    Navigator.of(context).pop();
+                                  },
+                                  child: const Text("Select Seats")),
+                            )
+                          ],
+                        ),
+                      ),
+                    ),
+                  );
+                },
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    const Icon(
+                      Icons.edit,
+                      color: Colors.red,
+                      size: 15,
+                    ),
+                    const SizedBox(
+                      width: 5,
+                    ),
+                    Text(
+                      ticket.numberOfSeats == 1
+                          ? "${ticket.numberOfSeats} Ticket"
+                          : "${ticket.numberOfSeats} Tickets",
+                      textAlign: TextAlign.right,
+                      style: const TextStyle(
+                          fontWeight: FontWeight.w600, color: Colors.red),
+                    ),
+                  ],
+                ),
               ),
             ),
             Container(
-                alignment: Alignment.center,
-                padding: const EdgeInsets.all(10),
-                // color: Color.fromARGB(255, 3, 142, 255),
-                child: Row(
-                  children: [
-                    Expanded(child: seatsBuilder(10, 12, ticket)),
-                  ],
-                )),
-            // Container(
-            //     height: 130,
-            //     width: 400,
-            //     alignment: Alignment.center,
-            //     padding: const EdgeInsets.all(10),
-            //     // color: Color.fromARGB(255, 3, 142, 255),
-            //     child: Row(
-            //       children: [
-            //         const Spacer(),
-            //         seatsBuilder(3, 12, ticket),
-            //         const Spacer(),
-            //       ],
-            //     )),
-            // Container(
-            //     height: 150,
-            //     width: double.infinity,
-            //     alignment: Alignment.center,
-            //     padding: const EdgeInsets.all(10),
-            //     // color: Color.fromARGB(255, 3, 142, 255),
-            //     child: Row(
-            //       children: [
-            //         const Spacer(),
-            //         seatsBuilder(2, 12, ticket),
-            //         const Spacer(),
-            //       ],
-            //     )),
-            // const SizedBox(
-            //   height: 5,
-            // ),
-            Container(
-              color: Colors.blue[100],
-              height: 100,
-              width: 200,
-              child: Column(
-                children: [Text("testing")],
+              alignment: Alignment.center,
+              padding: const EdgeInsets.all(10),
+              // color: Color.fromARGB(255, 3, 142, 255),
+              child: Row(
+                children: [
+                  Expanded(child: seatsBuilder(10, 12, ticket)),
+                ],
               ),
             ),
             const SizedBox(
               height: 20,
             ),
-            ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                    primary: ticket.numberOfSeats == ticket.seatsFilled
-                        ? Colors.green
-                        : Colors.grey[400]),
-                onPressed: () {
-                  orders.addOrder(widget.imgUrl, widget.theatreName,
-                      widget.date, widget.movieName, widget.time, ticket.seats);
-                  Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => BottomNavigation(),
-                  ));
-                },
-                child: const Text("Confirm seats")),
             const SizedBox(
               height: 30,
             ),
           ],
+        ),
+      ),
+      bottomNavigationBar: BottomAppBar(
+        child: Container(
+          padding: const EdgeInsets.only(left: 10, right: 10, bottom: 10),
+          child: ElevatedButton(
+            style: ElevatedButton.styleFrom(
+                primary: ticket.numberOfSeats == ticket.seatsFilled
+                    ? Colors.green
+                    : Colors.grey[400]),
+            onPressed: () {
+              orders.addOrder(widget.imgUrl, widget.theatreName, widget.date,
+                  widget.movieName, widget.time, ticket.seats);
+              Navigator.of(context).push(MaterialPageRoute(
+                builder: (context) => BottomNavigation(),
+              ));
+            },
+            child: const Text("Confirm seats"),
+          ),
         ),
       ),
     );

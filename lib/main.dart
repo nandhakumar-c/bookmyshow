@@ -3,6 +3,7 @@ import 'package:bookmyshow/provider/date_provider.dart';
 import 'package:bookmyshow/provider/movielist_provider.dart';
 import 'package:bookmyshow/provider/notification_provider.dart';
 import 'package:bookmyshow/provider/orders_provider.dart';
+import 'package:bookmyshow/provider/theatrelist_provider.dart';
 import 'package:bookmyshow/provider/tickets_provider.dart';
 import 'package:flutter/material.dart';
 
@@ -114,7 +115,10 @@ class BookMyShowState extends State<BookMyShow> {
           ),
           ChangeNotifierProvider(
             create: (context) => OrdersList(),
-          )
+          ),
+          ChangeNotifierProvider(
+            create: (context) => TheatreList(),
+          ),
         ],
         child: GetMaterialApp(
           translations: LocaleString(),

@@ -11,9 +11,25 @@ class Tickets {
 }
 
 class TicketList with ChangeNotifier {
+  List<String> vehicleImages = [
+    "assets/seats/cycle.png",
+    "assets/seats/scooter.png",
+    "assets/seats/auto.png",
+    "assets/seats/minicar.png",
+    "assets/seats/car1.png",
+    "assets/seats/car1.png",
+    "assets/seats/car2.png",
+    "assets/seats/caravan.png",
+    "assets/seats/bus.png",
+    "assets/seats/bus.png"
+  ];
+
   int numberOfSeats = 1;
+  int tempSeats = 1;
   int seatsFilled = 0;
   List<String> seats = [];
+
+  late Image img = Image(image: AssetImage(vehicleImages[0]));
   List<List<Map<String, bool>>> selectedSeats = List.generate(
       10,
       (index) => List.generate(
@@ -22,8 +38,23 @@ class TicketList with ChangeNotifier {
           ));
 
   void seatCounter(int n) {
-    numberOfSeats = n;
+    tempSeats = n;
     print(numberOfSeats);
+    notifyListeners();
+  }
+
+  void selectSeats() {
+    numberOfSeats = tempSeats;
+    img = Image(
+      image: AssetImage(vehicleImages[numberOfSeats - 1]),
+    );
+    notifyListeners();
+  }
+
+  void changeSeatImage() {
+    img = Image(
+      image: AssetImage(vehicleImages[tempSeats - 1]),
+    );
     notifyListeners();
   }
 

@@ -12,26 +12,35 @@ class SeatCount extends StatefulWidget {
 class _SeatCountState extends State<SeatCount> {
   List<int> seatCount = List.generate(10, (index) => index);
   int selectedIndex = 0;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    final seatCount = Provider.of<TicketList>(context, listen: false);
+    selectedIndex = seatCount.numberOfSeats - 1;
+  }
+
   @override
   Widget build(BuildContext context) {
     final seatCountProvider = Provider.of<TicketList>(context);
 
-    return ListView.separated(
-        separatorBuilder: (context, index) => const SizedBox(width: 15),
+    return ListView.builder(
         shrinkWrap: true,
         scrollDirection: Axis.horizontal,
         itemCount: seatCount.length,
         itemBuilder: (context, index) => InkWell(
               onTap: () {
                 seatCountProvider.seatCounter(index + 1);
-                seatCountProvider.emptySeat();
+                seatCountProvider.changeSeatImage();
+                // seatCountProvider.emptySeat();
                 setState(() {
                   selectedIndex = index;
                 });
               },
               child: Container(
-                height: 25,
-                width: 25,
+                height: 35,
+                width: 35,
                 decoration: BoxDecoration(
                     shape: BoxShape.circle,
                     //borderRadius: BorderRadius.circular(20),
@@ -42,7 +51,8 @@ class _SeatCountState extends State<SeatCount> {
                   child: Text(
                     "${seatCount[index] + 1}",
                     style: TextStyle(
-                        fontSize: 15,
+                        fontSize: 17,
+                        fontWeight: FontWeight.w400,
                         color: selectedIndex == index
                             ? Colors.white
                             : Colors.black),
