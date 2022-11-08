@@ -35,9 +35,16 @@ class _SeatingPageState extends State<SeatingPage> {
       List.generate(5, (index) => {index: false});
 
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final ticket = Provider.of<TicketList>(context);
     final orders = Provider.of<OrdersList>(context);
+
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
@@ -64,6 +71,74 @@ class _SeatingPageState extends State<SeatingPage> {
       body: SingleChildScrollView(
         child: Column(
           children: [
+            Container(
+              height: 30,
+              padding: const EdgeInsets.only(right: 20),
+              alignment: Alignment.centerRight,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  TextButton(
+                      onPressed: () {
+                        showModalBottomSheet(
+                          context: context,
+                          builder: (BuildContext context) => SafeArea(
+                            child: Container(
+                              height: 350,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Flexible(
+                                    child: Container(
+                                      height: 40,
+                                      padding: const EdgeInsets.all(10),
+                                      child: const Text(
+                                        "How many seats? ",
+                                        style: TextStyle(
+                                            fontSize: 15,
+                                            fontWeight: FontWeight.bold),
+                                        textAlign: TextAlign.start,
+                                      ),
+                                    ),
+                                  ),
+                                  Container(
+                                    height: 150,
+                                    color: Colors.blueGrey,
+                                  ),
+                                  Flexible(
+                                    child: Container(
+                                      height: 30,
+                                      child: SeatCount(),
+                                    ),
+                                  ),
+                                  Container(
+                                    padding: const EdgeInsets.all(20),
+                                    child: ElevatedButton(
+                                        style: ElevatedButton.styleFrom(
+                                          primary: const Color.fromARGB(
+                                              255, 231, 48, 72),
+                                          minimumSize:
+                                              const Size.fromHeight(50),
+                                        ),
+                                        onPressed: () {
+                                          Navigator.of(context).pop();
+                                        },
+                                        child: const Text("Select Seats")),
+                                  )
+                                ],
+                              ),
+                            ),
+                          ),
+                        );
+                      },
+                      child: Text(
+                        "${ticket.numberOfSeats}Tickets",
+                        textAlign: TextAlign.right,
+                        style: TextStyle(color: Colors.red),
+                      )),
+                ],
+              ),
+            ),
             Container(
                 alignment: Alignment.center,
                 padding: const EdgeInsets.all(10),
@@ -129,7 +204,6 @@ class _SeatingPageState extends State<SeatingPage> {
             const SizedBox(
               height: 30,
             ),
-            Container(height: 20, child: SeatCount())
           ],
         ),
       ),

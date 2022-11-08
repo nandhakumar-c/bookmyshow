@@ -20,7 +20,7 @@ class BottomNavigationState extends State<BottomNavigation> {
   final screens = [
     LandingPage(),
     const BuzzPage(),
-    ProfilePage(),
+    const ProfilePage(),
   ];
   @override
   Widget build(BuildContext context) {

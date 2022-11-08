@@ -17,7 +17,7 @@ class _SeatCountState extends State<SeatCount> {
     final seatCountProvider = Provider.of<TicketList>(context);
 
     return ListView.separated(
-        separatorBuilder: (context, index) => SizedBox(width: 20),
+        separatorBuilder: (context, index) => const SizedBox(width: 15),
         shrinkWrap: true,
         scrollDirection: Axis.horizontal,
         itemCount: seatCount.length,
@@ -30,17 +30,22 @@ class _SeatCountState extends State<SeatCount> {
                 });
               },
               child: Container(
-                height: 5,
-                width: 20,
+                height: 25,
+                width: 25,
                 decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
+                    shape: BoxShape.circle,
+                    //borderRadius: BorderRadius.circular(20),
                     color: selectedIndex == index
                         ? Colors.red[500]
-                        : Colors.grey[400]),
+                        : Colors.transparent),
                 child: Center(
                   child: Text(
                     "${seatCount[index] + 1}",
-                    style: TextStyle(fontSize: 10),
+                    style: TextStyle(
+                        fontSize: 15,
+                        color: selectedIndex == index
+                            ? Colors.white
+                            : Colors.black),
                   ),
                 ),
               ),

@@ -236,19 +236,20 @@ class _TheatreListState extends State<TheatreLists> {
                                       padding: EdgeInsets.all(w * 0.02),
                                       child: ElevatedButton(
                                         onPressed: () {
-                                          Navigator.of(context)
-                                              .push(MaterialPageRoute(
-                                            builder: (context) => SeatingPage(
-                                              imgUrl: widget.imgUrl,
-                                              date: widget.date,
-                                              movieName: widget.movieName,
-                                              theatreName: theatreList
-                                                  .theatreName
-                                                  .toString(),
-                                              time: e,
-                                              id: index,
+                                          Navigator.of(context).push(
+                                            MaterialPageRoute(
+                                              builder: (context) => SeatingPage(
+                                                imgUrl: widget.imgUrl,
+                                                date: widget.date,
+                                                movieName: widget.movieName,
+                                                theatreName: theatreList
+                                                    .theatreName
+                                                    .toString(),
+                                                time: e,
+                                                id: index,
+                                              ),
                                             ),
-                                          ));
+                                          );
                                         },
                                         style: ElevatedButton.styleFrom(
                                           primary: const Color.fromARGB(
