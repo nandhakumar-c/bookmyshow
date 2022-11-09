@@ -1,7 +1,7 @@
 import 'package:bookmyshow/landingpage/pagebuilder/descriptionpage/expandedtext.dart';
 import 'package:bookmyshow/landingpage/pagebuilder/descriptionpage/ratingpage/ratingpage.dart';
-import 'package:bookmyshow/landingpage/pagebuilder/descriptionpage/ticketbookingpage/theatrePageBuilder/screens/theatrelist_screen.dart';
-import 'package:bookmyshow/landingpage/pagebuilder/descriptionpage/ticketbookingpage/theatresPage.dart';
+import 'package:bookmyshow/landingpage/pagebuilder/descriptionpage/ticketbookingpage/screens/theatrelist_screen.dart';
+import 'package:bookmyshow/unused/theatresPage.dart';
 import 'package:flutter/material.dart';
 import 'package:share_plus/share_plus.dart';
 
@@ -167,7 +167,8 @@ class _DescriptionState extends State<Description> {
           child: ElevatedButton(
             onPressed: () {
               Navigator.of(context).push(MaterialPageRoute(
-                builder: (context) => const TheatreListScreen(),
+                builder: (context) => TheatreListScreen(
+                    imgUrl: widget.movieImgUrl, movieName: widget.name),
               ));
               // Navigator.of(context).push(MaterialPageRoute(
               //   builder: (context) => TheatresPage(

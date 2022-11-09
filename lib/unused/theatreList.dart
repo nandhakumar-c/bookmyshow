@@ -1,5 +1,5 @@
 // import 'package:bookmyshow/bottomnavigation/bottomnavigator.dart';
-import 'package:bookmyshow/landingpage/pagebuilder/descriptionpage/ticketbookingpage/seatingpage/seatingpage.dart';
+import 'package:bookmyshow/landingpage/pagebuilder/descriptionpage/ticketbookingpage/screens/seatingpage.dart';
 import 'package:flutter/material.dart';
 
 // import '../theatresPage.dart';

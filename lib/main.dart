@@ -1,10 +1,11 @@
-import 'package:bookmyshow/landingpage/pagebuilder/descriptionpage/ticketbookingpage/theatresPage.dart';
+import 'package:bookmyshow/unused/theatresPage.dart';
 import 'package:bookmyshow/provider/date_provider.dart';
 import 'package:bookmyshow/provider/movielist_provider.dart';
 import 'package:bookmyshow/provider/notification_provider.dart';
 import 'package:bookmyshow/provider/orders_provider.dart';
 import 'package:bookmyshow/provider/theatrelist_provider.dart';
 import 'package:bookmyshow/provider/tickets_provider.dart';
+import 'package:bookmyshow/widgets/palette.dart';
 import 'package:flutter/material.dart';
 
 import 'package:bookmyshow/loginpagevalidation/home_page.dart';
@@ -135,7 +136,7 @@ class BookMyShowState extends State<BookMyShow> {
           },
           theme: ThemeData(
               primaryColor: Color.fromARGB(255, 4, 28, 48),
-              primarySwatch: Colors.blueGrey),
+              primarySwatch: Palette.kToDark),
           //supportedLocales: L10n.all,
         ),
       );

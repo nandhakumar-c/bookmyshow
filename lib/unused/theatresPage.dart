@@ -1,5 +1,5 @@
 import 'package:bookmyshow/landingpage/cardgeneration/carouselbuilder.dart';
-import 'package:bookmyshow/landingpage/pagebuilder/descriptionpage/ticketbookingpage/theatrePageBuilder/theatreList.dart';
+import 'package:bookmyshow/unused/theatreList.dart';
 import 'package:bookmyshow/provider/date_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';

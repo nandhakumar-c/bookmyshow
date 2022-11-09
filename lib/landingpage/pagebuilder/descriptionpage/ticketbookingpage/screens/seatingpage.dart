@@ -1,4 +1,4 @@
-import 'package:bookmyshow/landingpage/pagebuilder/descriptionpage/ticketbookingpage/seatingpage/seatcount.dart';
+import 'package:bookmyshow/landingpage/pagebuilder/descriptionpage/ticketbookingpage/screens/seatcount.dart';
 import 'package:bookmyshow/provider/orders_provider.dart';
 import 'package:bookmyshow/provider/tickets_provider.dart';
 import 'package:flutter/material.dart';
@@ -34,11 +34,19 @@ class _SeatingPageState extends State<SeatingPage> {
   String vehicleImg = "";
   List<Map<int, bool>> selectedSeats =
       List.generate(5, (index) => {index: false});
-
+  TransformationController transformationController =
+      TransformationController();
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
+    transformationController.addListener(() {
+      if (transformationController.value.getMaxScaleOnAxis() < 0) {
+        setState(() {
+          transformationController.value = Matrix4.identity();
+        });
+      }
+    });
   }
 
   @override
@@ -69,7 +77,7 @@ class _SeatingPageState extends State<SeatingPage> {
         ),
         backgroundColor: const Color.fromARGB(255, 6, 20, 32),
       ),
-      body: SingleChildScrollView(
+      body: Container(
         child: Column(
           children: [
             Container(
@@ -162,21 +170,31 @@ class _SeatingPageState extends State<SeatingPage> {
                 ),
               ),
             ),
-            Container(
-              alignment: Alignment.center,
-              padding: const EdgeInsets.all(10),
-              // color: Color.fromARGB(255, 3, 142, 255),
-              child: Row(
-                children: [
-                  Expanded(child: seatsBuilder(10, 12, ticket)),
-                ],
+            Expanded(
+              child: InteractiveViewer(
+                minScale: 0.75,
+                maxScale: 2.25,
+                transformationController: transformationController,
+                onInteractionEnd: (details) {
+                  print(transformationController.value.getMaxScaleOnAxis());
+                  if (transformationController.value.getMaxScaleOnAxis() < 0) {
+                    transformationController.value = Matrix4.identity();
+                  }
+                  //transformationController.value = Matrix4.identity();
+                },
+                boundaryMargin:
+                    const EdgeInsets.symmetric(vertical: 200, horizontal: 200),
+                child: Container(
+                  alignment: Alignment.center,
+                  padding: const EdgeInsets.all(10),
+                  // color: Color.fromARGB(255, 3, 142, 255),
+                  child: Row(
+                    children: [
+                      Flexible(child: seatsBuilder(10, 12, ticket)),
+                    ],
+                  ),
+                ),
               ),
-            ),
-            const SizedBox(
-              height: 20,
-            ),
-            const SizedBox(
-              height: 30,
             ),
           ],
         ),
@@ -300,5 +318,9 @@ class _SeatingPageState extends State<SeatingPage> {
               ),
             ),
           );
+  }
+
+  void _transformController() {
+    setState(() {});
   }
 }
