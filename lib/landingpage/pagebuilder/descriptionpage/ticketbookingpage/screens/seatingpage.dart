@@ -3,6 +3,7 @@ import 'package:bookmyshow/provider/orders_provider.dart';
 import 'package:bookmyshow/provider/tickets_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get/get_connect/http/src/utils/utils.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../../bottomnavigation/bottomnavigator.dart';
@@ -174,6 +175,7 @@ class _SeatingPageState extends State<SeatingPage> {
               child: InteractiveViewer(
                 minScale: 0.75,
                 maxScale: 2.25,
+                constrained: true,
                 transformationController: transformationController,
                 onInteractionEnd: (details) {
                   print(transformationController.value.getMaxScaleOnAxis());
@@ -182,22 +184,21 @@ class _SeatingPageState extends State<SeatingPage> {
                       transformationController.value = Matrix4.identity();
                     });
                   }
-
-                  //transformationController.value = Matrix4.identity();
                 },
                 boundaryMargin:
-                    const EdgeInsets.symmetric(vertical: 200, horizontal: 200),
-                child: Container(
-                  alignment: Alignment.center,
-                  padding: const EdgeInsets.all(10),
-                  // color: Color.fromARGB(255, 3, 142, 255),
-                  child: Row(
-                    children: [
-                      Flexible(child: seatsBuilder(10, 12, ticket)),
-                    ],
-                  ),
-                ),
+                    const EdgeInsets.symmetric(vertical: 250, horizontal: 300),
+                child: seatsBuilder(22, 22, ticket),
+                // Flexible(
+                //   child: Container(
+                //     alignment: Alignment.center,
+                //     height: double.infinity,
+                //     width: double.infinity,
+                //     padding: const EdgeInsets.all(10),
+                //     // color: Color.fromARGB(255, 3, 142, 255),
+                //     child: seatsBuilder(22, 22, ticket),
               ),
+              // ),
+              // ),
             ),
           ],
         ),
@@ -226,28 +227,28 @@ class _SeatingPageState extends State<SeatingPage> {
 
   Widget seatsBuilder(int column, int row, TicketList ticket) {
     return Column(
+      //shrinkWrap: true,
+      //scrollDirection: Axis.vertical,
       children: [
-        Column(
-          children: [
-            ...List.generate(
-              column,
-              (index) => Row(
-                children: List.generate(
-                  row,
-                  (i) => index == 5 || index == 8
-                      ? Column(
-                          children: [
-                            const SizedBox(
-                              height: 25,
-                            ),
-                            seatsGenerator(ticket, index, i),
-                          ],
-                        )
-                      : seatsGenerator(ticket, index, i),
-                ),
-              ),
+        ...List.generate(
+          column,
+          (index) => Row(
+            // shrinkWrap: true,
+            // physics: const ClampingScrollPhysics(),
+            children: List.generate(
+              row,
+              (i) => index == 5 || index == 8
+                  ? Column(
+                      children: [
+                        const SizedBox(
+                          height: 25,
+                        ),
+                        seatsGenerator(ticket, index, i),
+                      ],
+                    )
+                  : seatsGenerator(ticket, index, i),
             ),
-          ],
+          ),
         ),
       ],
     );

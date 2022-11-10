@@ -31,9 +31,9 @@ class TicketList with ChangeNotifier {
 
   late Image img = Image(image: AssetImage(vehicleImages[0]));
   List<List<Map<String, bool>>> selectedSeats = List.generate(
-      10,
+      22,
       (index) => List.generate(
-            12,
+            22,
             (i) => {"${String.fromCharCode(65 + index)}$i": false},
           ));
 
@@ -77,9 +77,9 @@ class TicketList with ChangeNotifier {
   void emptySeat() {
     seatsFilled = 0;
     selectedSeats = List.generate(
-        10,
+        22,
         (index) => List.generate(
-              12,
+              22,
               (i) => {"${String.fromCharCode(65 + index)}$i": false},
             ));
     seats = [];
@@ -89,9 +89,9 @@ class TicketList with ChangeNotifier {
   void refreshSeats() {
     seatsFilled = 0;
     selectedSeats = List.generate(
-        10,
+        22,
         (index) => List.generate(
-              12,
+              22,
               (i) => {"${String.fromCharCode(65 + index)}$i": false},
             ));
     seats = [];
