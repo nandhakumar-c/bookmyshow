@@ -177,9 +177,12 @@ class _SeatingPageState extends State<SeatingPage> {
                 transformationController: transformationController,
                 onInteractionEnd: (details) {
                   print(transformationController.value.getMaxScaleOnAxis());
-                  if (transformationController.value.getMaxScaleOnAxis() < 0) {
-                    transformationController.value = Matrix4.identity();
+                  if (transformationController.value.getMaxScaleOnAxis() <= 0) {
+                    setState(() {
+                      transformationController.value = Matrix4.identity();
+                    });
                   }
+
                   //transformationController.value = Matrix4.identity();
                 },
                 boundaryMargin:
