@@ -61,6 +61,7 @@ dependencies:
   flutter_launcher_icons: ^0.10.0
   onesignal_flutter: ^3.4.2
   flutter_svg: ^1.1.6
+  book_my_seat: ^1.0.0
 dev_dependencies:
   flutter_test:
     sdk: flutter
