@@ -1,8 +1,9 @@
+import 'package:bookmyshow/landingpage/landingpage.dart';
 import 'package:bookmyshow/landingpage/pagebuilder/descriptionpage/ticketbookingpage/screens/seatcount.dart';
 import 'package:bookmyshow/provider/orders_provider.dart';
 import 'package:bookmyshow/provider/tickets_provider.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
+
 import 'package:get/get_connect/http/src/utils/utils.dart';
 import 'package:provider/provider.dart';
 
@@ -29,25 +30,87 @@ class SeatingPage extends StatefulWidget {
   State<SeatingPage> createState() => _SeatingPageState();
 }
 
-class _SeatingPageState extends State<SeatingPage> {
+class _SeatingPageState extends State<SeatingPage>
+    with TickerProviderStateMixin {
   List<Container> rows = [];
   bool isSelected = false;
   String vehicleImg = "";
   List<Map<int, bool>> selectedSeats =
       List.generate(5, (index) => {index: false});
-  TransformationController transformationController =
+
+  final TransformationController transformationController =
       TransformationController();
+  Animation<Matrix4>? _animationReset;
+  late final AnimationController _controllerReset;
+  void _onAnimateReset() {
+    transformationController.value = _animationReset!.value;
+    if (!_controllerReset.isAnimating) {
+      _animationReset!.removeListener(_onAnimateReset);
+      _animationReset = null;
+      _controllerReset.reset();
+    }
+  }
+
+  void _animateResetInitialize() {
+    _controllerReset.reset();
+    final val = transformationController.value;
+    const zoomFactor = 4.0;
+    const xTranslate = 450.0;
+    const yTranslate = 0.0;
+
+    transformationController.value.setEntry(0, 0, zoomFactor);
+    transformationController.value.setEntry(1, 1, zoomFactor);
+    transformationController.value.setEntry(2, 2, zoomFactor);
+    transformationController.value.setEntry(0, 3, -xTranslate);
+    transformationController.value.setEntry(1, 3, -yTranslate);
+
+    // _animationReset = Matrix4Tween(
+    //         begin: val,
+    //         end: Matrix4(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1)
+    //           ..scale(2, 2))
+    //     .animate(_controllerReset);
+
+    // _animationReset = Matrix4Tween(begin: val, end: Matrix4.identity())
+    //     .animate(_controllerReset);
+    //_animationReset!.addListener(_onAnimateReset);
+    _controllerReset.forward();
+  }
+
+  void _animateResetStop() {
+    _controllerReset.stop();
+    _animationReset?.removeListener(_onAnimateReset);
+    _animationReset = null;
+    _controllerReset.reset();
+  }
+
+  void onInteractionStart() {
+    if (_controllerReset.status == AnimationStatus.forward) {
+      _animateResetStop();
+    }
+  }
+
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    transformationController.addListener(() {
-      if (transformationController.value.getMaxScaleOnAxis() < 0) {
-        setState(() {
-          transformationController.value = Matrix4.identity();
-        });
-      }
-    });
+    const zoomFactor = 4.0;
+    const xTranslate = 450.0;
+    const yTranslate = 0.0;
+
+    transformationController.value.setEntry(0, 0, zoomFactor);
+    transformationController.value.setEntry(1, 1, zoomFactor);
+    transformationController.value.setEntry(2, 2, zoomFactor);
+    transformationController.value.setEntry(0, 3, -xTranslate);
+    transformationController.value.setEntry(1, 3, -yTranslate);
+    super.initState();
+    _controllerReset = AnimationController(
+        vsync: this, duration: const Duration(milliseconds: 300));
+  }
+
+  @override
+  void dispose() {
+    _controllerReset.dispose();
+    super.dispose();
   }
 
   @override
@@ -173,32 +236,51 @@ class _SeatingPageState extends State<SeatingPage> {
             ),
             Expanded(
               child: InteractiveViewer(
-                minScale: 0.75,
-                maxScale: 2.25,
+                minScale: 1,
+                maxScale: 10,
                 constrained: true,
+                onInteractionStart: (details) {
+                  if (transformationController.value.getMaxScaleOnAxis() <=
+                          3.5 ||
+                      transformationController.value.getMaxScaleOnAxis() ==
+                          1.0) {
+                    _animateResetInitialize();
+                  }
+                  onInteractionStart();
+                },
                 transformationController: transformationController,
                 onInteractionEnd: (details) {
+                  print(details);
                   print(transformationController.value.getMaxScaleOnAxis());
-                  if (transformationController.value.getMaxScaleOnAxis() <= 0) {
-                    setState(() {
-                      transformationController.value = Matrix4.identity();
-                    });
+                  if (transformationController.value.getMaxScaleOnAxis() <=
+                          3.5 ||
+                      transformationController.value.getMaxScaleOnAxis() ==
+                          1.0) {
+                    _animateResetInitialize();
                   }
                 },
                 boundaryMargin:
-                    const EdgeInsets.symmetric(vertical: 250, horizontal: 300),
-                child: seatsBuilder(22, 22, ticket),
-                // Flexible(
-                //   child: Container(
-                //     alignment: Alignment.center,
-                //     height: double.infinity,
-                //     width: double.infinity,
-                //     padding: const EdgeInsets.all(10),
-                //     // color: Color.fromARGB(255, 3, 142, 255),
-                //     child: seatsBuilder(22, 22, ticket),
+                    const EdgeInsets.symmetric(vertical: 0, horizontal: 0),
+                child: Column(
+                    // mainAxisAlignment: MainAxisAlignment.start,
+                    // crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Container(child: seatsBuilder(22, 22, ticket)),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      Container(
+                        // width: double.infinity,
+                        width: 70,
+                        child: const Image(
+                          image: AssetImage("assets/seats/theatrescreen.png"),
+                          height: 5,
+                          // alignment: Alignment.centerLeft,
+                          //alignment: Alignment.center,
+                        ),
+                      )
+                    ]),
               ),
-              // ),
-              // ),
             ),
           ],
         ),
@@ -227,44 +309,51 @@ class _SeatingPageState extends State<SeatingPage> {
 
   Widget seatsBuilder(int column, int row, TicketList ticket) {
     return Column(
-      //shrinkWrap: true,
-      //scrollDirection: Axis.vertical,
+      //  mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.center,
+
       children: [
-        ...List.generate(
-          column,
-          (index) => Row(
-            // shrinkWrap: true,
-            // physics: const ClampingScrollPhysics(),
+        ...List.generate(column, (index) {
+          return Row(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: List.generate(
-              row,
-              (i) => index == 5 || index == 8
-                  ? Column(
-                      children: [
-                        const SizedBox(
-                          height: 25,
-                        ),
-                        seatsGenerator(ticket, index, i),
-                      ],
-                    )
-                  : seatsGenerator(ticket, index, i),
-            ),
-          ),
-        ),
-      ],
+                row,
+                (i) => (index == 5 || index == 8)
+                    ? Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          const SizedBox(
+                            height: 5,
+                          ),
+                          seatsGenerator(ticket, index, i),
+                        ],
+                      )
+                    : Row(
+                        children: [
+                          SizedBox(
+                            width: (i == 7 || i == 14) ? 12 : 0,
+                          ),
+                          seatsGenerator(ticket, index, i),
+                        ],
+                      )),
+          );
+        }),
+      ].toList(),
     );
   }
 
   Widget seatsGenerator(TicketList ticket, int index, int i) {
     return i == 0
         ? Padding(
-            padding: const EdgeInsets.all(5.0),
+            padding: const EdgeInsets.all(0.5),
             child: Container(
-              height: 20,
-              width: 20,
+              height: 5,
+              width: 5,
               child: Center(
                 child: Text(
                   String.fromCharCode(65 + index),
                   textAlign: TextAlign.center,
+                  style: TextStyle(fontSize: 3),
                 ),
               ),
             ),
@@ -300,23 +389,38 @@ class _SeatingPageState extends State<SeatingPage> {
               }
             },
             child: Padding(
-              padding: const EdgeInsets.all(5.0),
+              padding: const EdgeInsets.all(0.5),
               child: Container(
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(2),
+                  borderRadius: BorderRadius.circular(0.5),
+                  border: Border.all(
+                      width: 0.25,
+                      color: ticket.selectedSeats[index][i]
+                                  ["${String.fromCharCode(65 + index)}$i"] ==
+                              true
+                          ? Colors.green
+                          : Colors.green),
                   color: ticket.selectedSeats[index][i]
                               ["${String.fromCharCode(65 + index)}$i"] ==
                           true
-                      ? Colors.green[500]
-                      : Colors.grey[400],
+                      ? Colors.green
+                      : Colors.white,
                 ),
-                height: 20,
-                width: 20,
+                height: 5,
+                width: 5,
                 child: Center(
                   child: Text(
                     i.toString(),
                     textAlign: TextAlign.center,
-                    style: TextStyle(fontSize: 11, color: Colors.grey[600]),
+                    style: TextStyle(
+                      fontSize: 2.5,
+                      fontWeight: FontWeight.w600,
+                      color: ticket.selectedSeats[index][i]
+                                  ["${String.fromCharCode(65 + index)}$i"] ==
+                              true
+                          ? Colors.white
+                          : Colors.grey,
+                    ),
                   ),
                 ),
               ),
