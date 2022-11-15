@@ -223,6 +223,7 @@ class _TheatreListScreenState extends State<TheatreListScreen> {
                                                   //   builder: (context) =>
                                                   //       SeatsScreenFlutter(),
                                                   // ));
+                                                  Navigator.of(context).push(MaterialPageRoute(builder: (context) => TheatreListScreen(),))
                                                   Navigator.of(context).push(
                                                     MaterialPageRoute(
                                                       builder: (context) {
