@@ -8,10 +8,16 @@ class TimeList {
 }
 
 class Theatre {
+  String? theatreId;
+
   String? theatreName;
   List<TimeList>? timeList;
   bool? isCancellationAvailable = false;
-  Theatre({this.theatreName, this.timeList, this.isCancellationAvailable});
+  Theatre(
+      {this.theatreId,
+      this.theatreName,
+      this.timeList,
+      this.isCancellationAvailable});
 }
 
 class TheatreList with ChangeNotifier {
@@ -19,6 +25,7 @@ class TheatreList with ChangeNotifier {
     //list1
     [
       Theatre(
+        theatreId: '1',
         theatreName: "SPI: The Cinema, Brookefields Mall",
         timeList: [
           TimeList(
@@ -33,6 +40,7 @@ class TheatreList with ChangeNotifier {
         isCancellationAvailable: false,
       ),
       Theatre(
+        theatreId: '2',
         theatreName: "Murugan Cinemas A/C 4K Atmos: Thudiyalur",
         timeList: [
           TimeList(
@@ -43,6 +51,7 @@ class TheatreList with ChangeNotifier {
         isCancellationAvailable: true,
       ),
       Theatre(
+        theatreId: '3',
         theatreName: "Karpagam Theatres 4K Dolby Atmos: Coimbatore",
         timeList: [
           TimeList(time: "06:45 PM", audioSystem: "Atmos", isFilled: false),
@@ -56,6 +65,7 @@ class TheatreList with ChangeNotifier {
     //list2
     [
       Theatre(
+        theatreId: '2',
         theatreName: "Murugan Cinemas A/C 4K Atmos: Thudiyalur",
         timeList: [
           TimeList(
@@ -66,6 +76,7 @@ class TheatreList with ChangeNotifier {
         isCancellationAvailable: true,
       ),
       Theatre(
+        theatreId: '1',
         theatreName: "SPI: The Cinema, Brookefields Mall",
         timeList: [
           TimeList(
@@ -80,6 +91,7 @@ class TheatreList with ChangeNotifier {
         isCancellationAvailable: true,
       ),
       Theatre(
+        theatreId: '3',
         theatreName: "Karpagam Theatres 4K Dolby Atmos: Coimbatore",
         timeList: [
           TimeList(time: "06:45 PM", audioSystem: "Atmos", isFilled: false),
@@ -93,6 +105,7 @@ class TheatreList with ChangeNotifier {
     //list3
     [
       Theatre(
+        theatreId: '4',
         theatreName: "SDC Cinemas Kalpana Theatre 4K Dolby Atmos",
         timeList: [
           TimeList(
@@ -104,6 +117,7 @@ class TheatreList with ChangeNotifier {
         isCancellationAvailable: true,
       ),
       Theatre(
+        theatreId: '5',
         theatreName: "Kovai Shanti Complex 4K 3D: Coimbatore",
         timeList: [
           TimeList(
@@ -115,6 +129,7 @@ class TheatreList with ChangeNotifier {
         isCancellationAvailable: true,
       ),
       Theatre(
+        theatreId: '3',
         theatreName: "Karpagam Theatres 4K Dolby Atmos: Coimbatore",
         timeList: [
           TimeList(time: "06:45 PM", audioSystem: "Atmos", isFilled: false),
@@ -128,6 +143,7 @@ class TheatreList with ChangeNotifier {
     //list4
     [
       Theatre(
+        theatreId: '1',
         theatreName: "SPI: The Cinema, Brookefields Mall",
         timeList: [
           TimeList(
@@ -142,6 +158,7 @@ class TheatreList with ChangeNotifier {
         isCancellationAvailable: true,
       ),
       Theatre(
+        theatreId: '2',
         theatreName: "Murugan Cinemas A/C 4K Atmos: Thudiyalur",
         timeList: [
           TimeList(
@@ -152,6 +169,7 @@ class TheatreList with ChangeNotifier {
         isCancellationAvailable: true,
       ),
       Theatre(
+        theatreId: '3',
         theatreName: "Karpagam Theatres 4K Dolby Atmos: Coimbatore",
         timeList: [
           TimeList(time: "06:45 PM", audioSystem: "Atmos", isFilled: false),
@@ -165,6 +183,7 @@ class TheatreList with ChangeNotifier {
     //list5
     [
       Theatre(
+        theatreId: '5',
         theatreName: "Kovai Shanti Complex 4K 3D: Coimbatore",
         timeList: [
           TimeList(
@@ -176,6 +195,7 @@ class TheatreList with ChangeNotifier {
         isCancellationAvailable: true,
       ),
       Theatre(
+        theatreId: '2',
         theatreName: "Murugan Cinemas A/C 4K Atmos: Thudiyalur",
         timeList: [
           TimeList(
@@ -186,6 +206,7 @@ class TheatreList with ChangeNotifier {
         isCancellationAvailable: true,
       ),
       Theatre(
+        theatreId: '3',
         theatreName: "Karpagam Theatres 4K Dolby Atmos: Coimbatore",
         timeList: [
           TimeList(time: "06:45 PM", audioSystem: "Atmos", isFilled: false),
@@ -199,6 +220,7 @@ class TheatreList with ChangeNotifier {
     //list6
     [
       Theatre(
+        theatreId: '3',
         theatreName: "Karpagam Theatres 4K Dolby Atmos: Coimbatore",
         timeList: [
           TimeList(time: "06:45 PM", audioSystem: "Atmos", isFilled: false),
@@ -212,6 +234,7 @@ class TheatreList with ChangeNotifier {
         isCancellationAvailable: true,
       ),
       Theatre(
+        theatreId: '3',
         theatreName: "Karpagam Theatres 4K Dolby Atmos: Coimbatore",
         timeList: [
           TimeList(time: "06:45 PM", audioSystem: "Atmos", isFilled: false),
@@ -222,6 +245,7 @@ class TheatreList with ChangeNotifier {
         isCancellationAvailable: true,
       ),
       Theatre(
+        theatreId: '2',
         theatreName: "Murugan Cinemas A/C 4K Atmos: Thudiyalur",
         timeList: [
           TimeList(
@@ -235,6 +259,7 @@ class TheatreList with ChangeNotifier {
     //list7
     [
       Theatre(
+        theatreId: '1',
         theatreName: "SPI: The Cinema, Brookefields Mall",
         timeList: [
           TimeList(
@@ -249,6 +274,7 @@ class TheatreList with ChangeNotifier {
         isCancellationAvailable: true,
       ),
       Theatre(
+        theatreId: '2',
         theatreName: "Murugan Cinemas A/C 4K Atmos: Thudiyalur",
         timeList: [
           TimeList(
@@ -259,6 +285,7 @@ class TheatreList with ChangeNotifier {
         isCancellationAvailable: true,
       ),
       Theatre(
+        theatreId: '3',
         theatreName: "Karpagam Theatres 4K Dolby Atmos: Coimbatore",
         timeList: [
           TimeList(time: "06:45 PM", audioSystem: "Atmos", isFilled: false),
