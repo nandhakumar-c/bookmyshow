@@ -12,7 +12,7 @@ class SeatCount extends StatefulWidget {
 class _SeatCountState extends State<SeatCount> {
   List<int> seatCount = List.generate(10, (index) => index);
   int selectedIndex = 0;
-
+  int x = 0;
   @override
   void initState() {
     // TODO: implement initState
