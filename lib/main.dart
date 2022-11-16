@@ -1,3 +1,4 @@
+import 'package:bookmyshow/provider/theatreseat_provider.dart';
 import 'package:bookmyshow/unused/theatresPage.dart';
 import 'package:bookmyshow/provider/date_provider.dart';
 import 'package:bookmyshow/provider/movielist_provider.dart';
@@ -120,6 +121,9 @@ class BookMyShowState extends State<BookMyShow> {
           ChangeNotifierProvider(
             create: (context) => TheatreList(),
           ),
+          ChangeNotifierProvider(
+            create: (context) => TheatreSeatsList(),
+          )
         ],
         child: GetMaterialApp(
           translations: LocaleString(),

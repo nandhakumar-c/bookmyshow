@@ -1,4 +1,5 @@
 import 'package:bookmyshow/landingpage/pagebuilder/descriptionpage/ticketbookingpage/screens/seatingpage.dart';
+import 'package:bookmyshow/landingpage/pagebuilder/descriptionpage/ticketbookingpage/screens/theatreseat_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../../../../provider/theatrelist_provider.dart';
@@ -223,25 +224,29 @@ class _TheatreListScreenState extends State<TheatreListScreen> {
                                                   //   builder: (context) =>
                                                   //       SeatsScreenFlutter(),
                                                   // ));
-                                                  Navigator.of(context).push(MaterialPageRoute(builder: (context) => TheatreListScreen(),))
-                                                  Navigator.of(context).push(
-                                                    MaterialPageRoute(
-                                                      builder: (context) {
-                                                        return SeatingPage(
-                                                            movieName: widget
-                                                                .movieName,
-                                                            imgUrl:
-                                                                widget.imgUrl,
-                                                            theatreName: theatre
-                                                                .theatreName,
-                                                            date: date,
-                                                            time: timeElement
-                                                                .time
-                                                                .toString(),
-                                                            id: index);
-                                                      },
-                                                    ),
-                                                  );
+                                                  Navigator.of(context)
+                                                      .push(MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        TheatreSeatScreen(),
+                                                  ));
+                                                  // Navigator.of(context).push(
+                                                  //   MaterialPageRoute(
+                                                  //     builder: (context) {
+                                                  //       return SeatingPage(
+                                                  //           movieName: widget
+                                                  //               .movieName,
+                                                  //           imgUrl:
+                                                  //               widget.imgUrl,
+                                                  //           theatreName: theatre
+                                                  //               .theatreName,
+                                                  //           date: date,
+                                                  //           time: timeElement
+                                                  //               .time
+                                                  //               .toString(),
+                                                  //           id: index);
+                                                  //     },
+                                                  //   ),
+                                                  // );
                                                 },
                                                 child: Container(
                                                   padding: const EdgeInsets
