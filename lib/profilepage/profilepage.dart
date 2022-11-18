@@ -52,6 +52,7 @@ class _ProfilePageState extends State<ProfilePage> {
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
     return ListView(
+      key: const PageStorageKey('page11'),
       children: [
         Padding(
           padding: const EdgeInsets.all(8.0),
@@ -78,6 +79,7 @@ class _ProfilePageState extends State<ProfilePage> {
           height: 10,
         ),
         ListView.builder(
+            key: const PageStorageKey('page12'),
             shrinkWrap: true,
             physics: const ScrollPhysics(),
             scrollDirection: Axis.vertical,

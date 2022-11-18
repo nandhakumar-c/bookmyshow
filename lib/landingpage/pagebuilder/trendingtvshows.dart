@@ -33,6 +33,7 @@ class TrendingTvShows extends StatelessWidget {
         Container(
           height: h * 0.33,
           child: ListView.builder(
+              key: const PageStorageKey<String>('page3'),
               itemCount: trendingShows?.length,
               scrollDirection: Axis.horizontal,
               itemBuilder: (context, index) {

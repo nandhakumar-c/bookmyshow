@@ -59,6 +59,7 @@ class TrendingMovies extends StatelessWidget {
         Container(
           height: h * 0.32,
           child: ListView.builder(
+              key: const PageStorageKey<String>('page2'),
               itemCount: trendingMovies?.length,
               scrollDirection: Axis.horizontal,
               itemBuilder: (context, index) {

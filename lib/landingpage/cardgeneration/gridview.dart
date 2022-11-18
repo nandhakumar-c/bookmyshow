@@ -81,6 +81,7 @@ class GridList extends StatelessWidget {
           Container(
             height: MediaQuery.of(context).size.height * 0.35,
             child: GridView.count(
+                key: const PageStorageKey<String>('page4'),
                 scrollDirection: Axis.horizontal,
                 crossAxisCount: 2,
                 crossAxisSpacing: 10,

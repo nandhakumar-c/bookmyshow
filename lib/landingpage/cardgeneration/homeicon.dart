@@ -60,6 +60,7 @@ class _IconGeneratorState extends State<IconGenerator> {
   Widget build(BuildContext context) {
     // TODO: implement build
     return ListView.builder(
+      key: const PageStorageKey<String>('page1'),
       itemCount: iconList.length,
       scrollDirection: Axis.horizontal,
       itemBuilder: (context, index) => InkWell(

@@ -52,6 +52,7 @@ class _StoriesState extends State<Stories> {
   @override
   Widget build(BuildContext context) {
     return ListView.separated(
+        key: const PageStorageKey('page10'),
         separatorBuilder: (context, index) => const SizedBox(
               width: 10,
             ),

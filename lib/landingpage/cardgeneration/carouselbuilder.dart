@@ -1,7 +1,9 @@
+import 'package:bookmyshow/provider/movielist_provider.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/foundation/key.dart';
+import 'package:provider/provider.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 List imgUrl = [
@@ -19,17 +21,38 @@ class CarouselBuilder extends StatefulWidget {
 }
 
 class _CarouselBuilderState extends State<CarouselBuilder> {
-  int _activeIndex = 0;
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    final i = Provider.of<MovieList>(context, listen: false);
+    int _activeIndex = i.activeIndex;
+  }
+
   @override
   Widget build(BuildContext context) {
+    final i = Provider.of<MovieList>(context);
+    int _activeIndex = i.activeIndex;
     void state(int index) {
-      setState(() {
-        _activeIndex = index;
-      });
+      i.activeIndexFunction(index);
+      _activeIndex = i.activeIndex;
     }
 
     double w = MediaQuery.of(context).size.width;
     double h = MediaQuery.of(context).size.height;
+
+    Widget buildIndicator(double h, double w) {
+      return AnimatedSmoothIndicator(
+          key: const PageStorageKey<String>('page7'),
+          effect: ColorTransitionEffect(
+              dotHeight: h * 0.003,
+              dotWidth: w * 0.06,
+              dotColor: Colors.grey,
+              activeDotColor: Colors.white),
+          activeIndex: i.activeIndex,
+          count: imgUrl.length);
+    }
+
     return Padding(
       padding: EdgeInsets.only(top: h * 0.02),
       child: Container(
@@ -39,6 +62,7 @@ class _CarouselBuilderState extends State<CarouselBuilder> {
           fit: StackFit.expand,
           children: [
             CarouselSlider.builder(
+              key: const PageStorageKey<String>('page6'),
               options: CarouselOptions(
                 viewportFraction: 1,
                 //height: h * 0.24,
@@ -72,16 +96,5 @@ class _CarouselBuilderState extends State<CarouselBuilder> {
         fit: BoxFit.cover,
       ),
     );
-  }
-
-  Widget buildIndicator(double h, double w) {
-    return AnimatedSmoothIndicator(
-        effect: ColorTransitionEffect(
-            dotHeight: h * 0.003,
-            dotWidth: w * 0.06,
-            dotColor: Colors.grey,
-            activeDotColor: Colors.white),
-        activeIndex: _activeIndex,
-        count: imgUrl.length);
   }
 }

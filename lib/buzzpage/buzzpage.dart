@@ -29,6 +29,7 @@ class BuzzPage extends StatelessWidget {
             ],
           )),
       body: ListView(
+        key: const PageStorageKey('page8'),
         physics: const ScrollPhysics(),
         children: [
           Container(
@@ -38,6 +39,7 @@ class BuzzPage extends StatelessWidget {
             child: const Stories(),
           ),
           ListView.builder(
+            key: const PageStorageKey('page9'),
             shrinkWrap: true,
             physics: const ScrollPhysics(),
             itemCount: feeds.length,

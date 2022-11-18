@@ -42,4 +42,10 @@ class MovieList with ChangeNotifier {
   List? get tvShowsList {
     return [...tv!];
   }
+
+  int activeIndex = 0;
+  void activeIndexFunction(int i) {
+    activeIndex = i;
+    notifyListeners();
+  }
 }

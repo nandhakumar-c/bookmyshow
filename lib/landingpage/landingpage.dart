@@ -93,6 +93,7 @@ class LandingPageState extends State<LandingPage> {
           )),
         ),
         body: ListView(
+          key: const PageStorageKey<String>('page'),
           padding: EdgeInsets.all(h! / 25),
           children: [
             //Text("CodingMart"),
