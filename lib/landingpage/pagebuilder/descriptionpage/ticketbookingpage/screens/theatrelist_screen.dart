@@ -227,7 +227,14 @@ class _TheatreListScreenState extends State<TheatreListScreen> {
                                                   Navigator.of(context)
                                                       .push(MaterialPageRoute(
                                                     builder: (context) =>
-                                                        TheatreSeatScreen(),
+                                                        TheatreSeatScreen(
+                                                      movieName:
+                                                          widget.movieName,
+                                                      theatreName:
+                                                          theatre.theatreName,
+                                                      theatreId:
+                                                          theatre.theatreId,
+                                                    ),
                                                   ));
                                                   // Navigator.of(context).push(
                                                   //   MaterialPageRoute(

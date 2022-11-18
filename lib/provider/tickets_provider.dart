@@ -39,7 +39,7 @@ class TicketList with ChangeNotifier {
 
   void seatCounter(int n) {
     tempSeats = n;
-    print(numberOfSeats);
+    // print(tempSeats);
     notifyListeners();
   }
 
@@ -48,6 +48,7 @@ class TicketList with ChangeNotifier {
     img = Image(
       image: AssetImage(vehicleImages[numberOfSeats - 1]),
     );
+    print(numberOfSeats);
     notifyListeners();
   }
 

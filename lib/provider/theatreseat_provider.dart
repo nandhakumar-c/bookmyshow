@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 
 class SeatsClass {
-  String? seatId;
-  String? seatNo = '0';
-  bool? isOccupied = false;
-  bool? isSelected = false;
+  String seatId;
+  String seatNo;
+  bool isOccupied;
+  bool isSelected;
   double? seatPrice;
   SeatsClass(
-      {this.seatId,
-      this.seatNo,
-      this.isOccupied,
-      this.isSelected,
+      {this.seatId = '-1',
+      this.seatNo = '-1',
+      this.isOccupied = false,
+      this.isSelected = false,
       this.seatPrice});
 }
 
@@ -21,133 +21,119 @@ class TheatreSeats {
 }
 
 class TheatreSeatsList with ChangeNotifier {
-  List<TheatreSeats> theatreSeatsList = [
-    TheatreSeats(theatreId: '1', seatLayout: [
-      [
-        SeatsClass(seatId: '1', seatNo: 'A1', seatPrice: 190.78),
-        SeatsClass(seatId: '2', seatNo: 'A2', seatPrice: 190.78),
-        SeatsClass(seatId: '3', seatNo: 'A3', seatPrice: 190.78),
-        SeatsClass(seatId: '4', seatNo: 'A4', seatPrice: 190.78),
-        SeatsClass(seatId: '5', seatNo: 'A5', seatPrice: 190.78),
-        SeatsClass(seatId: '6', seatNo: 'A6', seatPrice: 190.78),
-        SeatsClass(seatId: '-1', seatNo: '-1'),
-        SeatsClass(seatId: '7', seatNo: 'A7', seatPrice: 190.78),
-        SeatsClass(seatId: '8', seatNo: 'A8', seatPrice: 190.78),
-        SeatsClass(seatId: '9', seatNo: 'A9', seatPrice: 190.78),
-        SeatsClass(seatId: '10', seatNo: 'A10', seatPrice: 190.78),
-        SeatsClass(seatId: '11', seatNo: 'A11', seatPrice: 190.78),
-        SeatsClass(seatId: '12', seatNo: 'A12', seatPrice: 190.78),
-        SeatsClass(seatId: '-1', seatNo: '-1'),
-        SeatsClass(seatId: '13', seatNo: 'A13', seatPrice: 190.78),
-        SeatsClass(seatId: '14', seatNo: 'A14', seatPrice: 190.78),
-        SeatsClass(seatId: '15', seatNo: 'A15', seatPrice: 190.78),
-        SeatsClass(seatId: '16', seatNo: 'A16', seatPrice: 190.78),
-        SeatsClass(seatId: '17', seatNo: 'A17', seatPrice: 190.78),
-        SeatsClass(seatId: '18', seatNo: 'A18', seatPrice: 190.78),
-        SeatsClass(seatId: '19', seatNo: 'A19', seatPrice: 190.78),
-        SeatsClass(seatId: '20', seatNo: 'A20', seatPrice: 190.78),
-        SeatsClass(seatId: '21', seatNo: 'A21', seatPrice: 190.78),
-      ],
-      [
-        SeatsClass(seatId: '1', seatNo: 'A1', seatPrice: 190.78),
-        SeatsClass(seatId: '2', seatNo: 'A2', seatPrice: 190.78),
-        SeatsClass(seatId: '3', seatNo: 'A3', seatPrice: 190.78),
-        SeatsClass(seatId: '4', seatNo: 'A4', seatPrice: 190.78),
-        SeatsClass(seatId: '5', seatNo: 'A5', seatPrice: 190.78),
-        SeatsClass(seatId: '6', seatNo: 'A6', seatPrice: 190.78),
-        SeatsClass(seatId: '-1', seatNo: '-1'),
-        SeatsClass(seatId: '7', seatNo: 'A7', seatPrice: 190.78),
-        SeatsClass(seatId: '8', seatNo: 'A8', seatPrice: 190.78),
-        SeatsClass(seatId: '9', seatNo: 'A9', seatPrice: 190.78),
-        SeatsClass(seatId: '10', seatNo: 'A10', seatPrice: 190.78),
-        SeatsClass(seatId: '11', seatNo: 'A11', seatPrice: 190.78),
-        SeatsClass(seatId: '12', seatNo: 'A12', seatPrice: 190.78),
-        SeatsClass(seatId: '-1', seatNo: '-1'),
-        SeatsClass(seatId: '13', seatNo: 'A13', seatPrice: 190.78),
-        SeatsClass(seatId: '14', seatNo: 'A14', seatPrice: 190.78),
-        SeatsClass(seatId: '15', seatNo: 'A15', seatPrice: 190.78),
-        SeatsClass(seatId: '16', seatNo: 'A16', seatPrice: 190.78),
-        SeatsClass(seatId: '17', seatNo: 'A17', seatPrice: 190.78),
-        SeatsClass(seatId: '18', seatNo: 'A18', seatPrice: 190.78),
-        SeatsClass(seatId: '19', seatNo: 'A19', seatPrice: 190.78),
-        SeatsClass(seatId: '20', seatNo: 'A20', seatPrice: 190.78),
-        SeatsClass(seatId: '21', seatNo: 'A21', seatPrice: 190.78),
-      ],
-      [
-        SeatsClass(seatId: '1', seatNo: 'A1', seatPrice: 190.78),
-        SeatsClass(seatId: '2', seatNo: 'A2', seatPrice: 190.78),
-        SeatsClass(seatId: '3', seatNo: 'A3', seatPrice: 190.78),
-        SeatsClass(seatId: '4', seatNo: 'A4', seatPrice: 190.78),
-        SeatsClass(seatId: '5', seatNo: 'A5', seatPrice: 190.78),
-        SeatsClass(seatId: '6', seatNo: 'A6', seatPrice: 190.78),
-        SeatsClass(seatId: '-1', seatNo: '-1'),
-        SeatsClass(seatId: '7', seatNo: 'A7', seatPrice: 190.78),
-        SeatsClass(seatId: '8', seatNo: 'A8', seatPrice: 190.78),
-        SeatsClass(seatId: '9', seatNo: 'A9', seatPrice: 190.78),
-        SeatsClass(seatId: '10', seatNo: 'A10', seatPrice: 190.78),
-        SeatsClass(seatId: '11', seatNo: 'A11', seatPrice: 190.78),
-        SeatsClass(seatId: '12', seatNo: 'A12', seatPrice: 190.78),
-        SeatsClass(seatId: '-1', seatNo: '-1'),
-        SeatsClass(seatId: '13', seatNo: 'A13', seatPrice: 190.78),
-        SeatsClass(seatId: '14', seatNo: 'A14', seatPrice: 190.78),
-        SeatsClass(seatId: '15', seatNo: 'A15', seatPrice: 190.78),
-        SeatsClass(seatId: '16', seatNo: 'A16', seatPrice: 190.78),
-        SeatsClass(seatId: '17', seatNo: 'A17', seatPrice: 190.78),
-        SeatsClass(seatId: '18', seatNo: 'A18', seatPrice: 190.78),
-        SeatsClass(seatId: '19', seatNo: 'A19', seatPrice: 190.78),
-        SeatsClass(seatId: '20', seatNo: 'A20', seatPrice: 190.78),
-        SeatsClass(seatId: '21', seatNo: 'A21', seatPrice: 190.78),
-      ],
-      [
-        SeatsClass(seatId: '1', seatNo: 'A1', seatPrice: 190.78),
-        SeatsClass(seatId: '2', seatNo: 'A2', seatPrice: 190.78),
-        SeatsClass(seatId: '3', seatNo: 'A3', seatPrice: 190.78),
-        SeatsClass(seatId: '4', seatNo: 'A4', seatPrice: 190.78),
-        SeatsClass(seatId: '5', seatNo: 'A5', seatPrice: 190.78),
-        SeatsClass(seatId: '6', seatNo: 'A6', seatPrice: 190.78),
-        SeatsClass(seatId: '-1', seatNo: '-1'),
-        SeatsClass(seatId: '7', seatNo: 'A7', seatPrice: 190.78),
-        SeatsClass(seatId: '8', seatNo: 'A8', seatPrice: 190.78),
-        SeatsClass(seatId: '9', seatNo: 'A9', seatPrice: 190.78),
-        SeatsClass(seatId: '10', seatNo: 'A10', seatPrice: 190.78),
-        SeatsClass(seatId: '11', seatNo: 'A11', seatPrice: 190.78),
-        SeatsClass(seatId: '12', seatNo: 'A12', seatPrice: 190.78),
-        SeatsClass(seatId: '-1', seatNo: '-1'),
-        SeatsClass(seatId: '13', seatNo: 'A13', seatPrice: 190.78),
-        SeatsClass(seatId: '14', seatNo: 'A14', seatPrice: 190.78),
-        SeatsClass(seatId: '15', seatNo: 'A15', seatPrice: 190.78),
-        SeatsClass(seatId: '16', seatNo: 'A16', seatPrice: 190.78),
-        SeatsClass(seatId: '17', seatNo: 'A17', seatPrice: 190.78),
-        SeatsClass(seatId: '18', seatNo: 'A18', seatPrice: 190.78),
-        SeatsClass(seatId: '19', seatNo: 'A19', seatPrice: 190.78),
-        SeatsClass(seatId: '20', seatNo: 'A20', seatPrice: 190.78),
-        SeatsClass(seatId: '21', seatNo: 'A21', seatPrice: 190.78),
-      ],
-      [
-        SeatsClass(seatId: '1', seatNo: 'A1', seatPrice: 190.78),
-        SeatsClass(seatId: '2', seatNo: 'A2', seatPrice: 190.78),
-        SeatsClass(seatId: '3', seatNo: 'A3', seatPrice: 190.78),
-        SeatsClass(seatId: '4', seatNo: 'A4', seatPrice: 190.78),
-        SeatsClass(seatId: '5', seatNo: 'A5', seatPrice: 190.78),
-        SeatsClass(seatId: '6', seatNo: 'A6', seatPrice: 190.78),
-        SeatsClass(seatId: '-1', seatNo: '-1'),
-        SeatsClass(seatId: '7', seatNo: 'A7', seatPrice: 190.78),
-        SeatsClass(seatId: '8', seatNo: 'A8', seatPrice: 190.78),
-        SeatsClass(seatId: '9', seatNo: 'A9', seatPrice: 190.78),
-        SeatsClass(seatId: '10', seatNo: 'A10', seatPrice: 190.78),
-        SeatsClass(seatId: '11', seatNo: 'A11', seatPrice: 190.78),
-        SeatsClass(seatId: '12', seatNo: 'A12', seatPrice: 190.78),
-        SeatsClass(seatId: '-1', seatNo: '-1'),
-        SeatsClass(seatId: '13', seatNo: 'A13', seatPrice: 190.78),
-        SeatsClass(seatId: '14', seatNo: 'A14', seatPrice: 190.78),
-        SeatsClass(seatId: '15', seatNo: 'A15', seatPrice: 190.78),
-        SeatsClass(seatId: '16', seatNo: 'A16', seatPrice: 190.78),
-        SeatsClass(seatId: '17', seatNo: 'A17', seatPrice: 190.78),
-        SeatsClass(seatId: '18', seatNo: 'A18', seatPrice: 190.78),
-        SeatsClass(seatId: '19', seatNo: 'A19', seatPrice: 190.78),
-        SeatsClass(seatId: '20', seatNo: 'A20', seatPrice: 190.78),
-        SeatsClass(seatId: '21', seatNo: 'A21', seatPrice: 190.78),
-      ],
-    ])
-  ];
+  late List<TheatreSeats> theatreSeatsList = createList();
+  List<TheatreSeats> createList() {
+    return [
+      TheatreSeats(theatreId: '1', seatLayout: [
+        [...seatsGenerator(0, [], 37, "A", 190.78)],
+        [
+          ...seatsGenerator(
+              11, [0, 1, 2, 8, 9, 25, 26, 33, 34, 35, 36], 37, "B", 190.78)
+        ],
+        [
+          ...seatsGenerator(
+              11, [0, 1, 2, 8, 9, 25, 26, 33, 34, 35, 36], 37, "C", 190.78)
+        ],
+        [
+          ...seatsGenerator(
+              11, [0, 1, 2, 8, 9, 25, 26, 33, 34, 35, 36], 37, "D", 190.78)
+        ],
+        [
+          ...seatsGenerator(
+              11, [0, 1, 2, 8, 9, 25, 26, 33, 34, 35, 36], 37, "E", 190.78)
+        ],
+        [
+          ...seatsGenerator(
+              11, [0, 1, 2, 8, 9, 25, 26, 33, 34, 35, 36], 37, "F", 190.78)
+        ],
+        [
+          ...seatsGenerator(
+              11, [0, 1, 2, 8, 9, 25, 26, 33, 34, 35, 36], 37, "G", 190.78)
+        ],
+        [
+          ...seatsGenerator(
+              11, [0, 1, 2, 8, 9, 25, 26, 33, 34, 35, 36], 37, "H", 190.78)
+        ],
+        [
+          ...seatsGenerator(
+              11, [0, 1, 2, 8, 9, 25, 26, 33, 34, 35, 36], 37, "I", 190.78)
+        ],
+        [
+          ...seatsGenerator(
+              11, [0, 1, 2, 8, 9, 25, 26, 33, 34, 35, 36], 37, "J", 190.78)
+        ],
+        [],
+        [
+          ...seatsGenerator(11, [8, 9, 26, 35, 36], 37, "K", 190.78)
+        ],
+        [
+          ...seatsGenerator(11, [8, 9, 26, 35, 36], 37, "L", 190.78)
+        ],
+        [
+          ...seatsGenerator(11, [8, 9, 26, 35, 36], 37, "M", 190.78)
+        ],
+        [
+          ...seatsGenerator(
+              11,
+              [
+                for (var i = 0; i <= 9; i++) i,
+                for (var i = 26; i <= 36; i++) i
+              ],
+              37,
+              "N",
+              190.78)
+        ],
+        [],
+        [],
+        // [SeatsClass(seatId: '-2', seatPrice: 60.12)],
+        [
+          ...seatsGenerator(
+              11, [for (var i = 7; i <= 28; i++) i, 36], 37, "O", 60.12)
+        ],
+        [
+          ...seatsGenerator(11, [0, 1, 7, 27, 28, 34, 35, 36], 37, "P", 60.12)
+        ]
+      ])
+    ];
+  }
+
+  seatsGenerator(int gapCount, List<int> gapIndex, int rowCount,
+      String seatAlphabet, double seatPrice) {
+    int a = 0;
+    var seatList = List.generate(rowCount, (index) {
+      if (gapIndex.contains(index)) {
+        return SeatsClass(seatNo: seatAlphabet);
+      }
+      a++;
+      return SeatsClass(
+          seatId: a.toString(),
+          seatNo: "$seatAlphabet${a.toString()}",
+          seatPrice: seatPrice);
+    });
+    var reversedSeatList = List.from(seatList.reversed);
+    return reversedSeatList;
+  }
+
+  List<String> selectedIndex = [];
+
+  void selectSeats(int i, int index, int theatreId, String seatNo) {
+    theatreSeatsList[theatreId].seatLayout![i][index].isSelected = true;
+    selectedIndex.add(seatNo);
+    notifyListeners();
+  }
+
+  void removeSeats(int i, int index, int theatreId, String seatNo) {
+    theatreSeatsList[theatreId].seatLayout![i][index].isSelected = false;
+    selectedIndex.removeWhere(
+      (element) => element == seatNo,
+    );
+    notifyListeners();
+  }
+
+  void refreshSeats() {
+    theatreSeatsList = createList();
+    notifyListeners();
+  }
+
+  void confirmSeats() {}
 }
