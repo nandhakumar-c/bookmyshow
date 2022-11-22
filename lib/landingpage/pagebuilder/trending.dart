@@ -74,7 +74,7 @@ class TrendingMovies extends StatelessWidget {
                                         secondaryAnimation) =>
                                     ListenableProvider(
                                       create: (context) => animation,
-                                      child: Description(
+                                      builder: (context, child) => Description(
                                         id: trendingMovies![index]['id'],
                                         name: trendingMovies![index]['title'],
                                         description: trendingMovies![index]
@@ -129,6 +129,7 @@ class TrendingMovies extends StatelessWidget {
                                   child: Image(
                                       fit: BoxFit.cover,
                                       image: NetworkImage(
+                                          // ignore: prefer_interpolation_to_compose_strings
                                           'https://image.tmdb.org/t/p/w500/' +
                                               trendingMovies![index]
                                                   ['poster_path'])),

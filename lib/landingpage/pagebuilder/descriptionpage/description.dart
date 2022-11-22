@@ -191,16 +191,13 @@ class _DescriptionState extends State<Description> {
             child: ElevatedButton(
               onPressed: () {
                 Navigator.of(context).push(PageRouteBuilder(
-                    pageBuilder: (context, animation, secondaryAnimation) {
-                      return ListenableProvider(
-                        builder: (context, child) => TheatresPage(
-                            imgUrl: widget.movieImgUrl,
-                            index: 0,
-                            movieName: widget.name),
-                        create: (context) => animation,
-                      );
+                    pageBuilder: (context, animation2, secondaryAnimation) {
+                      return TheatreListScreen(
+                          transitionAnimation: animation2,
+                          imgUrl: widget.movieImgUrl,
+                          movieName: widget.name);
                     },
-                    transitionDuration: Duration(milliseconds: 500)));
+                    transitionDuration: const Duration(milliseconds: 500)));
 
                 // Navigator.of(context).push(MaterialPageRoute(
                 //   builder: (context) => TheatreListScreen(

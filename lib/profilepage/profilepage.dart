@@ -1,3 +1,4 @@
+import 'package:bookmyshow/profilepage/screens/userprofilepage_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -20,13 +21,41 @@ class _ProfilePageState extends State<ProfilePage> {
       appBar: AppBar(
         automaticallyImplyLeading: false,
         backgroundColor: Color.fromARGB(255, 10, 21, 46),
-        title: Column(
-          children: const [
-            Text(
-              "Hey!",
-              style: TextStyle(color: Colors.white),
-            )
-          ],
+        title: Container(
+          // height: 10,
+          width: double.infinity,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              const Text(
+                "Hey!",
+                style: TextStyle(color: Colors.white, fontSize: 20),
+              ),
+              const SizedBox(
+                height: 4,
+              ),
+              TextButton(
+                style: TextButton.styleFrom(
+                  minimumSize: Size.zero,
+                  padding: EdgeInsets.zero,
+                  tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                ),
+                onPressed: () {
+                  Navigator.of(context).push(
+                    PageRouteBuilder(
+                        pageBuilder: (context, animation, secondaryAnimation) =>
+                            UserProfileScreen(transitionAnimation: animation),
+                        transitionDuration: const Duration(milliseconds: 500)),
+                  );
+                },
+                child: const Text(
+                  "Edit Profile",
+                  style: TextStyle(color: Colors.white, fontSize: 10),
+                ),
+              )
+            ],
+          ),
         ),
       ),
       backgroundColor: Colors.grey[300],

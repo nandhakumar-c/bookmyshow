@@ -10,8 +10,10 @@ class TheatresPage extends StatefulWidget {
   final String? movieName;
   int? index;
   String? imgUrl;
+  final Animation<double>? transitionAnimation;
   // ignore: use_key_in_widget_constructors
-  TheatresPage({this.imgUrl, this.index, this.movieName});
+  TheatresPage(
+      {this.transitionAnimation, this.imgUrl, this.index, this.movieName});
 
   @override
   State<TheatresPage> createState() => _TheatresPageState();
@@ -33,7 +35,7 @@ class _TheatresPageState extends State<TheatresPage> {
   Widget build(BuildContext context) {
     double h = MediaQuery.of(context).size.height;
     double w = MediaQuery.of(context).size.width;
-    final animation2 = Provider.of<Animation<double>>(context, listen: false);
+    //final animation2 = Provider.of<Animation<double>>(context, listen: false);
     final dateAndMonthList = Provider.of<DatesProvider>(context);
 
     Map<String, Object> dateAndDay = dateAndMonthList.dateList[dateindex!];
@@ -56,12 +58,13 @@ class _TheatresPageState extends State<TheatresPage> {
             begin: Offset(1, 0),
             end: Offset(0, 0),
           ).animate(
-            CurvedAnimation(parent: animation2, curve: Curves.easeInOut),
+            CurvedAnimation(
+                parent: widget.transitionAnimation!, curve: Curves.easeInOut),
           ),
           child: child,
         );
       },
-      animation: animation2,
+      animation: widget.transitionAnimation!,
       child: Scaffold(
         appBar: AppBar(
             //actions: [],
@@ -101,6 +104,7 @@ class _TheatresPageState extends State<TheatresPage> {
 
                         Navigator.of(context).pushReplacement(MaterialPageRoute(
                           builder: (context) => TheatresPage(
+                            transitionAnimation: widget.transitionAnimation,
                             imgUrl: widget.imgUrl,
                             index: index,
                             movieName: widget.movieName,

@@ -8,7 +8,9 @@ import 'package:provider/provider.dart';
 
 // ignore: must_be_immutable
 class BottomNavigation extends StatefulWidget {
-  const BottomNavigation({Key? key}) : super(key: key);
+  final Animation<double>? transitionAnimation;
+  const BottomNavigation({this.transitionAnimation, Key? key})
+      : super(key: key);
 
   @override
   State<StatefulWidget> createState() {
@@ -25,50 +27,29 @@ class BottomNavigationState extends State<BottomNavigation> {
   ];
   @override
   Widget build(BuildContext context) {
-    final animation = Provider.of<Animation<double>>(context, listen: false);
-    return AnimatedBuilder(
-      animation: animation,
-      builder: (context, child) {
-        return SlideTransition(
-          position: Tween<Offset>(
-            begin: Offset(1, 0),
-            end: Offset(0, 0),
-          ).animate(
-            CurvedAnimation(
-              curve: const Interval(
-                0,
-                1,
-                curve: Curves.easeOutCubic,
-              ),
-              parent: animation,
+    // final animation = Provider.of<Animation<double>>(context, listen: false);
+    return Scaffold(
+      body: screens[currentIndex],
+      bottomNavigationBar: BottomNavigationBar(
+        fixedColor: Colors.red,
+        currentIndex: currentIndex,
+        onTap: (index) => setState(() => currentIndex = index),
+        items: const [
+          BottomNavigationBarItem(
+            icon: ImageIcon(
+              AssetImage('assets/icons/BookMyShowLogo-modified.png'),
             ),
+            label: 'Home',
           ),
-          child: child,
-        );
-      },
-      child: Scaffold(
-        body: screens[currentIndex],
-        bottomNavigationBar: BottomNavigationBar(
-          fixedColor: Colors.red,
-          currentIndex: currentIndex,
-          onTap: (index) => setState(() => currentIndex = index),
-          items: const [
-            BottomNavigationBarItem(
-              icon: ImageIcon(
-                AssetImage('assets/icons/BookMyShowLogo-modified.png'),
-              ),
-              label: 'Home',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.speaker),
-              label: 'Buzz',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.person),
-              label: 'Profile',
-            ),
-          ],
-        ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.speaker),
+            label: 'Buzz',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.person),
+            label: 'Profile',
+          ),
+        ],
       ),
     );
   }

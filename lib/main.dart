@@ -136,7 +136,7 @@ class BookMyShowState extends State<BookMyShow> {
             HomePage.routeName: (ctx) => const HomePage(),
             "/loginpage": (ctx) => MyApp(),
             "/bottomnavigation": (ctx) => const BottomNavigation(),
-            TheatresPage.routeName: (ctx) => TheatresPage()
+            TheatresPage.routeName: (ctx) => TheatresPage(),
           },
           theme: ThemeData(
               primaryColor: Color.fromARGB(255, 4, 28, 48),

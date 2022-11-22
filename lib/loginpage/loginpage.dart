@@ -67,18 +67,18 @@ class UserInterfaceState extends State<UserInterface> {
                       setState(() {
                         num = 0;
                       });
-                      Navigator.of(context).push(
-                        PageRouteBuilder(
-                            pageBuilder:
-                                (context, animation, secondaryAnimation) =>
-                                    ListenableProvider(
-                                      create: (context) => animation,
-                                      child: const BottomNavigation(),
-                                    ),
-                            transitionDuration: Duration(milliseconds: 200)),
-                      );
-                      // Navigator.of(context).push(MaterialPageRoute(
-                      //     builder: (context) => const BottomNavigation()));
+                      // Navigator.of(context).push(
+                      //   PageRouteBuilder(
+                      //       pageBuilder:
+                      //           (context, animation, secondaryAnimation) =>
+                      //               ListenableProvider(
+                      //                 create: (context) => animation,
+                      //                 child: const BottomNavigation(),
+                      //               ),
+                      //       transitionDuration: Duration(milliseconds: 200)),
+                      // );
+                      Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => const BottomNavigation()));
                     },
                     child: const Text(
                       "SKIP",
@@ -113,6 +113,9 @@ class UserInterfaceState extends State<UserInterface> {
                   final provider =
                       Provider.of<GoogleSignInCubit>(context, listen: false);
                   provider.signInWithGoogle();
+                  // Navigator.of(context).push(MaterialPageRoute(
+                  //   builder: (context) => BottomNavigation(),
+                  // ));
                 },
                 child: buildLoginButton(height, width),
               ),
@@ -139,7 +142,7 @@ class UserInterfaceState extends State<UserInterface> {
             ),
             const Text(
               "OR",
-              style: const TextStyle(color: Color.fromARGB(255, 109, 107, 107)),
+              style: TextStyle(color: Color.fromARGB(255, 109, 107, 107)),
               textAlign: TextAlign.center,
             ),
             SizedBox(

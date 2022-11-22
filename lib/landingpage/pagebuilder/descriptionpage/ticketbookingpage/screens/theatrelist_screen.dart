@@ -9,7 +9,10 @@ import '../../../../../unused/seatssamp.dart';
 class TheatreListScreen extends StatefulWidget {
   String? movieName;
   String? imgUrl;
-  TheatreListScreen({Key? key, this.imgUrl, this.movieName}) : super(key: key);
+  final Animation<double>? transitionAnimation;
+  TheatreListScreen(
+      {Key? key, this.transitionAnimation, this.imgUrl, this.movieName})
+      : super(key: key);
 
   @override
   State<TheatreListScreen> createState() => _TheatreListScreenState();
@@ -58,259 +61,275 @@ class _TheatreListScreenState extends State<TheatreListScreen> {
       });
     }
 
-    return Scaffold(
-      backgroundColor: Colors.grey[300],
-      appBar: AppBar(
-        title: Text(
-          widget.movieName.toString(),
-          style: const TextStyle(fontSize: 15),
+    return AnimatedBuilder(
+      animation: widget.transitionAnimation!,
+      builder: (context, child) {
+        return SlideTransition(
+            position: Tween<Offset>(begin: Offset(1, 0), end: Offset(0, 0))
+                .animate(CurvedAnimation(
+                    parent: widget.transitionAnimation!,
+                    curve: Curves.easeInOut)),
+            child: child);
+      },
+      child: Scaffold(
+        backgroundColor: Colors.grey[300],
+        appBar: AppBar(
+          title: Text(
+            widget.movieName.toString(),
+            style: const TextStyle(fontSize: 15),
+          ),
+          actions: [],
+          leading: IconButton(
+              icon: Icon(Icons.chevron_left),
+              onPressed: () => Navigator.of(context).pop()),
         ),
-        actions: [],
-        leading: IconButton(
-            icon: Icon(Icons.chevron_left),
-            onPressed: () => Navigator.of(context).pop()),
-      ),
-      body: Container(
-        child: Column(
-          children: [
-            Container(
-              color: Colors.white,
-              height: h * 0.10,
-              child: ListView.builder(
-                //shrinkWrap: true,
-                scrollDirection: Axis.horizontal,
-                itemCount: dateWidgets.length,
-                itemBuilder: (context, index) => (Container(
-                    color: isDateSelected != null && isDateSelected == index
-                        ? Colors.red[700]
-                        : Colors.white,
-                    height: h * 0.1,
-                    width: w * 0.142,
-                    child: InkWell(
-                        onTap: () {
-                          changeDateIndex(index);
-                        },
-                        child: dateWidgets[index]))),
+        body: Container(
+          child: Column(
+            children: [
+              Container(
+                color: Colors.white,
+                height: h * 0.10,
+                child: ListView.builder(
+                  //shrinkWrap: true,
+                  scrollDirection: Axis.horizontal,
+                  itemCount: dateWidgets.length,
+                  itemBuilder: (context, index) => (Container(
+                      color: isDateSelected != null && isDateSelected == index
+                          ? Colors.red[700]
+                          : Colors.white,
+                      height: h * 0.1,
+                      width: w * 0.142,
+                      child: InkWell(
+                          onTap: () {
+                            changeDateIndex(index);
+                          },
+                          child: dateWidgets[index]))),
+                ),
               ),
-            ),
-            const Divider(height: 1),
-            Container(
-              height: h * 0.057,
-              width: double.infinity,
-              color: Colors.white,
-              padding: EdgeInsets.only(left: w * 0.03),
-              child: Row(
-                children: [
-                  Text(
-                    "English",
-                    style: TextStyle(
-                        fontWeight: FontWeight.w600, fontSize: w * 0.03),
-                  ),
-                  SizedBox(width: w * 0.02),
-                  Icon(
-                    Icons.circle,
-                    size: w * 0.01,
-                  ),
-                  SizedBox(width: w * 0.02),
-                  Text(
-                    "2D",
-                    style: TextStyle(
-                        fontWeight: FontWeight.w600, fontSize: w * 0.03),
-                  ),
-                ],
-              ),
-            ),
-            Flexible(
-              child: PageView.builder(
-                onPageChanged: (value) {
-                  changeDateIndex(value);
-                },
-                controller: pageController,
-                itemCount: theatreList.theatreList.length,
-                scrollDirection: Axis.horizontal,
-                physics: const ScrollPhysics(),
-                itemBuilder: (context, index) {
-                  return Container(
-                    padding: const EdgeInsets.only(left: 15, right: 15),
-                    child: SingleChildScrollView(
-                      child: Column(
-                        children: [
-                          const SizedBox(
-                            height: 15,
-                          ),
-                          Container(
-                            color: Colors.white,
-                            child: ListView.builder(
-                                shrinkWrap: true,
-                                physics: const ScrollPhysics(),
-                                itemCount: theatreList
-                                    .theatreList[isDateSelected!].length,
-                                itemBuilder: (context, i) {
-                                  Theatre theatre =
-                                      theatreList.theatreList[index][i];
-
-                                  int addHeight =
-                                      theatre.isCancellationAvailable == true
-                                          ? 20
-                                          : 0;
-                                  return Container(
-                                    padding: const EdgeInsets.all(20),
-                                    height: 80 +
-                                        addHeight +
-                                        ((theatre.timeList!.length / 3).ceil() *
-                                            57),
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Row(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            const Padding(
-                                              padding: EdgeInsets.only(top: 2),
-                                              child: Icon(
-                                                Icons.favorite_border_outlined,
-                                                size: 15,
-                                              ),
-                                            ),
-                                            const SizedBox(
-                                              width: 5,
-                                            ),
-                                            Container(
-                                              width: w * 0.7,
-                                              child: Text(
-                                                theatre.theatreName.toString(),
-                                                style: const TextStyle(
-                                                    fontWeight:
-                                                        FontWeight.w500),
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                        const SizedBox(height: 5),
-                                        theatre.isCancellationAvailable == true
-                                            ? const Text(
-                                                "Cancellation Available",
-                                                style: TextStyle(
-                                                    fontSize: 12,
-                                                    color: Colors.grey),
-                                              )
-                                            : Container(),
-                                        const SizedBox(height: 10),
-                                        Expanded(
-                                          child: GridView.count(
-                                            shrinkWrap: true,
-                                            physics:
-                                                const NeverScrollableScrollPhysics(),
-                                            crossAxisSpacing: 15,
-                                            mainAxisSpacing: 20,
-                                            childAspectRatio: 2.3,
-                                            crossAxisCount: 3,
-                                            children: List.generate(
-                                                theatre.timeList!.length,
-                                                (index) {
-                                              TimeList timeElement =
-                                                  theatre.timeList![index];
-                                              Color cardColor =
-                                                  timeElement.isFilled == true
-                                                      ? Colors.orange
-                                                      : Colors.green;
-                                              return GestureDetector(
-                                                onTap: () {
-                                                  print(timeElement.time);
-                                                  // Navigator.of(context)
-                                                  //     .push(MaterialPageRoute(
-                                                  //   builder: (context) =>
-                                                  //       SeatsScreenFlutter(),
-                                                  // ));
-                                                  Navigator.of(context)
-                                                      .push(MaterialPageRoute(
-                                                    builder: (context) =>
-                                                        TheatreSeatScreen(
-                                                      movieName:
-                                                          widget.movieName,
-                                                      theatreName:
-                                                          theatre.theatreName,
-                                                      theatreId:
-                                                          theatre.theatreId,
-                                                    ),
-                                                  ));
-                                                  // Navigator.of(context).push(
-                                                  //   MaterialPageRoute(
-                                                  //     builder: (context) {
-                                                  //       return SeatingPage(
-                                                  //           movieName: widget
-                                                  //               .movieName,
-                                                  //           imgUrl:
-                                                  //               widget.imgUrl,
-                                                  //           theatreName: theatre
-                                                  //               .theatreName,
-                                                  //           date: date,
-                                                  //           time: timeElement
-                                                  //               .time
-                                                  //               .toString(),
-                                                  //           id: index);
-                                                  //     },
-                                                  //   ),
-                                                  // );
-                                                },
-                                                child: Container(
-                                                  padding: const EdgeInsets
-                                                          .symmetric(
-                                                      vertical: 5,
-                                                      horizontal: 10),
-                                                  decoration: BoxDecoration(
-                                                      border: Border.all(
-                                                        color: Colors.grey,
-                                                      ),
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              4)),
-                                                  child: Column(
-                                                    children: [
-                                                      Text(
-                                                          timeElement.time
-                                                              .toString(),
-                                                          style: TextStyle(
-                                                              fontSize: 15,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w600,
-                                                              color:
-                                                                  cardColor)),
-                                                      timeElement.audioSystem !=
-                                                              null
-                                                          ? Text(
-                                                              timeElement
-                                                                  .audioSystem
-                                                                  .toString(),
-                                                              style: TextStyle(
-                                                                  fontSize: 9,
-                                                                  color:
-                                                                      cardColor),
-                                                            )
-                                                          : Container(),
-                                                    ],
-                                                  ),
-                                                ),
-                                              );
-                                            }),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  );
-                                }),
-                          ),
-                        ],
-                      ),
+              const Divider(height: 1),
+              Container(
+                height: h * 0.057,
+                width: double.infinity,
+                color: Colors.white,
+                padding: EdgeInsets.only(left: w * 0.03),
+                child: Row(
+                  children: [
+                    Text(
+                      "English",
+                      style: TextStyle(
+                          fontWeight: FontWeight.w600, fontSize: w * 0.03),
                     ),
-                  );
-                },
+                    SizedBox(width: w * 0.02),
+                    Icon(
+                      Icons.circle,
+                      size: w * 0.01,
+                    ),
+                    SizedBox(width: w * 0.02),
+                    Text(
+                      "2D",
+                      style: TextStyle(
+                          fontWeight: FontWeight.w600, fontSize: w * 0.03),
+                    ),
+                  ],
+                ),
               ),
-            ),
-          ],
+              Flexible(
+                child: PageView.builder(
+                  onPageChanged: (value) {
+                    changeDateIndex(value);
+                  },
+                  controller: pageController,
+                  itemCount: theatreList.theatreList.length,
+                  scrollDirection: Axis.horizontal,
+                  physics: const ScrollPhysics(),
+                  itemBuilder: (context, index) {
+                    return Container(
+                      padding: const EdgeInsets.only(left: 15, right: 15),
+                      child: SingleChildScrollView(
+                        child: Column(
+                          children: [
+                            const SizedBox(
+                              height: 15,
+                            ),
+                            Container(
+                              color: Colors.white,
+                              child: ListView.builder(
+                                  shrinkWrap: true,
+                                  physics: const ScrollPhysics(),
+                                  itemCount: theatreList
+                                      .theatreList[isDateSelected!].length,
+                                  itemBuilder: (context, i) {
+                                    Theatre theatre =
+                                        theatreList.theatreList[index][i];
+
+                                    int addHeight =
+                                        theatre.isCancellationAvailable == true
+                                            ? 20
+                                            : 0;
+                                    return Container(
+                                      padding: const EdgeInsets.all(20),
+                                      height: 80 +
+                                          addHeight +
+                                          ((theatre.timeList!.length / 3)
+                                                  .ceil() *
+                                              57),
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Row(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              const Padding(
+                                                padding:
+                                                    EdgeInsets.only(top: 2),
+                                                child: Icon(
+                                                  Icons
+                                                      .favorite_border_outlined,
+                                                  size: 15,
+                                                ),
+                                              ),
+                                              const SizedBox(
+                                                width: 5,
+                                              ),
+                                              Container(
+                                                width: w * 0.7,
+                                                child: Text(
+                                                  theatre.theatreName
+                                                      .toString(),
+                                                  style: const TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.w500),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                          const SizedBox(height: 5),
+                                          theatre.isCancellationAvailable ==
+                                                  true
+                                              ? const Text(
+                                                  "Cancellation Available",
+                                                  style: TextStyle(
+                                                      fontSize: 12,
+                                                      color: Colors.grey),
+                                                )
+                                              : Container(),
+                                          const SizedBox(height: 10),
+                                          Expanded(
+                                            child: GridView.count(
+                                              shrinkWrap: true,
+                                              physics:
+                                                  const NeverScrollableScrollPhysics(),
+                                              crossAxisSpacing: 15,
+                                              mainAxisSpacing: 20,
+                                              childAspectRatio: 2.3,
+                                              crossAxisCount: 3,
+                                              children: List.generate(
+                                                  theatre.timeList!.length,
+                                                  (index) {
+                                                TimeList timeElement =
+                                                    theatre.timeList![index];
+                                                Color cardColor =
+                                                    timeElement.isFilled == true
+                                                        ? Colors.orange
+                                                        : Colors.green;
+                                                return GestureDetector(
+                                                  onTap: () {
+                                                    print(timeElement.time);
+                                                    // Navigator.of(context)
+                                                    //     .push(MaterialPageRoute(
+                                                    //   builder: (context) =>
+                                                    //       SeatsScreenFlutter(),
+                                                    // ));
+                                                    Navigator.of(context)
+                                                        .push(MaterialPageRoute(
+                                                      builder: (context) =>
+                                                          TheatreSeatScreen(
+                                                        movieName:
+                                                            widget.movieName,
+                                                        theatreName:
+                                                            theatre.theatreName,
+                                                        theatreId:
+                                                            theatre.theatreId,
+                                                      ),
+                                                    ));
+                                                    // Navigator.of(context).push(
+                                                    //   MaterialPageRoute(
+                                                    //     builder: (context) {
+                                                    //       return SeatingPage(
+                                                    //           movieName: widget
+                                                    //               .movieName,
+                                                    //           imgUrl:
+                                                    //               widget.imgUrl,
+                                                    //           theatreName: theatre
+                                                    //               .theatreName,
+                                                    //           date: date,
+                                                    //           time: timeElement
+                                                    //               .time
+                                                    //               .toString(),
+                                                    //           id: index);
+                                                    //     },
+                                                    //   ),
+                                                    // );
+                                                  },
+                                                  child: Container(
+                                                    padding: const EdgeInsets
+                                                            .symmetric(
+                                                        vertical: 5,
+                                                        horizontal: 10),
+                                                    decoration: BoxDecoration(
+                                                        border: Border.all(
+                                                          color: Colors.grey,
+                                                        ),
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(4)),
+                                                    child: Column(
+                                                      children: [
+                                                        Text(
+                                                            timeElement.time
+                                                                .toString(),
+                                                            style: TextStyle(
+                                                                fontSize: 15,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w600,
+                                                                color:
+                                                                    cardColor)),
+                                                        timeElement.audioSystem !=
+                                                                null
+                                                            ? Text(
+                                                                timeElement
+                                                                    .audioSystem
+                                                                    .toString(),
+                                                                style: TextStyle(
+                                                                    fontSize: 9,
+                                                                    color:
+                                                                        cardColor),
+                                                              )
+                                                            : Container(),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                );
+                                              }),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    );
+                                  }),
+                            ),
+                          ],
+                        ),
+                      ),
+                    );
+                  },
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
