@@ -2,6 +2,7 @@ import 'package:bookmyshow/landingpage/pagebuilder/descriptionpage/description.d
 import 'package:bookmyshow/landingpage/pagebuilder/seeallpage.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 
 // ignore: must_be_immutable
 class TrendingMovies extends StatelessWidget {
@@ -68,24 +69,52 @@ class TrendingMovies extends StatelessWidget {
                     : InkWell(
                         onTap: () {
                           Navigator.of(context).push(
-                            MaterialPageRoute(
-                              builder: (context) => Description(
-                                id: trendingMovies![index]['id'],
-                                name: trendingMovies![index]['title'],
-                                description: trendingMovies![index]['overview'],
-                                vote: trendingMovies![index]['vote_average']
-                                    .toString(),
-                                bannerurl:
-                                    'https://image.tmdb.org/t/p/w500/${trendingMovies![index]['backdrop_path']}',
-                                posterurl:
-                                    'https://image.tmdb.org/t/p/w500/${trendingMovies![index]['poster_path']}',
-                                launchon: trendingMovies![index]
-                                    ['release_date'],
-                                movieImgUrl:
-                                    'https://image.tmdb.org/t/p/w500/${trendingMovies![index]['poster_path']}',
-                              ),
-                            ),
+                            PageRouteBuilder(
+                                pageBuilder: (context, animation,
+                                        secondaryAnimation) =>
+                                    ListenableProvider(
+                                      create: (context) => animation,
+                                      child: Description(
+                                        id: trendingMovies![index]['id'],
+                                        name: trendingMovies![index]['title'],
+                                        description: trendingMovies![index]
+                                            ['overview'],
+                                        vote: trendingMovies![index]
+                                                ['vote_average']
+                                            .toString(),
+                                        bannerurl:
+                                            'https://image.tmdb.org/t/p/w500/${trendingMovies![index]['backdrop_path']}',
+                                        posterurl:
+                                            'https://image.tmdb.org/t/p/w500/${trendingMovies![index]['poster_path']}',
+                                        launchon: trendingMovies![index]
+                                            ['release_date'],
+                                        movieImgUrl:
+                                            'https://image.tmdb.org/t/p/w500/${trendingMovies![index]['poster_path']}',
+                                      ),
+                                    ),
+                                transitionDuration:
+                                    const Duration(milliseconds: 500)),
                           );
+
+                          // Navigator.of(context).push(
+                          //   MaterialPageRoute(
+                          //     builder: (context) => Description(
+                          //       id: trendingMovies![index]['id'],
+                          //       name: trendingMovies![index]['title'],
+                          //       description: trendingMovies![index]['overview'],
+                          //       vote: trendingMovies![index]['vote_average']
+                          //           .toString(),
+                          //       bannerurl:
+                          //           'https://image.tmdb.org/t/p/w500/${trendingMovies![index]['backdrop_path']}',
+                          //       posterurl:
+                          //           'https://image.tmdb.org/t/p/w500/${trendingMovies![index]['poster_path']}',
+                          //       launchon: trendingMovies![index]
+                          //           ['release_date'],
+                          //       movieImgUrl:
+                          //           'https://image.tmdb.org/t/p/w500/${trendingMovies![index]['poster_path']}',
+                          //     ),
+                          //   ),
+                          // );
                         },
                         child: Container(
                           //width: w / 2.8,

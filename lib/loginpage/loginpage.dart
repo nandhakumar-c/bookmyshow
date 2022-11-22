@@ -67,8 +67,18 @@ class UserInterfaceState extends State<UserInterface> {
                       setState(() {
                         num = 0;
                       });
-                      Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => const BottomNavigation()));
+                      Navigator.of(context).push(
+                        PageRouteBuilder(
+                            pageBuilder:
+                                (context, animation, secondaryAnimation) =>
+                                    ListenableProvider(
+                                      create: (context) => animation,
+                                      child: const BottomNavigation(),
+                                    ),
+                            transitionDuration: Duration(milliseconds: 200)),
+                      );
+                      // Navigator.of(context).push(MaterialPageRoute(
+                      //     builder: (context) => const BottomNavigation()));
                     },
                     child: const Text(
                       "SKIP",
