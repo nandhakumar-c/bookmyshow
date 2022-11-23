@@ -1,3 +1,4 @@
+import 'package:bookmyshow/buzzpage/screens/addbuzz.dart';
 import 'package:bookmyshow/buzzpage/stories/stories.dart';
 import 'package:flutter/material.dart';
 import './stories/feeds.dart';
@@ -11,6 +12,20 @@ class BuzzPage extends StatelessWidget {
       appBar: AppBar(
           automaticallyImplyLeading: false,
           backgroundColor: const Color.fromARGB(255, 10, 21, 46),
+          actions: [
+            IconButton(
+              onPressed: () {
+                Navigator.of(context).push(PageRouteBuilder(
+                  pageBuilder: (context, animation, secondaryAnimation) {
+                    return AddBuzzPage(
+                      transitionAnimation: animation,
+                    );
+                  },
+                ));
+              },
+              icon: const Icon(Icons.add),
+            )
+          ],
           title: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -25,7 +40,7 @@ class BuzzPage extends StatelessWidget {
                 "Discover what's trending in entertainment",
                 style: TextStyle(
                     fontSize: MediaQuery.of(context).size.height / 75),
-              )
+              ),
             ],
           )),
       body: ListView(
