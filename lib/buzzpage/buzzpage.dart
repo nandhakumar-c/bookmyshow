@@ -1,4 +1,5 @@
 import 'package:bookmyshow/buzzpage/screens/addbuzz.dart';
+import 'package:bookmyshow/buzzpage/services/addbuzz_service.dart';
 import 'package:bookmyshow/buzzpage/stories/stories.dart';
 import 'package:flutter/material.dart';
 import './stories/feeds.dart';
@@ -53,6 +54,25 @@ class BuzzPage extends StatelessWidget {
             height: 105,
             child: const Stories(),
           ),
+          StreamBuilder<List<Buzz>>(
+            stream: AddBuzzService().readBuzz(),
+            builder: (context, snapshot) {
+              if (snapshot.hasError) {
+                return Text("Something went wrong : ${snapshot.error}");
+              } else if (snapshot.hasData) {
+                final buzz = snapshot.data!;
+                return ListView(
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  children: buzz.map(buildBuzz).toList(),
+                );
+              } else {
+                return const Center(
+                  child: CircularProgressIndicator(),
+                );
+              }
+            },
+          ),
           ListView.builder(
             key: const PageStorageKey('page9'),
             shrinkWrap: true,
@@ -65,6 +85,18 @@ class BuzzPage extends StatelessWidget {
           ),
         ],
       ),
+    );
+  }
+
+  Widget buildBuzz(Buzz buzz) {
+    return ListTile(
+      leading: CircleAvatar(
+          backgroundImage: NetworkImage(
+        buzz.coverImgUrl,
+        //fit: BoxFit.cover,
+      )),
+      title: Text(buzz.title),
+      subtitle: Text(buzz.description),
     );
   }
 }

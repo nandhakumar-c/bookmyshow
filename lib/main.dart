@@ -29,6 +29,7 @@ import 'package:onesignal_flutter/onesignal_flutter.dart';
 import 'dart:async';
 
 import 'bottomnavigation/bottomnavigator.dart';
+import 'buzzpage/provider/buzz_provider.dart';
 import 'loginpage/loginpage.dart';
 import 'loginpage/splashscreen.dart';
 import 'notifications/notification_page.dart';
@@ -123,6 +124,9 @@ class BookMyShowState extends State<BookMyShow> {
           ),
           ChangeNotifierProvider(
             create: (context) => TheatreSeatsList(),
+          ),
+          ChangeNotifierProvider(
+            create: (context) => BuzzProvider(),
           )
         ],
         child: GetMaterialApp(

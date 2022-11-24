@@ -2,7 +2,6 @@ import 'package:bookmyshow/buzzpage/buzzpage.dart';
 import 'package:bookmyshow/landingpage/landingpage.dart';
 import 'package:bookmyshow/profilepage/profilepage.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 //import 'package:get/get.dart';
 //import 'package:google_sign_in/google_sign_in.dart';
 

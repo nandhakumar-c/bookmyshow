@@ -6,11 +6,12 @@ class Storage {
   final firebase_storage.FirebaseStorage storage =
       firebase_storage.FirebaseStorage.instance;
 
-  Future<void> uploadFiles(String filePath, String fileName) async {
+  Future<void> uploadFiles(
+      String filePath, String fileName, String folderName) async {
     File file = File(filePath);
 
     try {
-      await storage.ref('testfolder/$fileName').putFile(file);
+      await storage.ref('$folderName/$fileName').putFile(file);
     } on firebase_core.FirebaseException catch (e) {
       print(e);
     }
@@ -18,16 +19,17 @@ class Storage {
 
   Future<firebase_storage.ListResult> listFiles() async {
     firebase_storage.ListResult results =
-        await storage.ref('testfolder').listAll();
+        await storage.ref('mainImage').listAll();
     results.items.forEach((firebase_storage.Reference ref) {
       print("Found File: $ref");
     });
     return results;
   }
 
-  Future<String> downloadURL(String imgName) async {
+  Future<String> downloadURL(String folderName, String imgName) async {
     String downloadUrl =
-        await storage.ref('testfolder/$imgName').getDownloadURL();
+        await storage.ref('$folderName/$imgName').getDownloadURL();
+    print(downloadUrl);
     return downloadUrl;
   }
 }

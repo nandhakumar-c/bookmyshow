@@ -1,4 +1,4 @@
-import 'package:bookmyshow/profilepage/screens/userprofilepage_screen.dart';
+import 'package:bookmyshow/profilepage/screens/editprofilepage_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -99,7 +99,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   provider.signOutWithGoogle();
                   FirebaseAuth.instance.signOut();
                 },
-                child: Text("Log out"),
+                child: const Text("Log out"),
               ),
             ],
           ),
