@@ -1,3 +1,4 @@
+import 'package:bookmyshow/buzzpage/models/feedlayout.dart';
 import 'package:bookmyshow/buzzpage/screens/addbuzz.dart';
 import 'package:bookmyshow/buzzpage/services/addbuzz_service.dart';
 import 'package:bookmyshow/buzzpage/stories/stories.dart';
@@ -89,14 +90,15 @@ class BuzzPage extends StatelessWidget {
   }
 
   Widget buildBuzz(Buzz buzz) {
-    return ListTile(
-      leading: CircleAvatar(
-          backgroundImage: NetworkImage(
-        buzz.coverImgUrl,
-        //fit: BoxFit.cover,
-      )),
-      title: Text(buzz.title),
-      subtitle: Text(buzz.description),
-    );
+    return FeedLayout(buzz: buzz);
+    // return ListTile(
+    //   leading: CircleAvatar(
+    //       backgroundImage: NetworkImage(
+    //     buzz.coverImgUrl,
+    //     //fit: BoxFit.cover,
+    //   )),
+    //   title: Text(buzz.title),
+    //   subtitle: Text(buzz.description),
+    // );
   }
 }

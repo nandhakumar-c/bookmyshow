@@ -26,30 +26,31 @@ class TrendingMovies extends StatelessWidget {
                 style: TextStyle(
                   // fontFamily: 'RobotoCondensed',
                   fontWeight: FontWeight.w500,
-                  fontSize: MediaQuery.of(context).size.height / 45,
+                  fontSize: MediaQuery.of(context).size.height * 0.0225,
                 ),
               ),
               const Spacer(),
               Padding(
                 padding: EdgeInsets.only(right: h * 0.01),
-                child: Row(children: [
-                  InkWell(
-                      onTap: () => Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) =>
-                              SeeAllPage(trendingList: trendingMovies))),
-                      child: Text(
-                        "See All",
-                        style: TextStyle(
-                          fontSize: h * 0.018,
-                          color: const Color.fromARGB(255, 190, 25, 13),
-                        ),
-                      )),
-                  Icon(
-                    Icons.chevron_right_outlined,
-                    size: h * 0.02,
-                    color: const Color.fromARGB(255, 190, 25, 13),
-                  )
-                ]),
+                child: InkWell(
+                  onTap: () => Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) =>
+                          SeeAllPage(trendingList: trendingMovies))),
+                  child: Row(children: [
+                    Text(
+                      "See All",
+                      style: TextStyle(
+                        fontSize: h * 0.018,
+                        color: const Color.fromARGB(255, 190, 25, 13),
+                      ),
+                    ),
+                    Icon(
+                      Icons.chevron_right_outlined,
+                      size: h * 0.02,
+                      color: const Color.fromARGB(255, 190, 25, 13),
+                    )
+                  ]),
+                ),
               )
             ],
           ),

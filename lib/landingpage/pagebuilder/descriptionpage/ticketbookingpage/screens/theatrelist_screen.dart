@@ -246,6 +246,11 @@ class _TheatreListScreenState extends State<TheatreListScreen> {
                                                         .push(MaterialPageRoute(
                                                       builder: (context) =>
                                                           TheatreSeatScreen(
+                                                        date: date,
+                                                        id: index,
+                                                        time: timeElement.time
+                                                            .toString(),
+                                                        imgUrl: widget.imgUrl,
                                                         movieName:
                                                             widget.movieName,
                                                         theatreName:

@@ -3,6 +3,7 @@ import 'package:bookmyshow/provider/theatreseat_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../../../../bottomnavigation/bottomnavigator.dart';
 import '../../../../../provider/orders_provider.dart';
 import '../../../../../provider/theatrelist_provider.dart';
 import '../../../../../provider/tickets_provider.dart';
@@ -11,8 +12,20 @@ class TheatreSeatScreen extends StatefulWidget {
   String? theatreName;
   String? movieName;
   String? theatreId;
+  String? imgUrl;
+
+  int id;
+  String? date;
+  String time;
   TheatreSeatScreen(
-      {this.movieName, this.theatreId, this.theatreName, Key? key})
+      {this.movieName,
+      required this.id,
+      required this.time,
+      this.date,
+      this.theatreId,
+      this.theatreName,
+      this.imgUrl,
+      Key? key})
       : super(key: key);
 
   @override
@@ -271,6 +284,25 @@ class _TheatreSeatScreenState extends State<TheatreSeatScreen>
             ),
           )
         ]),
+      ),
+      bottomNavigationBar: BottomAppBar(
+        child: Container(
+          padding: const EdgeInsets.only(left: 10, right: 10, bottom: 10),
+          child: ElevatedButton(
+            style: ElevatedButton.styleFrom(
+                primary: ticket.numberOfSeats == ticket.seatsFilled
+                    ? Colors.green
+                    : Colors.grey[400]),
+            onPressed: () {
+              orders.addOrder(widget.imgUrl, widget.theatreName, widget.date,
+                  widget.movieName, widget.time, ticket.seats);
+              Navigator.of(context).push(MaterialPageRoute(
+                builder: (context) => BottomNavigation(),
+              ));
+            },
+            child: const Text("Confirm seats"),
+          ),
+        ),
       ),
     );
   }

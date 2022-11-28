@@ -134,11 +134,17 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
             child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: ElevatedButton(
-            onPressed: () {
-              EditProfileService().createUser(
-                  name: nameController.text,
-                  email: emailController.text,
-                  mobile: mobileNumberController.text);
+            onPressed: () async {
+              await EditProfileService()
+                  .createUser(
+                      name: nameController.text,
+                      email: emailController.text,
+                      mobile: mobileNumberController.text)
+                  .then((value) => ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(content: Text("Updated user details"))));
+              nameController.clear();
+              emailController.clear();
+              mobileNumberController.clear();
             },
             child: Text("Save Changes"),
           ),

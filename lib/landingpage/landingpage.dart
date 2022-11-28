@@ -72,7 +72,7 @@ class LandingPageState extends State<LandingPage> {
             children: [
               FittedBox(
                 child: Text(
-                  "It All Starts Here".tr,
+                  "title text".tr,
                   style: const TextStyle(
                     color: Colors.white,
                   ),
@@ -130,18 +130,18 @@ class LandingPageState extends State<LandingPage> {
                 );
               },
             ),
-            Container(
-              color: Colors.red[400],
-              padding: EdgeInsets.all(20),
-              child: Text(
-                'QR TEXT : ${qrCode}',
-                textAlign: TextAlign.center,
-              ),
-            ),
-            TextButton(
-              onPressed: () => throw Exception(),
-              child: const Text("Throw Test Exception"),
-            ),
+            // Container(
+            //   color: Colors.red[400],
+            //   padding: EdgeInsets.all(20),
+            //   child: Text(
+            //     'QR TEXT : ${qrCode}',
+            //     textAlign: TextAlign.center,
+            //   ),
+            // ),
+            // TextButton(
+            //   onPressed: () => throw Exception(),
+            //   child: const Text("Throw Test Exception"),
+            // ),
             Container(
               decoration: BoxDecoration(
                   color: const Color.fromARGB(255, 226, 217, 217),
