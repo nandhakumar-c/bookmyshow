@@ -10,6 +10,7 @@ class TrendingMovies extends StatelessWidget {
   String? titleText;
   TrendingMovies({Key? key, this.trendingMovies, this.titleText})
       : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     double h = (MediaQuery.of(context).size.height);
@@ -77,7 +78,8 @@ class TrendingMovies extends StatelessWidget {
                                       create: (context) => animation,
                                       builder: (context, child) => Description(
                                         id: trendingMovies![index]['id'],
-                                        name: trendingMovies![index]['title'],
+                                        name: trendingMovies![index]['title'] ??
+                                            "Loading",
                                         description: trendingMovies![index]
                                             ['overview'],
                                         vote: trendingMovies![index]
@@ -88,7 +90,8 @@ class TrendingMovies extends StatelessWidget {
                                         posterurl:
                                             'https://image.tmdb.org/t/p/w500/${trendingMovies![index]['poster_path']}',
                                         launchon: trendingMovies![index]
-                                            ['release_date'],
+                                                ['release_date'] ??
+                                            "Loading",
                                         movieImgUrl:
                                             'https://image.tmdb.org/t/p/w500/${trendingMovies![index]['poster_path']}',
                                       ),
@@ -96,26 +99,6 @@ class TrendingMovies extends StatelessWidget {
                                 transitionDuration:
                                     const Duration(milliseconds: 500)),
                           );
-
-                          // Navigator.of(context).push(
-                          //   MaterialPageRoute(
-                          //     builder: (context) => Description(
-                          //       id: trendingMovies![index]['id'],
-                          //       name: trendingMovies![index]['title'],
-                          //       description: trendingMovies![index]['overview'],
-                          //       vote: trendingMovies![index]['vote_average']
-                          //           .toString(),
-                          //       bannerurl:
-                          //           'https://image.tmdb.org/t/p/w500/${trendingMovies![index]['backdrop_path']}',
-                          //       posterurl:
-                          //           'https://image.tmdb.org/t/p/w500/${trendingMovies![index]['poster_path']}',
-                          //       launchon: trendingMovies![index]
-                          //           ['release_date'],
-                          //       movieImgUrl:
-                          //           'https://image.tmdb.org/t/p/w500/${trendingMovies![index]['poster_path']}',
-                          //     ),
-                          //   ),
-                          // );
                         },
                         child: Container(
                           //width: w / 2.8,
@@ -136,29 +119,13 @@ class TrendingMovies extends StatelessWidget {
                                                   ['poster_path'])),
                                 ),
                               ),
-
-                              // Container(
-                              //   height: h / 3.685,
-                              //   decoration: BoxDecoration(
-                              //     shape: BoxShape.rectangle,
-                              //     borderRadius:
-                              //         BorderRadius.all(Radius.circular(10.0)),
-                              //     image: DecorationImage(
-                              //       image: NetworkImage(
-                              //           'https://image.tmdb.org/t/p/w500/' +
-                              //               trendingMovies![index]['poster_path']),
-                              //     ),
-                              //   ),
-                              // ),
                               SizedBox(
                                 height: h * 0.008,
                               ),
-                              Container(
+                              SizedBox(
                                 width: w * 0.32,
                                 child: Text(
-                                  trendingMovies![index]['title'] != null
-                                      ? trendingMovies![index]['title']
-                                      : "Loading",
+                                  trendingMovies![index]['title'] ?? "Loading",
                                   style: GoogleFonts.roboto(
                                     fontWeight: FontWeight.w400,
                                     fontSize:

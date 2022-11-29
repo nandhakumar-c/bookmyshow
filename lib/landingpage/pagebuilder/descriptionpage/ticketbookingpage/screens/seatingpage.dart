@@ -1,4 +1,5 @@
 import 'package:bookmyshow/landingpage/landingpage.dart';
+import 'package:bookmyshow/landingpage/pagebuilder/descriptionpage/ticketbookingpage/paymentbilling_screen.dart';
 import 'package:bookmyshow/landingpage/pagebuilder/descriptionpage/ticketbookingpage/screens/seatcount.dart';
 import 'package:bookmyshow/provider/orders_provider.dart';
 import 'package:bookmyshow/provider/tickets_provider.dart';
@@ -297,7 +298,7 @@ class _SeatingPageState extends State<SeatingPage>
               orders.addOrder(widget.imgUrl, widget.theatreName, widget.date,
                   widget.movieName, widget.time, ticket.seats);
               Navigator.of(context).push(MaterialPageRoute(
-                builder: (context) => BottomNavigation(),
+                builder: (context) => BillingScreen(),
               ));
             },
             child: const Text("Confirm seats"),

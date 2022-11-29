@@ -1,3 +1,4 @@
+import 'package:bookmyshow/landingpage/pagebuilder/descriptionpage/ticketbookingpage/paymentbilling_screen.dart';
 import 'package:bookmyshow/landingpage/pagebuilder/descriptionpage/ticketbookingpage/screens/seatcount.dart';
 import 'package:bookmyshow/provider/theatreseat_provider.dart';
 import 'package:flutter/material.dart';
@@ -95,8 +96,15 @@ class _TheatreSeatScreenState extends State<TheatreSeatScreen>
     transformationController.value.setEntry(0, 3, -xTranslate);
     transformationController.value.setEntry(1, 3, -yTranslate);
     super.initState();
+
     _controllerReset = AnimationController(
         vsync: this, duration: const Duration(milliseconds: 300));
+  }
+
+  @override
+  void didChangeDependencies() {
+    // TODO: implement didChangeDependencies
+    super.didChangeDependencies();
   }
 
   @override
@@ -142,75 +150,79 @@ class _TheatreSeatScreenState extends State<TheatreSeatScreen>
         ),
         backgroundColor: const Color.fromARGB(255, 6, 20, 32),
       ),
-      body: Container(
-        child: Column(children: [
-          Container(
-            height: 30,
-            padding: const EdgeInsets.only(right: 20),
-            alignment: Alignment.centerRight,
-            child: GestureDetector(
-              onTap: () {
-                showModalBottomSheet(
-                  context: context,
-                  builder: (BuildContext context) => SafeArea(
-                    child: Container(
-                      height: 350,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Flexible(
-                            child: Container(
-                              height: 50,
-                              padding: const EdgeInsets.all(10),
-                              child: const Text(
-                                "How many seats? ",
-                                style: TextStyle(
-                                    fontSize: 17, fontWeight: FontWeight.w500),
-                                textAlign: TextAlign.start,
-                              ),
+      body: Column(children: [
+        Container(
+          height: 30,
+          width: double.infinity,
+          padding: const EdgeInsets.only(right: 20),
+          alignment: Alignment.centerRight,
+          child: InkWell(
+            onTap: () {
+              ticket.defaultImg();
+              showModalBottomSheet(
+                context: context,
+                builder: (BuildContext context) => SafeArea(
+                  child: Container(
+                    height: 350,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Flexible(
+                          child: Container(
+                            height: 50,
+                            padding: const EdgeInsets.all(10),
+                            child: const Text(
+                              "How many seats? ",
+                              style: TextStyle(
+                                  fontSize: 17, fontWeight: FontWeight.w500),
+                              textAlign: TextAlign.start,
                             ),
                           ),
-                          Consumer<TicketList>(
-                            builder: (context, value, child) {
-                              return Container(
-                                  alignment: Alignment.center,
+                        ),
+                        Consumer<TicketList>(
+                          builder: (context, value, child) {
+                            return Container(
+                                alignment: Alignment.center,
+                                height: 150,
+                                child: SizedBox(
                                   height: 150,
-                                  child: SizedBox(
-                                    height: 150,
-                                    child: ticket.img,
-                                  ));
-                            },
+                                  child: ticket.img,
+                                ));
+                          },
+                        ),
+                        Flexible(
+                          child: Container(
+                            height: 40,
+                            width: double.infinity,
+                            alignment: Alignment.center,
+                            child: const SeatCount(),
                           ),
-                          Flexible(
-                            child: Container(
-                              height: 40,
-                              width: double.infinity,
-                              alignment: Alignment.center,
-                              child: const SeatCount(),
+                        ),
+                        Container(
+                          padding: const EdgeInsets.all(20),
+                          child: ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              primary: const Color.fromARGB(255, 231, 48, 72),
+                              minimumSize: const Size.fromHeight(40),
                             ),
+                            onPressed: () {
+                              ticket.selectSeats();
+                              ticket.emptySeat();
+                              seatsProvider.refreshSeats();
+                              Navigator.of(context).pop();
+                            },
+                            child: const Text("Select Seats"),
                           ),
-                          Container(
-                            padding: const EdgeInsets.all(20),
-                            child: ElevatedButton(
-                                style: ElevatedButton.styleFrom(
-                                  primary:
-                                      const Color.fromARGB(255, 231, 48, 72),
-                                  minimumSize: const Size.fromHeight(40),
-                                ),
-                                onPressed: () {
-                                  ticket.selectSeats();
-                                  ticket.emptySeat();
-                                  seatsProvider.refreshSeats();
-                                  Navigator.of(context).pop();
-                                },
-                                child: const Text("Select Seats")),
-                          )
-                        ],
-                      ),
+                        )
+                      ],
                     ),
                   ),
-                );
-              },
+                ),
+              );
+            },
+            child: Container(
+              height: 30,
+              width: 80,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
@@ -234,57 +246,57 @@ class _TheatreSeatScreenState extends State<TheatreSeatScreen>
               ),
             ),
           ),
-          Expanded(
-            child: InteractiveViewer(
-              minScale: 1,
-              maxScale: 10,
-              constrained: true,
-              onInteractionStart: (details) {
-                if (transformationController.value.getMaxScaleOnAxis() <= 3.5 ||
-                    transformationController.value.getMaxScaleOnAxis() == 1.0) {
-                  _animateResetInitialize();
-                }
-                onInteractionStart();
-              },
-              transformationController: transformationController,
-              onInteractionEnd: (details) {
-                print(details);
-                print(transformationController.value.getMaxScaleOnAxis());
-                if (transformationController.value.getMaxScaleOnAxis() <= 3.5 ||
-                    transformationController.value.getMaxScaleOnAxis() == 1.0) {
-                  _animateResetInitialize();
-                }
-              },
-              boundaryMargin:
-                  const EdgeInsets.symmetric(vertical: 0, horizontal: 0),
-              child: Column(
-                // height: double.infinity,
-                children: List.generate(
-                  seats.seatLayout!.length,
-                  (index) => seats.seatLayout![index].length == 0
-                      ? const SizedBox(
+        ),
+        Expanded(
+          child: InteractiveViewer(
+            minScale: 1,
+            maxScale: 10,
+            constrained: true,
+            onInteractionStart: (details) {
+              if (transformationController.value.getMaxScaleOnAxis() <= 3.5 ||
+                  transformationController.value.getMaxScaleOnAxis() == 1.0) {
+                _animateResetInitialize();
+              }
+              onInteractionStart();
+            },
+            transformationController: transformationController,
+            onInteractionEnd: (details) {
+              print(details);
+              print(transformationController.value.getMaxScaleOnAxis());
+              if (transformationController.value.getMaxScaleOnAxis() <= 3.5 ||
+                  transformationController.value.getMaxScaleOnAxis() == 1.0) {
+                _animateResetInitialize();
+              }
+            },
+            boundaryMargin:
+                const EdgeInsets.symmetric(vertical: 0, horizontal: 0),
+            child: Column(
+              // height: double.infinity,
+              children: List.generate(
+                seats.seatLayout!.length,
+                (index) => seats.seatLayout![index].length == 0
+                    ? const SizedBox(
+                        height: 5,
+                        width: double.infinity,
+                      )
+                    : Row(children: [
+                        SizedBox(
                           height: 5,
-                          width: double.infinity,
-                        )
-                      : Row(children: [
-                          SizedBox(
-                            height: 5,
-                            width: 5,
-                            child: Center(
-                                child: Text(
-                              seats.seatLayout![index][0].seatNo[0],
-                              style: const TextStyle(fontSize: 2.5),
-                            )),
-                          ),
-                          ...seatLayoutBuilder(index, seatsProvider, theatreId,
-                              seats.seatLayout![index], ticket),
-                        ]),
-                ),
+                          width: 5,
+                          child: Center(
+                              child: Text(
+                            seats.seatLayout![index][0].seatNo[0],
+                            style: const TextStyle(fontSize: 2.5),
+                          )),
+                        ),
+                        ...seatLayoutBuilder(index, seatsProvider, theatreId,
+                            seats.seatLayout![index], ticket),
+                      ]),
               ),
             ),
-          )
-        ]),
-      ),
+          ),
+        )
+      ]),
       bottomNavigationBar: BottomAppBar(
         child: Container(
           padding: const EdgeInsets.only(left: 10, right: 10, bottom: 10),
@@ -294,11 +306,18 @@ class _TheatreSeatScreenState extends State<TheatreSeatScreen>
                     ? Colors.green
                     : Colors.grey[400]),
             onPressed: () {
-              orders.addOrder(widget.imgUrl, widget.theatreName, widget.date,
-                  widget.movieName, widget.time, ticket.seats);
-              Navigator.of(context).push(MaterialPageRoute(
-                builder: (context) => BottomNavigation(),
-              ));
+              if (ticket.numberOfSeats == ticket.seatsFilled) {
+                orders.addOrder(widget.imgUrl, widget.theatreName, widget.date,
+                    widget.movieName, widget.time, ticket.seats);
+                Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) => const BillingScreen(),
+                ));
+              } else {
+                ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                  content: Text("Please select the seats"),
+                ));
+              }
+              return;
             },
             child: const Text("Confirm seats"),
           ),

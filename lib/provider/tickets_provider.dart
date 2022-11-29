@@ -48,7 +48,21 @@ class TicketList with ChangeNotifier {
     img = Image(
       image: AssetImage(vehicleImages[numberOfSeats - 1]),
     );
-    print(numberOfSeats);
+    print("final : $numberOfSeats");
+    notifyListeners();
+  }
+
+  void defaultImg() {
+    img = Image(
+      image: AssetImage(vehicleImages[numberOfSeats - 1]),
+    );
+    notifyListeners();
+  }
+
+  void reset() {
+    numberOfSeats = 1;
+    tempSeats = 1;
+    img = Image(image: AssetImage(vehicleImages[0]));
     notifyListeners();
   }
 
@@ -56,6 +70,8 @@ class TicketList with ChangeNotifier {
     img = Image(
       image: AssetImage(vehicleImages[tempSeats - 1]),
     );
+    print(tempSeats);
+    print("number : ${numberOfSeats}");
     notifyListeners();
   }
 

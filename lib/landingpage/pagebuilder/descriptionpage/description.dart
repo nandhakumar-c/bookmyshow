@@ -19,7 +19,7 @@ class Description extends StatefulWidget {
   const Description(
       {super.key,
       required this.id,
-      required this.name,
+      this.name = "Loading",
       required this.description,
       required this.bannerurl,
       required this.posterurl,
@@ -157,10 +157,14 @@ class _DescriptionState extends State<Description> {
                       width: w * 0.21,
                       child: OutlinedButton(
                         onPressed: () {
-                          Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) =>
-                                RatingPage(widget.movieImgUrl, widget.name),
-                          ));
+                          (widget.name == "Loading")
+                              ? ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(
+                                      content: Text("Please try again later")))
+                              : Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (context) => RatingPage(
+                                      widget.movieImgUrl, widget.name),
+                                ));
                         },
                         style: OutlinedButton.styleFrom(
                             // primary: Colors.red[800],
@@ -187,28 +191,23 @@ class _DescriptionState extends State<Description> {
           child: Container(
             height: h * 0.06,
             padding: EdgeInsets.only(
-                left: w * 0.03, right: w * 0.03, bottom: w * 0.02),
+                left: w * 0.03,
+                right: w * 0.03,
+                bottom: w * 0.02,
+                top: w * 0.01),
             child: ElevatedButton(
               onPressed: () {
-                Navigator.of(context).push(PageRouteBuilder(
-                    pageBuilder: (context, animation2, secondaryAnimation) {
-                      return TheatreListScreen(
-                          transitionAnimation: animation2,
-                          imgUrl: widget.movieImgUrl,
-                          movieName: widget.name);
-                    },
-                    transitionDuration: const Duration(milliseconds: 500)));
-
-                // Navigator.of(context).push(MaterialPageRoute(
-                //   builder: (context) => TheatreListScreen(
-                //       imgUrl: widget.movieImgUrl, movieName: widget.name),
-                // ));
-                // Navigator.of(context).push(MaterialPageRoute(
-                //   builder: (context) => TheatresPage(
-                //       imgUrl: widget.movieImgUrl,
-                //       index: 0,
-                //       movieName: widget.name),
-                // ));
+                (widget.name == "Loading")
+                    ? ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(content: Text("Please try again later")))
+                    : Navigator.of(context).push(PageRouteBuilder(
+                        pageBuilder: (context, animation2, secondaryAnimation) {
+                          return TheatreListScreen(
+                              transitionAnimation: animation2,
+                              imgUrl: widget.movieImgUrl,
+                              movieName: widget.name);
+                        },
+                        transitionDuration: const Duration(milliseconds: 500)));
               },
               style: ElevatedButton.styleFrom(
                   primary: const Color.fromARGB(255, 231, 48, 72)),

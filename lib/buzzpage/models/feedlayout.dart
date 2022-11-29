@@ -17,14 +17,14 @@ class _FeedLayoutState extends State<FeedLayout> {
     Size size = MediaQuery.of(context).size;
     double h = size.height;
     double w = size.width;
-    return Container(
+    return SizedBox(
       //padding: EdgeInsets.only(top: 10, bottom: 10),
       height: h * 0.15,
       child: Card(
         color: Colors.white,
         child: Row(children: [
           Container(
-            padding: EdgeInsets.all(10),
+            padding: const EdgeInsets.all(10),
             width: w * 0.25,
             height: w * 0.25,
             child: ClipRRect(
@@ -34,17 +34,17 @@ class _FeedLayoutState extends State<FeedLayout> {
                   fit: BoxFit.cover,
                 )),
           ),
-          Container(
+          SizedBox(
             width: w * 0.75 - 10,
             height: h * 0.15,
             child: Column(children: [
-              Container(
+              SizedBox(
                 height: (h * 0.15) * 0.60,
                 width: w * 0.75 - 10,
                 child: Row(
                   children: [
                     Container(
-                      padding: EdgeInsets.only(left: 10, top: 10),
+                      padding: const EdgeInsets.only(left: 10, top: 10),
                       height: (h * 0.15) * 0.60,
                       width: (w * 0.75 - 10) * 0.85,
                       child: Text(widget.buzz.title,
@@ -54,7 +54,7 @@ class _FeedLayoutState extends State<FeedLayout> {
                     Container(
                       height: (h * 0.15) * 0.60,
                       width: (w * 0.75 - 10) * 0.15,
-                      padding: EdgeInsets.only(right: 10, top: 10),
+                      padding: const EdgeInsets.only(right: 10, top: 10),
                       alignment: Alignment.topRight,
                       //color: Colors.green,
                       child: const Icon(
@@ -66,7 +66,7 @@ class _FeedLayoutState extends State<FeedLayout> {
                   ],
                 ),
               ),
-              Container(
+              SizedBox(
                 height: (h * 0.15) * 0.30,
                 width: w * 0.75 - 10,
                 // color: Colors.green,

@@ -12,6 +12,8 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
+import '../models/movie_model.dart';
+
 class LandingPage extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
@@ -26,6 +28,7 @@ class LandingPageState extends State<LandingPage> {
 
   @override
   Widget build(BuildContext context) {
+    final movieListProvider = Provider.of<MovieList>(context);
     h = MediaQuery.of(context).size.height * 0.23;
     w = MediaQuery.of(context).size.width * 0.25;
     //size = MediaQuery.of(context).size;
@@ -37,6 +40,8 @@ class LandingPageState extends State<LandingPage> {
       'Hindi': ['hi', 'IN']
     };
     IconGenerator();
+    List<Movie> moviesList = movieListProvider.movieList;
+
     return Container(
       child: Scaffold(
         backgroundColor: const Color.fromARGB(255, 248, 245, 245),
@@ -45,7 +50,12 @@ class LandingPageState extends State<LandingPage> {
           automaticallyImplyLeading: false,
           actions: [
             IconButton(
-                onPressed: () {},
+                onPressed: () async {
+                  final res = await showSearch(
+                      context: context, delegate: SearchMovies(moviesList));
+                  ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(content: Text(res!.title.toString())));
+                },
                 icon: const Icon(
                   Icons.search,
                   color: Colors.white,
@@ -142,62 +152,62 @@ class LandingPageState extends State<LandingPage> {
             //   onPressed: () => throw Exception(),
             //   child: const Text("Throw Test Exception"),
             // ),
-            Container(
-              decoration: BoxDecoration(
-                  color: const Color.fromARGB(255, 226, 217, 217),
-                  borderRadius: BorderRadius.circular(10)),
-              child: Column(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(top: 8.0),
-                    child: Text(
-                      "Choose Your Language",
-                      style: GoogleFonts.dmSans(
-                          fontSize: 18,
-                          color: const Color.fromARGB(255, 1, 8, 44),
-                          fontWeight: FontWeight.w600),
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  Container(
-                    height: 75,
-                    width: 250,
-                    child: SizedBox(
-                        width: 240,
-                        child: DropdownButtonFormField<String>(
-                          focusColor: Colors.white,
-                          decoration: InputDecoration(
-                            enabledBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(12),
-                                borderSide: const BorderSide(
-                                    width: 3,
-                                    color: Color.fromARGB(255, 0, 17, 73))),
-                          ),
-                          value: selectedItem,
-                          items: items
-                              .map((e) => DropdownMenuItem(
-                                  value: e,
-                                  child: Text(
-                                    e,
-                                    style: GoogleFonts.dmSans(
-                                        fontSize: 18,
-                                        color: Color.fromARGB(255, 1, 8, 44),
-                                        fontWeight: FontWeight.w600),
-                                  )))
-                              .toList(),
-                          onChanged: ((value) => setState(() {
-                                selectedItem = value;
-                                var locale = Locale(langList[value]![0],
-                                    langList[value]![1].toString());
-                                Get.updateLocale(locale);
-                              })),
-                        )),
-                  ),
-                ],
-              ),
-            ),
+            // Container(
+            //   decoration: BoxDecoration(
+            //       color: const Color.fromARGB(255, 226, 217, 217),
+            //       borderRadius: BorderRadius.circular(10)),
+            //   child: Column(
+            //     children: [
+            //       Padding(
+            //         padding: const EdgeInsets.only(top: 8.0),
+            //         child: Text(
+            //           "Choose Your Language",
+            //           style: GoogleFonts.dmSans(
+            //               fontSize: 18,
+            //               color: const Color.fromARGB(255, 1, 8, 44),
+            //               fontWeight: FontWeight.w600),
+            //         ),
+            //       ),
+            //       const SizedBox(
+            //         height: 10,
+            //       ),
+            //       Container(
+            //         height: 75,
+            //         width: 250,
+            //         child: SizedBox(
+            //             width: 240,
+            //             child: DropdownButtonFormField<String>(
+            //               focusColor: Colors.white,
+            //               decoration: InputDecoration(
+            //                 enabledBorder: OutlineInputBorder(
+            //                     borderRadius: BorderRadius.circular(12),
+            //                     borderSide: const BorderSide(
+            //                         width: 3,
+            //                         color: Color.fromARGB(255, 0, 17, 73))),
+            //               ),
+            //               value: selectedItem,
+            //               items: items
+            //                   .map((e) => DropdownMenuItem(
+            //                       value: e,
+            //                       child: Text(
+            //                         e,
+            //                         style: GoogleFonts.dmSans(
+            //                             fontSize: 18,
+            //                             color: Color.fromARGB(255, 1, 8, 44),
+            //                             fontWeight: FontWeight.w600),
+            //                       )))
+            //                   .toList(),
+            //               onChanged: ((value) => setState(() {
+            //                     selectedItem = value;
+            //                     var locale = Locale(langList[value]![0],
+            //                         langList[value]![1].toString());
+            //                     Get.updateLocale(locale);
+            //                   })),
+            //             )),
+            //       ),
+            //     ],
+            //   ),
+            // ),
           ],
         ),
       ),
@@ -215,5 +225,79 @@ class LandingPageState extends State<LandingPage> {
     } on PlatformException {
       qrCode = 'Failed to Scan OR';
     }
+  }
+}
+
+class SearchMovies extends SearchDelegate<Movie> {
+  List<Movie>? movies;
+  SearchMovies(this.movies);
+  @override
+  List<Widget>? buildActions(BuildContext context) {
+    return [
+      IconButton(
+          onPressed: () {
+            query = "";
+          },
+          icon: Icon(Icons.clear))
+    ];
+  }
+
+  @override
+  Widget? buildLeading(BuildContext context) {
+    return IconButton(
+        onPressed: () {
+          close(context, Movie());
+        },
+        icon: Icon(Icons.arrow_back));
+  }
+
+  @override
+  Widget buildResults(BuildContext context) {
+    final results = movies!
+        .where((element) =>
+            element.title != null &&
+            element.title
+                .toString()
+                .toLowerCase()
+                .contains(query.toLowerCase()))
+        .toList();
+    return ListView.builder(
+        itemCount: results.length,
+        itemBuilder: (context, index) {
+          return ListTile(
+            onTap: () {
+              close(context, results[index]);
+            },
+            title: Text(
+              results[index].title.toString(),
+              style: TextStyle(color: Colors.blue[300]),
+            ),
+          );
+        });
+  }
+
+  @override
+  Widget buildSuggestions(BuildContext context) {
+    final results = movies!
+        .where((element) =>
+            element.title != null &&
+            element.title
+                .toString()
+                .toLowerCase()
+                .contains(query.toLowerCase()))
+        .toList();
+    return ListView.builder(
+      itemCount: results.length,
+      itemBuilder: (context, index) {
+        return ListTile(
+          onTap: () {
+            query = results[index].title.toString();
+          },
+          title: Text(
+            results[index].title.toString(),
+          ),
+        );
+      },
+    );
   }
 }
