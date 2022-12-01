@@ -130,7 +130,7 @@ class TrendingMovies extends StatelessWidget {
                                     fontWeight: FontWeight.w400,
                                     fontSize:
                                         MediaQuery.of(context).size.height *
-                                            0.015,
+                                            0.014,
                                   ),
                                 ),
                               ),
