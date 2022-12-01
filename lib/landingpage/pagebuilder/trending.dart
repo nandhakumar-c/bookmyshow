@@ -71,6 +71,7 @@ class TrendingMovies extends StatelessWidget {
                     : InkWell(
                         onTap: () {
                           Navigator.of(context).push(
+                            //Description page
                             PageRouteBuilder(
                                 pageBuilder: (context, animation,
                                         secondaryAnimation) =>

@@ -1,6 +1,7 @@
 import 'package:bookmyshow/landingpage/cardgeneration/carouselbuilder.dart';
 import 'package:bookmyshow/landingpage/cardgeneration/gridview.dart';
 import 'package:bookmyshow/landingpage/cardgeneration/homeicon.dart';
+import 'package:bookmyshow/landingpage/pagebuilder/descriptionpage/description.dart';
 import 'package:bookmyshow/notifications/notification_page.dart';
 import 'package:bookmyshow/provider/movielist_provider.dart';
 import 'package:flutter/services.dart';
@@ -51,10 +52,32 @@ class LandingPageState extends State<LandingPage> {
           actions: [
             IconButton(
                 onPressed: () async {
-                  final res = await showSearch(
+                  final result = await showSearch(
                       context: context, delegate: SearchMovies(moviesList));
-                  ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(content: Text(res!.title.toString())));
+                  // Navigator.of(context).push(
+                  //   PageRouteBuilder(
+                  //     pageBuilder: (context, animation, secondaryAnimation) =>
+                  //         ListenableProvider(
+                  //       create: (context) => animation,
+                  //       builder: (context, child) => Description(
+                  //         id: result!.id as int,
+                  //         name: result.title ?? "Loading",
+                  //         description: result.overview as String,
+                  //         vote: result.voteAverage.toString(),
+                  //         bannerurl:
+                  //             'https://image.tmdb.org/t/p/w500/${result.backdropPath}',
+                  //         posterurl:
+                  //             'https://image.tmdb.org/t/p/w500/${result.posterPath}',
+                  //         launchon: result.releaseDate.toString(),
+                  //         movieImgUrl:
+                  //             'https://image.tmdb.org/t/p/w500/${result.posterPath}',
+                  //       ),
+                  //     ),
+                  //     transitionDuration: const Duration(milliseconds: 500),
+                  //   ),
+                  // );
+                  // ScaffoldMessenger.of(context).showSnackBar(
+                  //     SnackBar(content: Text(res!.title.toString())));
                 },
                 icon: const Icon(
                   Icons.search,
@@ -292,6 +315,29 @@ class SearchMovies extends SearchDelegate<Movie> {
         return ListTile(
           onTap: () {
             query = results[index].title.toString();
+            Navigator.of(context).push(
+              PageRouteBuilder(
+                pageBuilder: (context, animation, secondaryAnimation) =>
+                    ListenableProvider(
+                  create: (context) => animation,
+                  builder: (context, child) => Description(
+                    id: results[index].id as int,
+                    name: results[index].title ?? "Loading",
+                    description: results[index].overview as String,
+                    vote: results[index].voteAverage.toString(),
+                    bannerurl:
+                        'https://image.tmdb.org/t/p/w500/${results[index].backdropPath}',
+                    posterurl:
+                        'https://image.tmdb.org/t/p/w500/${results[index].posterPath}',
+                    launchon: results[index].releaseDate.toString(),
+                    movieImgUrl:
+                        'https://image.tmdb.org/t/p/w500/${results[index].posterPath}',
+                  ),
+                ),
+                transitionDuration: const Duration(milliseconds: 500),
+              ),
+            );
+            close(context, results[index]);
           },
           title: Text(
             results[index].title.toString(),

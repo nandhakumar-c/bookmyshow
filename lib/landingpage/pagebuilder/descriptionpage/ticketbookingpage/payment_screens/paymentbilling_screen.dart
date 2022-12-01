@@ -1,3 +1,4 @@
+import 'package:bookmyshow/landingpage/pagebuilder/descriptionpage/ticketbookingpage/payment_screens/upi_screen.dart';
 import 'package:flutter/material.dart';
 
 class BillingScreen extends StatefulWidget {
@@ -179,10 +180,155 @@ class _BillingScreenState extends State<BillingScreen> {
                       const SizedBox(
                         height: 10,
                       ),
-                      const Text(
-                        "Contact Details",
-                        style: TextStyle(
-                            fontSize: 17, fontWeight: FontWeight.bold),
+                      const Padding(
+                        padding: EdgeInsets.all(5.0),
+                        child: Text(
+                          "Contact Details",
+                          style: TextStyle(
+                              fontSize: 17, fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 5,
+                      ),
+                      const Divider(
+                        indent: 10,
+                        endIndent: 10,
+                      ),
+                      Container(
+                        padding: EdgeInsets.only(left: 5),
+                        height: 35,
+                        width: double.infinity,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: const [
+                                Text(
+                                  "nandha2402@gmail.com",
+                                  style: TextStyle(
+                                      fontSize: 12, color: Colors.grey),
+                                ),
+                                Text(
+                                  "9876543210 | Tamil Nadu",
+                                  style: TextStyle(
+                                      fontSize: 12, color: Colors.grey),
+                                ),
+                              ],
+                            ),
+                            InkWell(
+                              onTap: () {},
+                              child: Row(
+                                children: const [
+                                  Text("Edit",
+                                      style: TextStyle(color: Colors.red)),
+                                  Icon(Icons.chevron_right)
+                                ],
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      const Divider(
+                        indent: 5,
+                        endIndent: 5,
+                      ),
+                      const Padding(
+                        padding: EdgeInsets.all(5.0),
+                        child: Text(
+                          "Choose Payment Method",
+                          style: TextStyle(
+                              fontSize: 17, fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 2,
+                      ),
+                      const Divider(
+                        indent: 10,
+                        endIndent: 10,
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      InkWell(
+                        onTap: () {
+                          Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => UPIScreen(),
+                          ));
+                        },
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Row(
+                              children: const [
+                                Padding(
+                                  padding: EdgeInsets.only(left: 5.0),
+                                  child: Image(
+                                    //fit: BoxFit.cover,
+                                    image: AssetImage("assets/logos/UPI.png"),
+                                    height: 30,
+                                    width: 30,
+                                  ),
+                                ),
+                                SizedBox(
+                                  width: 10,
+                                ),
+                                Text(
+                                  "UPI",
+                                  style: TextStyle(
+                                    fontSize: 17,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            const Icon(Icons.chevron_right)
+                          ],
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      const Divider(
+                        indent: 5,
+                        endIndent: 5,
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.only(left: 5),
+                            child: Row(
+                              children: const [
+                                Icon(Icons.credit_card),
+                                SizedBox(
+                                  width: 10,
+                                ),
+                                Text(
+                                  "Debit/Credit Card",
+                                  style: TextStyle(
+                                    fontSize: 17,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          Icon(Icons.chevron_right)
+                        ],
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      const Divider(
+                        indent: 5,
+                        endIndent: 5,
                       ),
                     ],
                   ),

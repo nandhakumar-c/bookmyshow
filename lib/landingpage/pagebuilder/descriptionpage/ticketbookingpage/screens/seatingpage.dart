@@ -1,5 +1,5 @@
 import 'package:bookmyshow/landingpage/landingpage.dart';
-import 'package:bookmyshow/landingpage/pagebuilder/descriptionpage/ticketbookingpage/paymentbilling_screen.dart';
+import 'package:bookmyshow/landingpage/pagebuilder/descriptionpage/ticketbookingpage/payment_screens/paymentbilling_screen.dart';
 import 'package:bookmyshow/landingpage/pagebuilder/descriptionpage/ticketbookingpage/screens/seatcount.dart';
 import 'package:bookmyshow/provider/orders_provider.dart';
 import 'package:bookmyshow/provider/tickets_provider.dart';
