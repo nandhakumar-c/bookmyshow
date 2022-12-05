@@ -3,7 +3,7 @@ import 'package:bookmyshow/buzzpage/screens/addbuzz.dart';
 import 'package:bookmyshow/buzzpage/services/addbuzz_service.dart';
 import 'package:bookmyshow/buzzpage/stories/stories.dart';
 import 'package:flutter/material.dart';
-import './stories/feeds.dart';
+import '../stories/feeds.dart';
 
 class BuzzPage extends StatelessWidget {
   const BuzzPage({Key? key}) : super(key: key);
@@ -56,6 +56,7 @@ class BuzzPage extends StatelessWidget {
             child: const Stories(),
           ),
           StreamBuilder<List<Buzz>>(
+            key: const PageStorageKey("page 9"),
             stream: AddBuzzService().readBuzz(),
             builder: (context, snapshot) {
               if (snapshot.hasError) {
@@ -74,16 +75,16 @@ class BuzzPage extends StatelessWidget {
               }
             },
           ),
-          ListView.builder(
-            key: const PageStorageKey('page9'),
-            shrinkWrap: true,
-            physics: const ScrollPhysics(),
-            itemCount: feeds.length,
-            scrollDirection: Axis.vertical,
-            itemBuilder: ((context, index) => FeedGenerator(
-                  feed: feeds[index],
-                )),
-          ),
+          // ListView.builder(
+          //   key: const PageStorageKey('page9'),
+          //   shrinkWrap: true,
+          //   physics: const ScrollPhysics(),
+          //   itemCount: feeds.length,
+          //   scrollDirection: Axis.vertical,
+          //   itemBuilder: ((context, index) => FeedGenerator(
+          //         feed: feeds[index],
+          //       )),
+          // ),
         ],
       ),
     );

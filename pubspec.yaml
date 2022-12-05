@@ -67,6 +67,7 @@ dependencies:
   win32: ^3.0.0
   file_picker: ^5.2.2
   jiffy: ^5.0.0
+  flutter_sticky_widgets: ^0.0.3
 dev_dependencies:
   flutter_test:
     sdk: flutter
