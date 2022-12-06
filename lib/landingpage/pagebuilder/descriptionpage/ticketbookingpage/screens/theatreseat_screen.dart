@@ -1,3 +1,4 @@
+import 'package:bookmyshow/landingpage/models/theatreseat_model.dart';
 import 'package:bookmyshow/landingpage/pagebuilder/descriptionpage/ticketbookingpage/payment_screens/paymentbilling_screen.dart';
 import 'package:bookmyshow/landingpage/pagebuilder/descriptionpage/ticketbookingpage/screens/seatcount.dart';
 import 'package:bookmyshow/provider/theatreseat_provider.dart';
@@ -133,7 +134,7 @@ class _TheatreSeatScreenState extends State<TheatreSeatScreen>
             data, h, w, data['isDateSelected'] as bool, index);
       },
     ).toList();
-    Theatre theatre = theatreList.theatreList[0][0];
+    var theatre = theatreList.theatreList[0][0];
     final seatsProvider = Provider.of<TheatreSeatsList>(context);
     final ticket = Provider.of<TicketList>(context);
 
@@ -382,8 +383,8 @@ class _TheatreSeatScreenState extends State<TheatreSeatScreen>
                     child: Column(
                       // height: double.infinity,
                       children: List.generate(
-                        seats.seatLayout!.length,
-                        (index) => seats.seatLayout![index].length == 0
+                        seats.seatList.length,
+                        (index) => seats.seatList[index].seat.isEmpty
                             ? const SizedBox(
                                 height: 5,
                                 width: double.infinity,
@@ -394,16 +395,12 @@ class _TheatreSeatScreenState extends State<TheatreSeatScreen>
                                   width: 5,
                                   child: Center(
                                       child: Text(
-                                    seats.seatLayout![index][0].seatNo[0],
+                                    seats.seatList[index].seat[0].seatNo[0],
                                     style: const TextStyle(fontSize: 2.5),
                                   )),
                                 ),
-                                ...seatLayoutBuilder(
-                                    index,
-                                    seatsProvider,
-                                    theatreId,
-                                    seats.seatLayout![index],
-                                    ticket),
+                                ...seatLayoutBuilder(index, seatsProvider,
+                                    theatreId, seats.seatList[index], ticket),
                               ]),
                       ),
                     ),
@@ -551,32 +548,32 @@ class _TheatreSeatScreenState extends State<TheatreSeatScreen>
   }
 
   seatLayoutBuilder(int i, TheatreSeatsList seatsProvider, int theatreId,
-      List<SeatsClass> e, TicketList ticket) {
+      SeatList e, TicketList ticket) {
     return List.generate(
-      e.length,
-      (index) => e[index].seatId.toString() != '-1'
+      e.seat.length,
+      (index) => e.seat[index].seatId.toString() != '-1'
           ? GestureDetector(
               onTap: () {
-                final seatNo = e[index].seatNo;
+                final seatNo = e.seat[index].seatNo;
                 if (ticket.seatsFilled < ticket.numberOfSeats &&
-                    seatsProvider.theatreSeatsList[theatreId]
-                            .seatLayout![i][index].isSelected ==
+                    seatsProvider.theatreSeatsList[theatreId].seatList[i]
+                            .seat[index].isSelected ==
                         false &&
-                    seatsProvider.theatreSeatsList[theatreId]
-                            .seatLayout![i][index].isOccupied ==
+                    seatsProvider.theatreSeatsList[theatreId].seatList[i]
+                            .seat[index].isOccupied ==
                         false) {
-                  ticket.addSeats(e[index].seatNo);
+                  ticket.addSeats(e.seat[index].seatNo);
                   seatsProvider.selectSeats(i, index, theatreId, seatNo);
-                  seatsProvider.theatreSeatsList[theatreId]
-                      .seatLayout![i][index].isSelected = true;
+                  seatsProvider.theatreSeatsList[theatreId].seatList[i]
+                      .seat[index].isSelected = true;
                   //e[index].isSelected = true;
                   ticket.fillSeat();
                 } else if (ticket.numberOfSeats > ticket.seatsFilled &&
-                    seatsProvider.theatreSeatsList[theatreId]
-                            .seatLayout![i][index].isSelected ==
+                    seatsProvider.theatreSeatsList[theatreId].seatList[i]
+                            .seat[index].isSelected ==
                         true &&
-                    seatsProvider.theatreSeatsList[theatreId]
-                            .seatLayout![i][index].isOccupied ==
+                    seatsProvider.theatreSeatsList[theatreId].seatList[i]
+                            .seat[index].isOccupied ==
                         false) {
                   //for removing the seats in the list
                   ticket.removeSeats(seatNo);
@@ -585,8 +582,8 @@ class _TheatreSeatScreenState extends State<TheatreSeatScreen>
                   //subtracting the seat count
                   ticket.removeSeat();
                 } else if (ticket.numberOfSeats == ticket.seatsFilled &&
-                    seatsProvider.theatreSeatsList[theatreId]
-                            .seatLayout![i][index].isOccupied ==
+                    seatsProvider.theatreSeatsList[theatreId].seatList[i]
+                            .seat[index].isOccupied ==
                         false) {
                   ticket.refreshSeats();
                   ticket.addSeats(seatNo);
@@ -604,17 +601,17 @@ class _TheatreSeatScreenState extends State<TheatreSeatScreen>
                   width: 5,
                   decoration: BoxDecoration(
                       color: seatsProvider.theatreSeatsList[theatreId]
-                                  .seatLayout![i][index].isOccupied ==
+                                  .seatList[i].seat[index].isOccupied ==
                               true
                           ? Colors.grey
                           : (seatsProvider.theatreSeatsList[theatreId]
-                                      .seatLayout![i][index].isSelected ==
+                                      .seatList[i].seat[index].isSelected ==
                                   true
                               ? Colors.green
                               : Colors.white),
                       border: Border.all(
                           color: seatsProvider.theatreSeatsList[theatreId]
-                                      .seatLayout![i][index].isOccupied ==
+                                      .seatList[i].seat[index].isOccupied ==
                                   true
                               ? Colors.grey
                               : Colors.green,
@@ -622,10 +619,10 @@ class _TheatreSeatScreenState extends State<TheatreSeatScreen>
                       borderRadius: BorderRadius.circular(0.5)),
                   child: Center(
                     child: Text(
-                      e[index].seatId.toString(),
+                      e.seat[index].seatId.toString(),
                       style: TextStyle(
                           color: seatsProvider.theatreSeatsList[theatreId]
-                                      .seatLayout![i][index].isSelected ==
+                                      .seatList[i].seat[index].isSelected ==
                                   false
                               ? Colors.grey
                               : Colors.white,

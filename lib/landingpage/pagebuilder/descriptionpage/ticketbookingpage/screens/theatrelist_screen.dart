@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import '../../../../../provider/theatrelist_provider.dart';
 import '../../../../../provider/date_provider.dart';
 import '../../../../../unused/seatssamp.dart';
+import '../../../../services/theatreseat_service.dart';
 
 class TheatreListScreen extends StatefulWidget {
   String? movieName;
@@ -237,6 +238,13 @@ class _TheatreListScreenState extends State<TheatreListScreen> {
                                                 return GestureDetector(
                                                   onTap: () {
                                                     print(timeElement.time);
+                                                    TheatreSeatService()
+                                                        .createTheatreInstance(
+                                                            date as String,
+                                                            timeElement.time
+                                                                .toString(),
+                                                            theatre.theatreId
+                                                                as String);
                                                     // Navigator.of(context)
                                                     //     .push(MaterialPageRoute(
                                                     //   builder: (context) =>
