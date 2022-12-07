@@ -1,5 +1,6 @@
 import 'package:bookmyshow/landingpage/pagebuilder/descriptionpage/ticketbookingpage/screens/seatingpage.dart';
 import 'package:bookmyshow/landingpage/pagebuilder/descriptionpage/ticketbookingpage/screens/theatreseat_screen.dart';
+import 'package:bookmyshow/widgets/testfile.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../../../../provider/theatrelist_provider.dart';
@@ -236,8 +237,10 @@ class _TheatreListScreenState extends State<TheatreListScreen> {
                                                         ? Colors.orange
                                                         : Colors.green;
                                                 return GestureDetector(
-                                                  onTap: () {
+                                                  onTap: () async {
                                                     print(timeElement.time);
+
+                                                    {}
                                                     TheatreSeatService()
                                                         .createTheatreInstance(
                                                             date as String,
@@ -245,11 +248,27 @@ class _TheatreListScreenState extends State<TheatreListScreen> {
                                                                 .toString(),
                                                             theatre.theatreId
                                                                 as String);
+
                                                     // Navigator.of(context)
                                                     //     .push(MaterialPageRoute(
                                                     //   builder: (context) =>
                                                     //       SeatsScreenFlutter(),
                                                     // ));
+                                                    // Navigator.of(context).push(MaterialPageRoute(
+                                                    //     builder: (context) => TestPage(
+                                                    //         // TheatreSeatService()
+                                                    //         //     .readTheatreInstance(
+                                                    //         //         date
+                                                    //         //             as String,
+                                                    //         //         timeElement
+                                                    //         //             .time
+                                                    //         //             .toString(),
+                                                    //         //         int.parse(theatre
+                                                    //         //                     .theatreId
+                                                    //         //                 as String) -
+                                                    //         //             1)),
+                                                    //         )));
+
                                                     Navigator.of(context)
                                                         .push(MaterialPageRoute(
                                                       builder: (context) =>
@@ -267,6 +286,7 @@ class _TheatreListScreenState extends State<TheatreListScreen> {
                                                             theatre.theatreId,
                                                       ),
                                                     ));
+
                                                     // Navigator.of(context).push(
                                                     //   MaterialPageRoute(
                                                     //     builder: (context) {

@@ -4,8 +4,8 @@
 
 import 'dart:convert';
 
-TheatreSeats theatreSeatsFromJson(String str) =>
-    TheatreSeats.fromJson(json.decode(str));
+// TheatreSeats theatreSeatsFromJson(String str) =>
+//     TheatreSeats.fromJson(json.decode(str));
 
 String theatreSeatsToJson(TheatreSeats data) => json.encode(data.toJson());
 
@@ -22,7 +22,7 @@ class TheatreSeats {
   String date;
   Theatre theatre;
 
-  factory TheatreSeats.fromJson(Map<String, dynamic> json) => TheatreSeats(
+  static TheatreSeats fromJson(Map<String, dynamic> json) => TheatreSeats(
         docid: json["docid"],
         time: json["time"],
         date: json["date"],
@@ -46,7 +46,7 @@ class Theatre {
   String theatreId;
   List<SeatList> seatList;
 
-  factory Theatre.fromJson(Map<String, dynamic> json) => Theatre(
+  static Theatre fromJson(Map<String, dynamic> json) => Theatre(
         theatreId: json["theatreId"],
         seatList: List<SeatList>.from(
             json["seatList"].map((x) => SeatList.fromJson(x))),
@@ -65,7 +65,7 @@ class SeatList {
 
   List<Seat> seat;
 
-  factory SeatList.fromJson(Map<String, dynamic> json) => SeatList(
+  static SeatList fromJson(Map<String, dynamic> json) => SeatList(
         seat: List<Seat>.from(json["seat"].map((x) => Seat.fromJson(x))),
       );
 
@@ -89,7 +89,7 @@ class Seat {
   bool isSelected;
   double seatPrice;
 
-  factory Seat.fromJson(Map<String, dynamic> json) => Seat(
+  static Seat fromJson(Map<String, dynamic> json) => Seat(
         seatId: json["seatId"],
         seatNo: json["seatNo"],
         isOccupied: json["isOccupied"],
