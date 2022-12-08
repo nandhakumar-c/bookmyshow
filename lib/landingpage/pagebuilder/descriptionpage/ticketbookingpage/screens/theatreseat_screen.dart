@@ -16,7 +16,7 @@ class TheatreSeatScreen extends StatefulWidget {
   String? movieName;
   String? theatreId;
   String? imgUrl;
-
+  TheatreSeats? obj;
   int id;
   String? date;
   String time;
@@ -28,6 +28,7 @@ class TheatreSeatScreen extends StatefulWidget {
       this.theatreId,
       this.theatreName,
       this.imgUrl,
+      this.obj,
       Key? key})
       : super(key: key);
 

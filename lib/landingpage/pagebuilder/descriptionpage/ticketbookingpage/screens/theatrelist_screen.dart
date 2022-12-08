@@ -1,3 +1,5 @@
+import 'package:bookmyshow/landingpage/models/theatreseat_model.dart'
+    as theatreseat;
 import 'package:bookmyshow/landingpage/pagebuilder/descriptionpage/ticketbookingpage/screens/seatingpage.dart';
 import 'package:bookmyshow/landingpage/pagebuilder/descriptionpage/ticketbookingpage/screens/theatreseat_screen.dart';
 import 'package:bookmyshow/widgets/testfile.dart';
@@ -38,7 +40,7 @@ class _TheatreListScreenState extends State<TheatreListScreen> {
     double w = MediaQuery.of(context).size.width;
     final dateAndMonthList = Provider.of<DatesProvider>(context);
     final theatreList = Provider.of<TheatreList>(context);
-
+    final theatreSeatInstance = Provider.of<TheatreSeatService>(context);
     Map<String, Object> dateAndDay = dateAndMonthList.dateList[dateindex!];
     date =
         "${dateAndDay['day']}, ${dateAndDay['date']}  ${dateAndDay['month']}";
@@ -239,72 +241,49 @@ class _TheatreListScreenState extends State<TheatreListScreen> {
                                                 return GestureDetector(
                                                   onTap: () async {
                                                     print(timeElement.time);
-
-                                                    {}
-                                                    TheatreSeatService()
-                                                        .createTheatreInstance(
-                                                            date as String,
-                                                            timeElement.time
-                                                                .toString(),
-                                                            theatre.theatreId
-                                                                as String);
-
-                                                    // Navigator.of(context)
-                                                    //     .push(MaterialPageRoute(
-                                                    //   builder: (context) =>
-                                                    //       SeatsScreenFlutter(),
-                                                    // ));
-                                                    // Navigator.of(context).push(MaterialPageRoute(
-                                                    //     builder: (context) => TestPage(
-                                                    //         // TheatreSeatService()
-                                                    //         //     .readTheatreInstance(
-                                                    //         //         date
-                                                    //         //             as String,
-                                                    //         //         timeElement
-                                                    //         //             .time
-                                                    //         //             .toString(),
-                                                    //         //         int.parse(theatre
-                                                    //         //                     .theatreId
-                                                    //         //                 as String) -
-                                                    //         //             1)),
-                                                    //         )));
+                                                    // ignore: unnecessary_null_comparison
+                                                    // ignore: unrelated_type_equality_checks
+                                                    bool y =
+                                                        await theatreSeatInstance
+                                                            .readTheatreInstances(
+                                                                date as String,
+                                                                timeElement.time
+                                                                    .toString(),
+                                                                theatre.theatreId
+                                                                    as String);
+                                                    if (y == true) {
+                                                      print("true");
+                                                    } else {
+                                                      await theatreSeatInstance
+                                                          .createTheatreInstance(
+                                                              date as String,
+                                                              timeElement.time
+                                                                  .toString(),
+                                                              theatre.theatreId
+                                                                  as String);
+                                                    }
 
                                                     Navigator.of(context)
                                                         .push(MaterialPageRoute(
                                                       builder: (context) =>
                                                           TheatreSeatScreen(
-                                                        date: date,
-                                                        id: index,
-                                                        time: timeElement.time
-                                                            .toString(),
-                                                        imgUrl: widget.imgUrl,
-                                                        movieName:
-                                                            widget.movieName,
-                                                        theatreName:
-                                                            theatre.theatreName,
-                                                        theatreId:
-                                                            theatre.theatreId,
-                                                      ),
+                                                              date: date,
+                                                              id: index,
+                                                              time: timeElement
+                                                                  .time
+                                                                  .toString(),
+                                                              imgUrl:
+                                                                  widget.imgUrl,
+                                                              movieName: widget
+                                                                  .movieName,
+                                                              theatreName: theatre
+                                                                  .theatreName,
+                                                              theatreId: theatre
+                                                                  .theatreId,
+                                                              obj:
+                                                                  theatreSeatInstance
+                                                                      .obj),
                                                     ));
-
-                                                    // Navigator.of(context).push(
-                                                    //   MaterialPageRoute(
-                                                    //     builder: (context) {
-                                                    //       return SeatingPage(
-                                                    //           movieName: widget
-                                                    //               .movieName,
-                                                    //           imgUrl:
-                                                    //               widget.imgUrl,
-                                                    //           theatreName: theatre
-                                                    //               .theatreName,
-                                                    //           date: date,
-                                                    //           time: timeElement
-                                                    //               .time
-                                                    //               .toString(),
-                                                    //           id: index);
-                                                    //     },
-                                                    //   ),
-                                                    // );
                                                   },
                                                   child: Container(
                                                     padding: const EdgeInsets

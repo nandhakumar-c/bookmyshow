@@ -30,6 +30,7 @@ import 'dart:async';
 
 import 'bottomnavigation/bottomnavigator.dart';
 import 'buzzpage/provider/buzz_provider.dart';
+import 'landingpage/services/theatreseat_service.dart';
 import 'loginpage/loginpage.dart';
 import 'loginpage/splashscreen.dart';
 import 'notifications/notification_page.dart';
@@ -127,6 +128,9 @@ class BookMyShowState extends State<BookMyShow> {
           ),
           ChangeNotifierProvider(
             create: (context) => BuzzProvider(),
+          ),
+          ChangeNotifierProvider(
+            create: (context) => TheatreSeatService(),
           )
         ],
         child: GetMaterialApp(

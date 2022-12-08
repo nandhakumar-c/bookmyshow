@@ -4,49 +4,60 @@ import 'package:flutter/material.dart';
 import '../models/theatreseat_model.dart';
 
 class TheatreSeatService extends ChangeNotifier {
-  late TheatreSeats obj;
-  void createTheatreInstance(String date, String time, String theatreId) async {
+  TheatreSeats obj = TheatreSeats(
+      date: "No date", theatre: Theatre(theatreId: "-1", seatList: []));
+  Future<void> createTheatreInstance(
+      String date, String time, String theatreId) async {
     Theatre theatre =
         TheatreSeatsList().theatreSeatsList[int.parse(theatreId) - 1];
     final docUser = FirebaseFirestore.instance.collection("theatrelist").doc();
-    // final instanceChecker =
-    //     FirebaseFirestore.instance.collection("instanceChecker").doc();
+
     obj = TheatreSeats(
         docid: docUser.id, time: time, date: date, theatre: theatre);
-    final json = obj.toJson();
+    print("THEATRE ID : ${obj.docid}");
+    TheatreSeats objx = obj;
+    final json = objx.toJson();
     //print("Json part +${json}");
     await docUser.set(json);
     notifyListeners();
+    return;
   }
 
-  Stream<List<TheatreSeats>> readTheatreInstance(
-      // String date, String time, int theatreId
-      ) {
+  Stream<List<TheatreSeats>> readTheatreInstance() {
     //String str = obj.docid;
-    print("hello");
-    return FirebaseFirestore.instance
-        .collection("theatrelist")
-        .snapshots()
-        .map((snapshot) => snapshot.docs
-            .map((doc) =>
-                    // if (doc.data()['date'].toString() == date &&
-                    //     doc.data()['time'].toString() == time &&
-                    //     doc.data()['theatre']['theatreId'].toString() ==
-                    //         (theatreId + 1).toString()) {
-                    TheatreSeats.fromJson(doc.data())
-                // return doc.data();
-                //}
-                )
-            .toList());
-    // print(json.toString());
-    // notifyListeners();
-    //   return json;
-    // .where("date", isEqualTo: date)
-    // .where("time", isEqualTo: "time")
-    // .where("theatreid", isEqualTo: (theatreId + 1).toString())
-    // .get();
 
-    //obj = TheatreSeats.fromJson(json as Map<String, dynamic>);
-    //print(obj.theatre.seatList[0].seat[1].seatPrice);
+    return FirebaseFirestore.instance.collection("theatrelist").snapshots().map(
+        (snapshot) => snapshot.docs
+            .map((doc) => TheatreSeats.fromJson(doc.data()))
+            .toList());
+  }
+
+  Future<bool> readTheatreInstances(
+      String date, String time, String theatreId) async {
+    final results = readTheatreInstance();
+    bool x = false;
+    //print("operation 1");
+
+    Future<List<TheatreSeats>> categoryList() async {
+      return await results.first;
+    }
+
+    List<TheatreSeats> seatList = await categoryList();
+
+    //print("operation 2");
+    for (int i = 0; i < seatList.length; i++) {
+      for (int j = 0; j < seatList.length; j++) {
+        if (seatList[j].date == date &&
+            seatList[j].time == time &&
+            seatList[j].theatre.theatreId == theatreId) {
+          obj = seatList[j];
+
+          x = true;
+          notifyListeners();
+        }
+      }
+    }
+
+    return x;
   }
 }

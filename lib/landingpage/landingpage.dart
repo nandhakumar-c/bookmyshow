@@ -129,7 +129,6 @@ class LandingPageState extends State<LandingPage> {
           key: const PageStorageKey<String>('page'),
           padding: EdgeInsets.all(h! / 25),
           children: [
-            //Text("CodingMart"),
             SizedBox(height: 70, child: IconGenerator()),
             const CarouselBuilder(),
             const SizedBox(
