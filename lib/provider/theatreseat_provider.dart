@@ -23,6 +23,7 @@ import 'package:bookmyshow/landingpage/models/theatreseat_model.dart';
 
 class TheatreSeatsList with ChangeNotifier {
   late List<Theatre> theatreSeatsList = createList();
+
   List<Theatre> createList() {
     return [
       Theatre(
